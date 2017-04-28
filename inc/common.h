@@ -25,4 +25,50 @@ typedef enum
 //Dev Notes: Sprite plane has a 128px offset, coordinate(x=0,y=0) is in fact (128,128)
 #define SPR_OFFSET  128
 
+
+
+enum
+{
+	SFX_ANSWER,
+	SFX_BLA1,
+	SFX_BLA2,
+	SFX_COFFEE,
+	SFX_COFFEE_READY,
+	SFX_DROP,
+	SFX_EXPLODE,
+	SFX_FALL,
+	SFX_KNOCK,
+	SFX_LOSE,
+	SFX_MISS,
+	SFX_PAUSE,
+	SFX_RING,
+	SFX_START,
+	SFX_STEP_1,
+	SFX_STEP_2,
+	SFX_STEP_3,
+	SFX_STEP_4,
+    SFX_TELEPORT,
+    SFX_TOPIC,
+    SFX_WISDOM,
+
+	SFX_MAX
+};
+
+
+enum
+{
+	MUSIC_NULL,
+	MUSIC_GAME,
+	MUSIC_DREAM,
+	MUSIC_CLEAR,
+	MUSIC_NOBONUS,
+	MUSIC_LEVEL,
+	MUSIC_GAMEOVER,
+	MUSIC_WELLDONE,
+
+	MUSIC_MAX
+};
+
+
+
 #endif // _COMMON_H_

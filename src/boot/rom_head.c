@@ -23,7 +23,7 @@ const struct
     char region[16];                /* Country Support (16) */
 } rom_header = {
     "SEGA MEGA DRIVE ",
-    "JACKNOLDDOR 2015",
+    "JACKNOLDDOR 2017",
     "ZOOMING SECRETARY: GOING PANIC!                 ",
 	"ZOOMING SECRETARY: GOING PANIC!                 ",
     "JN 00000000-00",

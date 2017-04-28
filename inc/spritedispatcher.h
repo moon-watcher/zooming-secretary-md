@@ -22,7 +22,7 @@
      *
      *  The size of available sprites is defined by MAX_SPRITE.
      */
-    Sprite sprlist[MAX_SPRITE];
+    Sprite sprlist[MAX_VDP_SPRITE];
 
 
     /** \brief
@@ -103,6 +103,10 @@
      *  the first one of the list will be returned for SPRD_DOWN direction and the last one for SPRD_UP.
      */
     Sprite* SPRD_new  ( u8 pos, SPRDdir dir );
+
+
+
+    Sprite* SPRD_newEx ( u8 pos, SPRDdir dir, u8 *index );
 
 
      /** \brief

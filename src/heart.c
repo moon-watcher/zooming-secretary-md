@@ -48,7 +48,7 @@ static void setHeartRandomPosition( heartStruct *heart, s16 basePositionX, s16 b
 {
 	s16 horizontalOffset 	= - 8 + ( random( ) & 15 );
 	s16 positionX 			= basePositionX + horizontalOffset;
-	s16 positionY 			= basePositionY;
+	s16 positionY 			= basePositionY-7;
 
 	SPR_setPosition( heart->sprite, positionX, positionY );
 }

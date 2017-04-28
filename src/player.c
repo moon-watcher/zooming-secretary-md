@@ -11,11 +11,14 @@
 #include "../inc/phone.h"      //TODO: NECESARIO PARA colision
 #include "../inc/heart.h" //TODO: NECESARIO PARA corazones anim
 #include "../inc/hud.h" //TODO: NECESARIO PARA corazones anim
+#include "../inc/game.h"
+#include "../inc/helpers.h"
+#include "../inc/dev.h"
 
 
 static u8  playerSpeedBonus;         // Flag for speed bonus (coffee drinked)
-static u8 playerSpeedBonusCounter;     // Speed bonus timmer
-static u8 player_frame_cnt;           // Used for animation purposes
+static u8  playerSpeedBonusCounter;     // Speed bonus timmer
+static u8  player_frame_cnt;           // Used for animation purposes
 
 static s16 player_move_cnt;           // Auto-movement on ladders
 
@@ -36,9 +39,26 @@ static s16 player_move_cnt;           // Auto-movement on ladders
 
 static u32 playerCurrentSpeed;
 static u32 playerSpeedTo;
-static u8 delayBeforeHangUp;
-static u8 standingUpDuration;
+static u8  delayBeforeHangUp;
+static u8  standingUpDuration;
 static u16 playerFallingCounter;
+static u16 sfxDirHorizontal;
+static u16 sfxDirVertical;
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+void playerSfxStep ( u16 dir )
+{
+    if ( dir == 1 )
+    {
+        playSfx( ++sfxDirHorizontal % 2 ? SFX_STEP_1 : SFX_STEP_2 );
+    }
+    else
+    {
+        playSfx ( ++sfxDirVertical % 2 ? SFX_STEP_3 : SFX_STEP_4 );
+    }
+}
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -175,6 +195,26 @@ static u8 isPlayerOnLadder( void )
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
+static u16 playerGetAminationSpeed ()
+{
+    const u16 baseRefresh = 6;
+    const u16 baseSpeed   = 24;
+
+    u16 aux = playerCurrentSpeed ;
+
+    if ( !aux ) aux = 1;
+
+    u16 vel = baseRefresh * baseSpeed / aux;
+
+    if ( !vel ) vel = 1;
+
+    return vel;
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
 
 
 static void doPlayerMovement( u16 state )
@@ -185,6 +225,11 @@ static void doPlayerMovement( u16 state )
 
 	if ( isPlayerFalling( ) )
 	{
+	    if ( playerFallingCounter == 0 )
+        {
+            playSfx ( SFX_FALL );
+        }
+
 		playerFallingCounter++;
 		playerFixedPositionY += ( 3 << FP_BITS );
 
@@ -228,10 +273,12 @@ static void doPlayerMovement( u16 state )
 	}
 	else
 	{
+            playerFallingCounter = 0;
+
 			s16 x = ( playerFixedPositionX >> FP_BITS );
 			s16 y = ( playerFixedPositionY >> FP_BITS );
 
-			//TODO: ARREGLAR FRAME DEBE DE SER DEPENDIENDO DE LA VELOCIDAD
+			//TODO: ARREGLAR FRAME DEBE DE SER DEPENDIENDO DE LA VELOCIDAD --> HECHO
 
 			if ( !player_move_cnt )
 			{
@@ -281,7 +328,7 @@ static void doPlayerMovement( u16 state )
 			{
 				if ( player_dir == DIR_UP )
 				{
-					setSecretaryPriority( TRUE );
+					setSecretaryPriority( FALSE ); // TRUE
 					playerFixedPositionY -= playerCurrentSpeed;
 
 					//Check for player wrap
@@ -294,16 +341,12 @@ static void doPlayerMovement( u16 state )
 					else if ( map_getTile( x + 12, ( playerFixedPositionY >> FP_BITS ) + 32 ) != TILE_LADDER )
 					{
 						playerFixedPositionY = ( playerFixedPositionY + ( 7 << FP_BITS ) ) & ~( 7 << FP_BITS );    //Round to next multiple of 8
-					}
-
-					if ( !( ++player_frame_cnt % 6 ) )
-					{
-						SPR_nextFrame( playerSprite );
+						player_dir = DIR_LEFT;
 					}
 				}
 				else if ( player_dir == DIR_DOWN )
 				{
-					setSecretaryPriority( TRUE );
+					setSecretaryPriority( FALSE ); // TRUE
 					playerFixedPositionY += playerCurrentSpeed;
 
 					//Check for player wrap
@@ -315,20 +358,27 @@ static void doPlayerMovement( u16 state )
 					else if ( map_getTile( x + 12, ( playerFixedPositionY >> FP_BITS ) + 32 ) == TILE_FLOOR )
 					{
 						playerFixedPositionY &= ~( 7 << FP_BITS );    //Round to lower multiple of 8
-					}
-
-					//TODO: SEPARAR ESTO AFUERA
-					if ( !( ++player_frame_cnt % 6 ) )
-					{
-						SPR_nextFrame( playerSprite );
+						player_dir = DIR_RIGHT;
 					}
 				}
+
+                if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
+                {
+                    SPR_nextFrame( playerSprite );
+                    playerSfxStep ( 0 );
+                }
 
 				player_move_cnt -= playerCurrentSpeed;
 
 				if ( player_move_cnt < 0 )
 				{
 					player_move_cnt = 0;
+
+					if ( !isPlayerOnLadder() )
+                    {
+                        if ( player_dir == DIR_UP   ) player_dir = DIR_LEFT;
+                        if ( player_dir == DIR_DOWN ) player_dir = DIR_RIGHT;
+                    }
 				}
 			}
 
@@ -342,9 +392,10 @@ static void doPlayerMovement( u16 state )
 					checkForPlayerHorizontalWarp( );
 
 
-					if ( !( ++player_frame_cnt % 6 ) )
+					if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
 					{
 						SPR_nextFrame( playerSprite );
+						playerSfxStep ( 1 );
 					}
 					player_dir = DIR_RIGHT;
 				}
@@ -356,9 +407,10 @@ static void doPlayerMovement( u16 state )
 
 					checkForPlayerHorizontalWarp( );
 
-					if ( !( ++player_frame_cnt % 6 ) )
+					if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
 					{
 						SPR_nextFrame( playerSprite );
+						playerSfxStep ( 1 );
 					}
 					player_dir = DIR_LEFT;
 				}
@@ -368,6 +420,16 @@ static void doPlayerMovement( u16 state )
 			SPR_setAnim( playerSprite, player_dir + ( IS_TALKING_ON_PHONE ? 4 : 0 ) );
 		}
 
+		if ( DEV )
+        {
+            drawUInt ( player_dir,0,3,2 );
+            drawUInt ( playerCurrentSpeed,0,4,3 );
+            drawUInt ( playerGetAminationSpeed (),0,5,3 );
+            drawInt  ( playerFixedPositionX >> FP_BITS, 0, 6, 3 );
+            drawInt  ( playerFixedPositionY >> FP_BITS, 0, 7, 3 );
+            drawInt  ( playerFallingCounter, 0, 8, 3 );
+
+        }
 }
 
 void playerReset( void )
@@ -394,7 +456,8 @@ void player_init( s16 x, s16 y )
 	playerWisdomDuration = 0;
 	isPlayerCatched = FALSE;
 	isPlayerSlowed = FALSE;
-
+    sfxDirHorizontal = 0;
+    sfxDirVertical   = 0;
 
 	VDP_setPalette(PAL2, secretarySprDef.palette->data);
 }

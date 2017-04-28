@@ -10,7 +10,7 @@
 #include "../inc/spritedispatcher.h"
 
 
-static u8 _used [ MAX_SPRITE ] = { [0 ... MAX_SPRITE-1] = FALSE };
+static u8 _used [ MAX_VDP_SPRITE ] = { [0 ... MAX_VDP_SPRITE-1] = FALSE };
 static u8 _cnt = 0;
 
 
@@ -22,7 +22,7 @@ static u8 _find ( u8 start, SPRDdir direction )
    {
       case SPRD_UP:
 
-         for ( i = start; i < MAX_SPRITE; i++ )
+         for ( i = start; i < MAX_VDP_SPRITE; i++ )
          {
             if ( ! _used[(u8) i] )
             {
@@ -30,7 +30,7 @@ static u8 _find ( u8 start, SPRDdir direction )
             }
          }
 
-         return MAX_SPRITE-1;
+         return MAX_VDP_SPRITE-1;
 
 
       case SPRD_DOWN:
@@ -76,7 +76,6 @@ Sprite* SPRD_new ( u8 pos, SPRDdir dir )
 }
 
 
-
 u8 SPRD_getFirstIDX ( void )
 {
     return SPRD_newIDX( 0, SPRD_UP );
@@ -89,12 +88,12 @@ Sprite* SPRD_getFirst ( void )
 
 u8 SPRD_getLastIDX ( void )
 {
-    return SPRD_newIDX( (MAX_SPRITE-1), SPRD_DOWN );
+    return SPRD_newIDX( (MAX_VDP_SPRITE-1), SPRD_DOWN );
 }
 
 Sprite* SPRD_getLast ( void )
 {
-    return SPRD_new( (MAX_SPRITE-1), SPRD_DOWN );
+    return SPRD_new( (MAX_VDP_SPRITE-1), SPRD_DOWN );
 }
 
 void SPRD_delete ( u8 i )
@@ -114,6 +113,6 @@ void SPRD_delete ( u8 i )
 void SPRD_reset( void )
 {
     _cnt = 0;
-    memset( _used, FALSE, sizeof (u8) * MAX_SPRITE );
-    memset( sprlist, NULL, sizeof(Sprite) * MAX_SPRITE );
+    memset( _used, FALSE, sizeof (u8) * MAX_VDP_SPRITE );
+    memset( sprlist, NULL, sizeof(Sprite) * MAX_VDP_SPRITE );
 }

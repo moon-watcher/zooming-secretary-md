@@ -1,8 +1,12 @@
 #include <genesis.h>
+
 #include "../res/rescomp.h"
 #include "../inc/joyreader.h"
 #include "../inc/hud.h"
 #include "../inc/game.h"
+#include "../inc/common.h"
+#include "../inc/helpers.h"
+#include "../inc/dev.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -14,7 +18,7 @@
 #define COLOR_NAVYBLUE ( 0x0E20 )
 
 #define SPLASH_PALETTE PAL0
-#define SPLASH_PAL APLAN
+#define SPLASH_PAL PLAN_A
 #define SPLASH_ATTRIBUTES ( TILE_ATTR( SPLASH_PALETTE, FALSE, FALSE, FALSE ) )
 
 
@@ -35,8 +39,8 @@ static void prepareScreen( void )
 {
 	VDP_waitVSync( );
 
-	VDP_clearPlan( VDP_PLAN_B, FALSE );
-	VDP_clearPlan( VDP_PLAN_A, FALSE );
+	VDP_clearPlan( PLAN_B, 1 );
+	VDP_clearPlan( PLAN_A, 1 );
 
 	const u16 colors[ ] = { COLOR_WHITE, COLOR_GREY, COLOR_BLUE, COLOR_NAVYBLUE };
 	VDP_setPaletteColors(12, (u16 *) colors , 4);
@@ -48,7 +52,8 @@ static void prepareScreen( void )
 
 static void drawLevelName( void )
 {
-	VDP_drawTextBG( APLAN, levelNames[ lvl ], SPLASH_ATTRIBUTES, 17, 12 );
+    VDP_setTextPalette(SPLASH_PALETTE);
+	VDP_drawTextBG( PLAN_A, levelNames[ lvl ], 17, 12 );
 }
 
 
@@ -59,7 +64,7 @@ void showSplashScreen( void )
 	prepareScreen( );
 	drawLevelName( );
 
-	if ( TEST_MODE_FLAG )
+	if ( LEVEL_MODE_FLAG )
 	{
 		JoyReaderReset( );
 
@@ -69,22 +74,16 @@ void showSplashScreen( void )
 
 			JoyReaderUpdate( );
 
-			if ( PAD_1_PRESSED_LEFT )
+			if ( PAD_1_PRESSED_LEFT && ( lvl > 0 ) )
 			{
-				if ( lvl > 0 )
-				{
-					lvl--;
-					drawLevelName( );
-				}
+                lvl--;
+                drawLevelName( );
 			}
 
-			if ( PAD_1_PRESSED_RIGHT )
-			{
-				if ( lvl < PLAYABLE_LEVELS )
-				{
-					lvl++;
-					drawLevelName( );
-				}
+			else if ( PAD_1_PRESSED_RIGHT && ( lvl < PLAYABLE_LEVELS ) )
+            {
+                lvl++;
+                drawLevelName( );
 			}
 
 		} while( !PAD_1_PRESSED_BTN );
@@ -92,12 +91,13 @@ void showSplashScreen( void )
 
 	if ( lvl < PLAYABLE_LEVELS )
 	{
-		//TODO: music_play(mus_level);
+		playMusic (MUSIC_LEVEL);
 	}
 
-	u8 i;
-	for ( i = 0; i < 50 * 3; i++ )
-	{
-		VDP_waitVSync( );
-	}
+	if ( !DEV )
+    {
+        waitHz(50);
+    }
+
+    musicStop();
 }

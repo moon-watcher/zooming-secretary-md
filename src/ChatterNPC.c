@@ -3,6 +3,7 @@
 #include "../inc/common.h"
 #include "../inc/player.h"
 #include "../inc/topic.h"
+#include "../inc/helpers.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -180,7 +181,7 @@ void npcChatterUpdate( void )
 					glassesDuration		= 0;
 					isSpeakingNPC		= TRUE;
 					walkingDuration		= 0;
-					//TODO: sfx_play(SFX_BLA2,3);
+					playSfx(SFX_BLA2);
 			}
 		}
 

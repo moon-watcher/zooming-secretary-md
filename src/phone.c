@@ -1,6 +1,8 @@
 #include <genesis.h>
 #include "../inc/SPRFactory.h"
 #include "../inc/common.h"
+#include "../inc/helpers.h"
+#include "../inc/game.h"
 
 
 #include "../inc/hud.h" //Todo: PARA PLAYABLE LELVEL
@@ -18,6 +20,9 @@
 #define PHONE_POSITIONS_MAX 6
 
 #define DELAY_AFTER_PHONETELEPORT_MAX 250
+
+#define MAX_SFX_RING_TIMEOUT_1 70
+#define MAX_SFX_RING_TIMEOUT_2 60
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -45,6 +50,9 @@ typedef struct
 
 	Sprite* topicSprite;
 	u8 topicType;
+
+	u16 playingSfx;
+	u16 ringSfxTimeout;
 
 } phoneStruct;
 
@@ -77,7 +85,8 @@ static void pickUpPhone( u8 phoneId )
 	{
 		phoneStruct *thisPhone = &allPhones[ phoneId ];
 
-		// TODO sfx_play(bonus?SFX_EXPLODE:SFX_ANSWER,2);
+		//playSfx(bonus?SFX_EXPLODE:SFX_ANSWER);
+		playSfx(SFX_ANSWER);
 
 		if ( !IS_LEVEL_BONUS )
 		{
@@ -167,7 +176,7 @@ static void checkForPhoneTeleport( void )
 					u8 newPhonePositionId = getNewRandomPhonePositionId( );
 
 					movePhone( phoneId, newPhonePositionId );
-					//TODO: sfx_play(SFX_TELEPORT,1);
+					playSfx(SFX_TELEPORT);
 
 					reloadDelayBeforePhoneTeleport( );
 				}
@@ -209,6 +218,8 @@ static void reloadPhone( phoneStruct *phone )
 	phone->phoneStatus	= IS_LEVEL_BONUS ? PHONE_STATUS_RING3 : PHONE_STATUS_IDLE;
 	phone->delayBeforeNextPhoneStatus = currentBaseDelayBeforePhoneRing + randomDelayBeforePhoneRing;
 	phone->ringDuration	= 0;
+	phone->playingSfx	= 0;
+	phone->ringSfxTimeout = 0;
 
 	if ( currentBaseDelayBeforePhoneRing > 125 )
 	{
@@ -255,6 +266,46 @@ static void updateGraphicsPhone( phoneStruct *phone )
 		animationNumber	=  phone->topicType;
 		SPR_setAnimAndFrame( phone->topicSprite, animationNumber, frameNumber );
 	}
+}
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static void updateSfxPhone( phoneStruct *phone )
+{
+	u8 isPhonePickedUp  = ( ( phone->phoneStatus == PHONE_STATUS_PICKUP  ) && ( phone->playingSfx != PHONE_STATUS_PICKUP  ) );
+	u8 isPhoneBlowingUp = ( ( phone->phoneStatus == PHONE_STATUS_EXPLODE ) && ( phone->playingSfx != PHONE_STATUS_EXPLODE ) );
+	u8 isPhoneRinging   = ( IS_PHONE_RINGING( phone ) ) ;
+
+	//Phone
+	if ( isPhoneBlowingUp )
+    {
+        playSfx ( SFX_EXPLODE );
+        phone->playingSfx = PHONE_STATUS_EXPLODE;
+	}
+	else if ( isPhonePickedUp )
+    {
+        playSfx ( SFX_ANSWER );
+        phone->playingSfx = PHONE_STATUS_PICKUP;
+	}
+	else if ( isPhoneRinging )
+    {
+        if ( phone->ringSfxTimeout == 0 )
+        {
+            playSfx ( SFX_RING );
+
+            if ( phone->phoneStatus == PHONE_STATUS_RING1 )
+            {
+                phone->ringSfxTimeout = MAX_SFX_RING_TIMEOUT_1;
+            }
+            else
+            {
+                phone->ringSfxTimeout = MAX_SFX_RING_TIMEOUT_2;
+            }
+        }
+
+        --phone->ringSfxTimeout;
+    }
 }
 
 
@@ -418,7 +469,10 @@ void phoneUpdate( void )
 
 
 				case PHONE_STATUS_MISS:
-					totalOfMissedCalls++;
+					if ( !GOD_MODE_FLAG )
+                    {
+                        totalOfMissedCalls++;
+                    }
 					reloadPhone( thisPhone );
 					break;
 
@@ -428,8 +482,6 @@ void phoneUpdate( void )
 		}
 
 		updateGraphicsPhone( thisPhone );
+		updateSfxPhone( thisPhone );
 	}
 }
-
-
-/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */

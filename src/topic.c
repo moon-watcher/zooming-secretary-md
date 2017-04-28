@@ -1,5 +1,7 @@
 #include <genesis.h>
 #include "../inc/SPRFactory.h"
+#include "../inc/common.h"
+#include "../inc/helpers.h"
 
 #include "../inc/topic.h"
 #include "../inc/player.h" //TODO: used for playerwidsom topic active info
@@ -210,7 +212,7 @@ u8 topic_checkCollision( s16 spr_x, s16 spr_xx, s16 spr_y, s16 spr_yy )
 					topic[ topicId ].flashCounter = 16;
 
 					changeActiveTopicType( topic[ topicId ].type );
-					// TODO sfx_play(SFX_TOPIC,1);
+					playSfx(SFX_TOPIC);
 				}
 			}
 		}

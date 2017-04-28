@@ -30,4 +30,7 @@
 	extern const sprFactoryStruct SPRFactory;
 
 
+	void SPRFactoryInit ( );
+
+
 #endif /* _SPRFACTORY_H_ */

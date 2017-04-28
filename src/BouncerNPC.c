@@ -84,11 +84,11 @@ static void checkCollisionWithPlayer( void )
 {
 	const s16 playerPositionX = ( playerFixedPositionX >> FP_BITS );
 	const s16 playerPositionY = ( playerFixedPositionY >> FP_BITS );
-	const u16 npcBouncerWidth = npcBouncerSprite->frame->w;
+//	const u16 npcBouncerWidth = npcBouncerSprite->frame->w;
 
 	npcBouncerIsPushing = FALSE;
 
-	if ( !( npcBouncerPositionX < 0 || ( playerPositionX + npcBouncerWidth ) > VDP_getScreenWidth( )  ) )
+//	if ( !( npcBouncerPositionX < 0 || ( playerPositionX + npcBouncerWidth ) > VDP_getScreenWidth( )  ) )
 	{
 		if ( playerPositionY == npcBouncerPositionY )
 		{

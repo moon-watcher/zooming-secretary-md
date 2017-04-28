@@ -1,7 +1,12 @@
 #include <genesis.h>
+
 #include "../res/rescomp.h"
 #include "../inc/joyreader.h"
 #include "../inc/titleScreen.h"
+#include "../inc/common.h"
+#include "../inc/helpers.h"
+#include "../inc/game.h"
+#include "../inc/dev.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -26,6 +31,9 @@ static const u16 secretCode[ ] =
 
 static u8 secretCodeIndex;
 static u8 isCheatCodeCompleted;
+static u16 color1;
+static u16 color2;
+
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -33,9 +41,11 @@ static u8 isCheatCodeCompleted;
 
 static void doCheatMessageBlinking( void )
 {
-	VDP_drawTextBG( BPLAN, "UNLOCKED", TXT_ATTRIBUTES, 16, 26 );
+    VDP_setTextPalette(PAL1);
 
-	//TODO: sfx_play(SFX_START,0);
+	VDP_drawTextBG( PLAN_B, "UNLOCKED", 16, 26 );
+
+	playSfx(SFX_START);
 
 	u8 i;
 	for ( i = 0; i < 72; i++ )
@@ -52,14 +62,15 @@ static void doCheatMessageBlinking( void )
 
 static void doPressStartFasterBlinking( void )
 {
-	//TODO: sfx_play(SFX_START,0);
+	playSfx(SFX_START);
 
 	u8 i;
 	for ( i = 0; i < 72; i++ )
 	{
 		VDP_waitVSync( );
 
-		VDP_setPaletteColor( 1, ( i & 4 ) ? COLOR_WHITE : COLOR_BLACK );
+        VDP_setPaletteColor(  1, ( i & 4 ) ? COLOR_BLACK : color2 );
+		VDP_setPaletteColor( 15, ( i & 4 ) ? COLOR_BLACK : color1 );
 	}
 }
 
@@ -74,7 +85,7 @@ static void checkForCheatCodeCompleted( void )
 	if ( isCheatCodeCompleted )
 	{
 		doCheatMessageBlinking( );
-		//TODO: sfx_play(SFX_BLA1,1);
+		playSfx(SFX_BLA1);
 	}
 }
 
@@ -86,7 +97,17 @@ static void drawTitleScreenGraphics( void )
 {
 	VDP_setEnable( FALSE );
 
-		VDP_drawImageEx( BPLAN, &titleScreenImg, IMG_ATTRIBUTES, 0, 0, TRUE, FALSE );
+		VDP_drawImageEx( PLAN_B, &titleScreenImg, IMG_ATTRIBUTES, 0, 0, TRUE, FALSE );
+
+        color1 = VDP_getPaletteColor(12);
+		color2 = VDP_getPaletteColor(13);
+
+        VDP_setPaletteColor(  1, COLOR_BLACK );
+		VDP_setPaletteColor( 15, COLOR_BLACK );
+
+		u16 colores[16];
+		VDP_getPaletteColors(0,colores, 16);
+		VDP_setPalette(PAL1, colores);
 
 	VDP_setEnable( TRUE );
 }
@@ -108,17 +129,20 @@ u8 showTitleScreen( void )
 	{
 		VDP_waitVSync( );
 
-		JoyReaderUpdate( );
-
 		// 'Press Start' Blinking Effect...
-		VDP_setPaletteColor( 1, ( frame++ & 32 ) ? COLOR_BLACK : COLOR_WHITE );
+		VDP_setPaletteColor(  1, ( frame++ & 32 ) ? COLOR_BLACK : color2 );
+		VDP_setPaletteColor( 15, ( frame++ & 32 ) ? COLOR_BLACK : color1 );
+		VDP_setPaletteColor( 31, 0x026); // cheatcode shadow color
 
+		JoyReaderUpdate( );
 
 		if ( PAD_1_PRESSED )
 		{
-			if ( PAD_1_ACTIVE == secretCode[ secretCodeIndex ] )
+			if ( PAD_1_PRESSED == secretCode[ secretCodeIndex ] )
 			{
-				VDP_drawTextBG( BPLAN, "`", TXT_ATTRIBUTES, 16 + secretCodeIndex, 26 );
+			    VDP_setTextPalette(PAL1);
+
+				VDP_drawTextBG( PLAN_B, "`", 16 + secretCodeIndex, 26 );
 
 				secretCodeIndex++;
 				checkForCheatCodeCompleted( );
@@ -128,6 +152,11 @@ u8 showTitleScreen( void )
 				secretCodeIndex = 0;
 			}
 		}
+
+		if ( DEV )
+        {
+            drawUInt(secretCodeIndex, 0,0,3);
+        }
 
 	} while( !PAD_1_PRESSED_START && !isCheatCodeCompleted );
 

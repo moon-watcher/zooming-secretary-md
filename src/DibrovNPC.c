@@ -3,6 +3,7 @@
 #include "../inc/common.h"
 #include "../inc/player.h"
 #include "../inc/map.h"
+#include "../inc/helpers.h"
 
 #include <Kdebug.h>
 
@@ -98,7 +99,7 @@ void npcDibrovUpdate( void )
                 if ( !IS_PLAYER_WISDOM )
                 {
                     playerWisdomDuration = ( IS_PALSYSTEM ) ? 500 : 600;
-                    //TODO: sfx_play(SFX_WISDOM,2);
+                    playSfx(SFX_WISDOM);
                 }
 
             }

@@ -3,7 +3,11 @@
 
 
     // Used for 'Level Select Cheat'
-    u8 TEST_MODE_FLAG;
+    u8 GOD_MODE_FLAG;
+    u8 LEVEL_MODE_FLAG;
+    u8 EXIT_MODE_FLAG;
+    u8 MUSIC_MODE_FLAG;
+	u8 SFX_MODE_FLAG;
 
 
     // Public Functions

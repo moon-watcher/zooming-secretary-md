@@ -2,6 +2,7 @@
 #include "../inc/SPRFactory.h"
 #include "../inc/player.h"
 #include "../inc/common.h"
+#include "../inc/helpers.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -48,7 +49,7 @@ void showBlaBlaSprite( s16 basePositionX, s16 basePositionY )
 	SPR_setPosition( this.blablaSprite, blablaPositionX, blablaPositionY);
 	SPR_setFrame( this.blablaSprite, frameNumber );
 
-	//TODO: sfx_play(SFX_BLA1,3);
+	playSfx(SFX_BLA1);
 }
 
 

@@ -80,6 +80,18 @@ static const u16 disclaimerLogoLedFadeColors[ DISCLAIMERLOGOLED_FADESTEPS ][ DIS
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
+static void waitHz ( u16 hz )
+{
+    while ( hz-- )
+    {
+        VDP_waitVSync();
+    }
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
 static void doDisclaimerLogoLedUpdate ( void )
 {
 
@@ -103,8 +115,7 @@ static void doTextDisclaimerFadeIn( void )
 
 	for( i = 1; i < TEXTDISCLAIMER_FADESTEPS; i++ )
 	{
-		VDP_waitVSync( );	VDP_waitVSync( );	VDP_waitVSync( );
-		VDP_waitVSync( );	VDP_waitVSync( );	VDP_waitVSync( );
+		waitHz(6);
 
 		VDP_setPaletteColors( 13, (u16 *) textDisclaimerFadeColors[ i ], TEXTDISCLAIMER_NUMCOLORS );
 	}
@@ -120,8 +131,7 @@ static void doDisclaimerBGFadeIn( void )
 
 	for( i = 1; i < DISCLAIMERBG_FADESTEPS; i++ )
 	{
-		VDP_waitVSync( );	VDP_waitVSync( );
-		VDP_waitVSync( );	VDP_waitVSync( );
+		waitHz(4);
 
 		VDP_setPaletteColors( 1, (u16 *) disclaimerBGFadeColors[ i ], DISCLAIMERBG_NUMCOLORS );
 	}
@@ -137,8 +147,7 @@ static void doDisclaimerLogoFadeIn( void )
 
 	for( i = 1; i < DISCLAIMERLOGO_FADESTEPS; i++ )
 	{
-		VDP_waitVSync( );	VDP_waitVSync( );
-		VDP_waitVSync( );	VDP_waitVSync( );
+		waitHz(4);
 
 		VDP_setPaletteColors( 17, (u16 *) disclaimerLogoFadeColors[ i ], DISCLAIMERLOGO_NUMCOLORS );
 		doDisclaimerLogoLedUpdate( );
@@ -155,8 +164,7 @@ static void doDisclaimerBGFadeOut( void )
 
 	for( i = (DISCLAIMERBG_FADESTEPS - 2); i >= 0; i-- )
 	{
-		VDP_waitVSync( );	VDP_waitVSync( );
-		VDP_waitVSync( );	VDP_waitVSync( );
+		waitHz(4);
 
 		VDP_setPaletteColors( 1, (u16 *) disclaimerBGFadeColors[ ( u8 ) i ], DISCLAIMERBG_NUMCOLORS );
 		doDisclaimerLogoLedUpdate ( );
@@ -173,8 +181,7 @@ static void doTextDisclaimerFadeOut( void )
 
 	for( i = (TEXTDISCLAIMER_FADESTEPS - 2 ); i >= 0 ; i-- )
 	{
-		VDP_waitVSync( );	VDP_waitVSync( );
-		VDP_waitVSync( );	VDP_waitVSync( );
+		waitHz(4);
 
 		VDP_setPaletteColors( 13, (u16 *) textDisclaimerFadeColors[ ( u8 ) i ], TEXTDISCLAIMER_NUMCOLORS );
 		doDisclaimerLogoLedUpdate ( );
@@ -191,8 +198,7 @@ static void doDisclaimerLogoFadeOut( void )
 
 	for( i = (DISCLAIMERLOGO_FADESTEPS -2) ; i >= 0 ; i-- )
 	{
-		VDP_waitVSync( );	VDP_waitVSync( );
-		VDP_waitVSync( );	VDP_waitVSync( );
+		waitHz(4);
 
 		VDP_setPaletteColors( 17, (u16 *) disclaimerLogoFadeColors[ ( u8 ) i ], DISCLAIMERLOGO_NUMCOLORS );
 		doDisclaimerLogoLedUpdate( );
@@ -211,13 +217,13 @@ static void drawDisclaimerGraphics( void )
 	VDP_setEnable( FALSE );
 
 		tileIndex = TILE_USERINDEX;
-		VDP_drawImageEx( BPLAN, &disclaimerBGImage, IMG_ATTRIBUTES( PAL0 ), 0, 0, TRUE, FALSE );
+		VDP_drawImageEx( PLAN_B, &disclaimerBGImage, IMG_ATTRIBUTES( PAL0 ), 0, 0, TRUE, FALSE );
 
 		tileIndex += disclaimerBGImage.tileset->numTile;
-		VDP_drawImageEx( APLAN, &disclaimerLogoImage, IMG_ATTRIBUTES( PAL1 ), 9, 9, TRUE, FALSE );
+		VDP_drawImageEx( PLAN_A, &disclaimerLogoImage, IMG_ATTRIBUTES( PAL1 ), 9, 9, TRUE, FALSE );
 
 		tileIndex += disclaimerLogoImage.tileset->numTile;
-		VDP_drawImageEx( BPLAN, &disclaimerLogoLedImage, IMG_ATTRIBUTES( PAL2 ), 26, 9, TRUE, FALSE );
+		VDP_drawImageEx( PLAN_B, &disclaimerLogoLedImage, IMG_ATTRIBUTES( PAL2 ), 26, 9, TRUE, FALSE );
 
 	VDP_setEnable( TRUE );
 }
@@ -236,11 +242,10 @@ void showDisclaimer( void )
 
 	doDisclaimerLogoFadeIn( );
 
-	u8 i;
-	for(i = 0; i < 57; i++)
+	u8 i=57;
+	while ( i-- )
 	{
-		VDP_waitVSync( );	VDP_waitVSync( );
-		VDP_waitVSync( );	VDP_waitVSync( );
+		waitHz(4);
 
 		doDisclaimerLogoLedUpdate ( );
 	}
@@ -250,5 +255,5 @@ void showDisclaimer( void )
 
 	doDisclaimerLogoFadeOut ( );
 
-	VDP_clearPlan( APLAN, FALSE );
+	VDP_clearPlan( PLAN_A, 1 );
 }

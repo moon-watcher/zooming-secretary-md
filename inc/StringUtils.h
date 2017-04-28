@@ -10,22 +10,22 @@
 #ifndef _STRINGUTILS_H_
 #define _STRINGUTILS_H_
 
-/**
- *  \brief
- *      Compute the length of a string, to a maximum number of bytes.
- *
- *  \param str
- *      The string whose length you want to calculate.
- *
- *  \param maxlen
- *      The maximum length to check.
- *
- *  \return The minimum of 'maxlen' and the number of characters that precede the terminating null character.
- *
- *  The strnlen() function computes the length of the string pointed to by 'str', not including the terminating null character ('\0'), <br/>
- *  up to a maximum of 'maxlen' bytes. The function doesn't check any more than the first 'maxlen' bytes.
- */
-unsigned short strnlen( const char *str, unsigned short maxlen );
+///**
+// *  \brief
+// *      Compute the length of a string, to a maximum number of bytes.
+// *
+// *  \param str
+// *      The string whose length you want to calculate.
+// *
+// *  \param maxlen
+// *      The maximum length to check.
+// *
+// *  \return The minimum of 'maxlen' and the number of characters that precede the terminating null character.
+// *
+// *  The strnlen() function computes the length of the string pointed to by 'str', not including the terminating null character ('\0'), <br/>
+// *  up to a maximum of 'maxlen' bytes. The function doesn't check any more than the first 'maxlen' bytes.
+// */
+//unsigned short strnlen( const char *str, unsigned short maxlen );
 
 /**
  *  \brief

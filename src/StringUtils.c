@@ -1,3 +1,4 @@
+#include <genesis.h>
 #include "../inc/StringUtils.h"
 
 #define isdigit(c)	((c) >= '0' && (c) <= '9')
@@ -12,22 +13,6 @@ static unsigned short skip_atoi( const char **s )
 	return i;
 }
 
-typedef void *__gnuc_va_list;
-typedef __gnuc_va_list va_list;
-
-#define __va_rounded_size(TYPE)  \
-  (((sizeof (TYPE) + sizeof (int) - 1) / sizeof (int)) * sizeof (int))
-
-#define va_start(AP, LASTARG) 						\
- (AP = ((__gnuc_va_list) __builtin_next_arg (LASTARG)))
-
-#define va_end(AP)	((void)0)
-
-#define va_arg(AP, TYPE)						\
- (AP = (__gnuc_va_list) ((char *) (AP) + __va_rounded_size (TYPE)),	\
-  *((TYPE *) (void *) ((char *) (AP)					\
-		       - ((sizeof (TYPE) < __va_rounded_size (char)	\
-			   ? sizeof (TYPE) : __va_rounded_size (TYPE))))))
 
 static const char *uppercase_hexchars = "0123456789ABCDEF";
 static const char *lowercase_hexchars = "0123456789abcdef";
@@ -294,14 +279,6 @@ static unsigned short vsprintf( char *buf, const char *fmt, va_list args )
 	return str - buf;
 }
 
-unsigned short strnlen( const char * str, unsigned short maxlen )
-{
-	const char *src;
-
-	for ( src = str; maxlen-- && *src != '\0'; ++src )
-		/* nothing */;
-	return src - str;
-}
 
 unsigned short strbuilder( char *buffer, const char *fmt, ... )
 {

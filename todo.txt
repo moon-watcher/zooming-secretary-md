@@ -1,0 +1,68 @@
+DONE - Gameover
+DONE - Musica
+DONE - Pause
+DONE - Pantalla de debug/opciones
+
+DONE - Musica se oye mal
+DONE - Meter disclaimer Jack (está en el código)
+DONE - Año de title
+DONE - Año del rom header
+DONE - Problema con los sprites
+DONE - Eligiendo el nivel, si pulsas a la izquierda estando en el 1 empieza a jugar en el nivel
+DONE - Debug elegir nivel no va bien
+DONE - Aplicar el modo Dios
+DONE - Los teléfonos deben quedar al fondo (fallan por el actual sprite_eng (no se lleva bien con el spritedispacher (con esta versión del sprite_engine el dispacher ya no tiene utilidad))
+DONE - Los NPCs deben quedar sobre los teléfonos
+DONE - La secretaria debe quedar sobre los NPCs
+DONE - La cabeza del sueño debe quedar sobre la secretaria
+DONE - Que los corazones salgan sobre los personajes (en el eje Y) (así no se mostraran tapados bajo los sprites)
+DONE - En modo dios, que la cabeza no mate
+DONE - Pantalla 1, no sale bien el HUD
+DONE - Los colores de las fuentes son un desaste (cada uno de un color) -->  repasar BMPs
+DONE - El sueño está bien? NO! rehacer
+DONE - En el sueño no se muestra el mensaje de bonus
+DONE - La gorda te deja fuera de la pantalla por la izquierda. Por la derecha no. Cambiar lo primero
+DONE - A veces puedes atravesar la gorda
+DONE - Meter SEGA?
+DONE - Parece que no siempre acepta los comandos del codigo
+DONE - La "I" de la fuente y de los BMPs son distintas
+DONE - Meter créditos
+DONE - Meter PlayOnRetro
+DONE - Fuente del weekend
+DONE - Centrada la fuente de title
+DONE - Si está en pause que no se pueda usar la opcion salir rápido
+DONE - Nueva opcion en debug: salir rápido
+DONE - Usar los botones para cambiar las opciones de debug
+DONE - Para música al salir de debug
+DONE - En Weekend que ABC dejen salir
+DONE - El Weekend no funciona al cerrarse (y se queda un sprite ahi colgado)
+DONE - Al pausar, la secretaria no se esconde si está en una escalera !!!!!!!
+DONE - Si un NPC te mueve estando en una escalera no se cambia la animaicón mostrando hasta que pulsas algo el frame de subir escalera ---> era porque al terminar el periplo por la escalera se quedaba la de subir y no cambiaba a la animación de andar
+DONE - Frame de la secretaria debe ser mayor según la velocidad
+DONE - Los corazones se quedan sobre la pausa
+DONE - (Sólo pasa cuando aparece desde abajo o desde arriba y se para --> vamos, que debe inicializarze con la misma animación que se quedo) En las escaleras (day:4) que se pierden por arriba tiene una animación incorrecta, la de andar, y debería ser la de subir/bajar
+DONE - Weekend falla en real --> hace fundido a negro y ahí se queda, no sale nada más
+DONE - Tras el final, falla en real :?
+DONE - Estando en el nivel 7 y pulsando A se salta el final y no entra, va directamente a PlayOnRetro
+DONE - Bug en el EXIT_MODE
+DONE - meter a @ZanaGB en los créditos (la pondré en su propia pantalla)
+DONE - Meter "The AfroMonkeys"
+DONE - CALL ---> CALLS
+DONE - Dejar a ZanaGB en rojos pálidos
+DONE - Añadido en debug el hacer sonar música mientras juega
+DONE - Añadido en debug el hacer sonar sfx mientras juega
+DONE - Meter la contraseña ha fallado otra vez
+DONE - Reinyectar sfx en partes clave
+DONE - A+B+C para resetear
+DONE - Si en EXIT_MODE_FLAG = 1 no mostrar gameOverScreen
+DONE - Meter al músico en los creditos 
+DDNE - Que Jack-o decida qué pantallas del inicio se quedan y cuales se van
+DONE - Pausar la música al pausar el juego --> tengo la opcion de pausarla o de ralentizarla, por ahora he elegido la segunda
+DONE - Cambiar el tempo de las música en PAUSE
+
+- Meter músicas Beyker
+- Reinyectar musica en partes clave
+- Todos los teléfonos deberían sonar sincronamente, como en el original
+- SFX pendientes de colorcar: SFX_MISS, SFX_DROP
+- Quitar DEV
+- Vigilar rom_header

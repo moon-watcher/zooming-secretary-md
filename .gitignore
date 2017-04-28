@@ -1,27 +1,62 @@
-# Directories #
-/out/*
-/tmp/*
+out/res/
+out/src/
+out/rom.out
+out/rom_head.bin
+out/rom_head.o
+out/sega.o
+res/sfx/ring0.wav
+res/sfx/ring1.wav
+res/sfx/ring2.wav
+roms/
+stuff/
+*.layout
+*.cbp
 
-# Excluded Files #
-rescomp.h
-
-# Included Files #
-!rom.bin
-
-
-######################
-# Windows
-######################
 
 # Windows image file caches
 Thumbs.db
+ehthumbs.db
 
 # Folder config file
 Desktop.ini
 
-######################
-# Eclipse
-######################
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-.project
-.cproject
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

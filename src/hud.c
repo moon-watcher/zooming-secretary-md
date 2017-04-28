@@ -9,7 +9,7 @@
 
 #define HUD_PALETTE PAL1
 #define HUD_ATTRIBUTES ( TILE_ATTR( HUD_PALETTE, FALSE, FALSE, FALSE ) )
-#define HUD_PLAN APLAN
+#define HUD_PLAN PLAN_A
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -38,10 +38,10 @@ void hudReset( void )
 
 void hudInitialize( void )
 {
-    frame       = 0;
-    totalOfMissedCalls		= 0;
-    miss_max    = BONUS_FLAG ? 5 : 3;
-    totalOfAnsweredCalls    = 0;
+    frame                = 0;
+    totalOfMissedCalls   = 0;
+    miss_max             = BONUS_FLAG ? 5 : 3;
+    totalOfAnsweredCalls = 0;
 
 
          if (lvl <  BONUS_LEVEL_INDEX)	{ call_max = 10 + lvl * 5; }
@@ -50,8 +50,10 @@ void hudInitialize( void )
 
 
     char buffer[41];
-    strbuilder( buffer, "[  ]%s   CALL:%02d/%02d  MISS:%d/%d", levelNames[ lvl ], totalOfAnsweredCalls, call_max, totalOfMissedCalls, miss_max );
-    VDP_drawTextBG( HUD_PLAN, buffer, HUD_ATTRIBUTES, 3, 1 );
+    strbuilder( buffer, "[  ]%s  CALLS:%02d/%02d  MISS:%d/%d", levelNames[ lvl ], totalOfAnsweredCalls, call_max, totalOfMissedCalls, miss_max );
+
+    VDP_setTextPalette(HUD_PALETTE);
+    VDP_drawTextBG( HUD_PLAN, buffer, 3, 1 );
 }
 
 
@@ -71,7 +73,7 @@ void hudUpdate( void )
 		strbuilder( buffer, " " );
 	}
 
-	VDP_drawTextBG( HUD_PLAN, buffer, HUD_ATTRIBUTES , 34, 1 );
+	VDP_drawTextBG( HUD_PLAN, buffer, 34, 1 );
 
     if( totalOfAnsweredCalls < call_max || (frame & 16) )
     {
@@ -82,7 +84,7 @@ void hudUpdate( void )
     	strbuilder( buffer, "  " );
     }
 
-    VDP_drawTextBG( HUD_PLAN, buffer, HUD_ATTRIBUTES , 22, 1 );
+    VDP_drawTextBG( HUD_PLAN, buffer, 22, 1 );
 
 
 

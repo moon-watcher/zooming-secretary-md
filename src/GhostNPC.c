@@ -2,6 +2,7 @@
 #include "../inc/SPRFactory.h"
 #include "../inc/common.h"
 #include "../inc/player.h"
+#include "../inc/game.h"
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
@@ -22,6 +23,11 @@ static u16 npcGhostFrameCounter;
 
 static u8 checkForCollisionWithPlayer( void )
 {
+    if ( GOD_MODE_FLAG )
+    {
+        return 0;
+    }
+
 	const s16 npcPositionX = ( npcGhostFixedPositionX >> FP_BITS );
 	const s16 npcPositionY = ( npcGhostFixedPositionY >> FP_BITS );
 

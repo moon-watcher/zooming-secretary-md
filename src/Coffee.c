@@ -1,6 +1,8 @@
 #include <genesis.h>
 #include "../res/rescomp.h"
 #include "../inc/SPRFactory.h"
+#include "../inc/common.h"
+#include "../inc/helpers.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -19,7 +21,7 @@
 
 #define loadCofeeMakerTiles( ) ( VDP_loadTileSet( coffeMakerImage.tileset, COFFEEMAKER_TILE_IDX, FALSE ) )
 #define COFFEEMAKER_PALETTE PAL1
-#define COFFEEMAKER_PLAN APLAN
+#define COFFEEMAKER_PLAN PLAN_A
 #define COFFEEMAKER_TILE_IDX TILE_USERINDEX
 #define COFFEEMAKER_ATTRIBUTES TILE_ATTR_FULL( COFFEEMAKER_PALETTE, FALSE, FALSE, FALSE, COFFEEMAKER_TILE_IDX )
 
@@ -112,7 +114,7 @@ void coffeeUpdate( void )
 
 			if ( this.delayBeforeShowCoffee == 34 )
 			{
-				//TODO: SFX COFFE READY
+				playSfx( SFX_COFFEE_READY );
 			}
 			else if ( this.delayBeforeShowCoffee < 34 )
 			{
@@ -158,7 +160,7 @@ u8 coffeeCheckCollision( s16 obj_x, s16 obj_xx, s16 obj_y, s16 obj_yy )
 			setDelayBeforeShowCoffee( DELAY_BETWEEN_COFFEES );
 			setCoffeeFrame( FRAME_COFFEE_INVISIBLE );
 
-			// TODO sfx_play(SFX_COFFEE_CATCH,1);
+			playSfx( SFX_COFFEE );
 		}
 	}
 

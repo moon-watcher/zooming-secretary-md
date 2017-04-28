@@ -3,6 +3,7 @@
 #include "../inc/common.h"
 #include "../inc/map.h"
 #include "../inc/SPRFactory.h"
+#include "../inc/helpers.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -124,7 +125,7 @@ static void checkForPlayerCollision( void )
 				playerFixedPositionX += ( playerPositionX < manboxPositionX ) ? (-12<<FP_BITS) : (12<<FP_BITS) ;
 				manboxDirection = ( manboxDirection == DIR_LEFT ) ? DIR_RIGHT : DIR_LEFT;
 				player_dir = ( playerPositionX < manboxPositionX ) ? DIR_RIGHT : DIR_LEFT;
-				//TODO: sfx_play(SFX_KNOCK,1);
+				playSfx(SFX_KNOCK);
 			}
 			else
 			{
