@@ -2,7 +2,7 @@ DONE - Gameover
 DONE - Musica
 DONE - Pause
 DONE - Pantalla de debug/opciones
-
+---------------------------------------------------------------------------------------------------------------
 DONE - Musica se oye mal
 DONE - Meter disclaimer Jack (está en el código)
 DONE - Año de title
@@ -59,8 +59,8 @@ DONE - Meter al músico en los creditos
 DDNE - Que Jack-o decida qué pantallas del inicio se quedan y cuales se van
 DONE - Pausar la música al pausar el juego --> tengo la opcion de pausarla o de ralentizarla, por ahora he elegido la segunda
 DONE - Cambiar el tempo de las música en PAUSE
-
-- Meter músicas Beyker
+---------------------------------------------------------------------------------------------------------------
+- Transformar los pasos (STEP1,2,3,4) a psg
 - Reinyectar musica en partes clave
 - Todos los teléfonos deberían sonar sincronamente, como en el original
 - SFX pendientes de colorcar: SFX_MISS, SFX_DROP

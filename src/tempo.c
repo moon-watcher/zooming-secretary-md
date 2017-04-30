@@ -14,7 +14,7 @@ static u8 musicTempo;
 
 void initMusicTempo ()
 {
-    setMusicTempo ( DEFAULT_MUSIC_TEMPO );
+    setMusicTempo ( getDefaultMusicTempo ( ) );
 }
 
 

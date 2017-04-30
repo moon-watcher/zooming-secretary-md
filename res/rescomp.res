@@ -71,7 +71,7 @@ SPRITE  secretaryRestSprDef    "spr/sprsheet_secretaryRest.bmp"  3 3 0
 
 
 #MUSIC
-XGM     music_game             "music/game.xgm"
+XGM     music_game             "music/game.vgm"
 XGM     music_dream            "music/dream.vgm"
 XGM     music_clear            "music/clear.vgm"
 XGM     music_nobonus          "music/nobonus.vgm"

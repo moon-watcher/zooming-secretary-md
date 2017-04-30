@@ -58,11 +58,11 @@ static void initEnviroment( void )
 	SYS_setInterruptMaskLevel( 4 );
 	SYS_setVIntCallback ( (_voidCallback*) VIntCallback );
 
-	DEV             = 1; // 0;
+	DEV             = 0; // 0;
 
-	GOD_MODE_FLAG   = 1; // 0;
+	GOD_MODE_FLAG   = 0; // 0;
     LEVEL_MODE_FLAG = 0; // 0;
-	EXIT_MODE_FLAG  = 1; // 0;
+	EXIT_MODE_FLAG  = 0; // 0;
 	MUSIC_MODE_FLAG = 1; // 1;
 	SFX_MODE_FLAG   = 1; // 1;
 }
@@ -84,6 +84,7 @@ int main( void )
 	while( TRUE )    // main-loop
 	{
 	    initDisplay ( );
+	    initMusicTempo ();
 
         if ( !DEV )
         {
