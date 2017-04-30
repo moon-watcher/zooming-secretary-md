@@ -18,7 +18,7 @@
     Sfx   *getSfx        ( u8 sfx );
 
     u8     getHz         ( );
-    void   waitHz        ( u16 hzs );
+    void   waitHz        ( u16 hz );
     void   waitSc        ( u16 sc );
 
 

@@ -60,7 +60,7 @@ DDNE - Que Jack-o decida qué pantallas del inicio se quedan y cuales se van
 DONE - Pausar la música al pausar el juego --> tengo la opcion de pausarla o de ralentizarla, por ahora he elegido la segunda
 DONE - Cambiar el tempo de las música en PAUSE
 ---------------------------------------------------------------------------------------------------------------
-- Transformar los pasos (STEP1,2,3,4) a psg
+- Transformar los pasos (STEP1,2,3,4) a psg con Psg2MOD2
 - Reinyectar musica en partes clave
 - Todos los teléfonos deberían sonar sincronamente, como en el original
 - SFX pendientes de colorcar: SFX_MISS, SFX_DROP

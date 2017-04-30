@@ -18,6 +18,7 @@
 #include "../inc/sfx.h"
 #include "../inc/helpers.h"
 #include "../inc/tempo.h"
+#include "../inc/psg.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -25,7 +26,8 @@
 
 static _voidCallback *VIntCallback ( )
 {
-	SND_setMusicTempo_XGM ( getMusicTempo() );
+    psg_callback ( );
+	XGM_setMusicTempo ( getMusicTempo() );
 
 	return 0;
 }
@@ -58,12 +60,12 @@ static void initEnviroment( void )
 	SYS_setInterruptMaskLevel( 4 );
 	SYS_setVIntCallback ( (_voidCallback*) VIntCallback );
 
-	DEV             = 0; // 0;
+	DEV             = 1; // 0;
 
-	GOD_MODE_FLAG   = 0; // 0;
-    LEVEL_MODE_FLAG = 0; // 0;
-	EXIT_MODE_FLAG  = 0; // 0;
-	MUSIC_MODE_FLAG = 1; // 1;
+	GOD_MODE_FLAG   = 1; // 0;
+    LEVEL_MODE_FLAG = 1; // 0;
+	EXIT_MODE_FLAG  = 1; // 0;
+	MUSIC_MODE_FLAG = 0; // 1;
 	SFX_MODE_FLAG   = 1; // 1;
 }
 
@@ -71,9 +73,17 @@ static void initEnviroment( void )
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
+//#include "../res/psg/step1.h"
+//#include "../res/psg/step2.h"
+void psgtest()
+{
+//    psg_play( (u8*) step1_data, 0 ); waitSc(3);
+}
+
 int main( void )
 {
 	initEnviroment( );
+	psgtest();
 
     if ( !DEV )
     {

@@ -1,6 +1,7 @@
 #include <genesis.h>
 
 #include "../inc/sfx.h"
+#include "../inc/psg.h"
 
 
 
@@ -15,11 +16,18 @@ void sfxInit ( )
 
 void sfxPlay ( Sfx *sfx )
 {
-    sfxStop ( _channel );
+    switch ( sfx->driver )
+    {
+        case SFX_DRIVER_PSG:
+            psg_play ( sfx->data, sfx->track );
+            break;
 
-    XGM_startPlayPCM ( 64 + sfx->id, 1, _channel++ );
-
-    _channel %= 4;
+        case SFX_DRIVER_XMG:
+            sfxStop ( _channel );
+            XGM_startPlayPCM ( 64 + sfx->id, 1, _channel++ );
+            _channel %= 4;
+            break;
+    }
 }
 
 
@@ -38,4 +46,6 @@ void sfxMute ( )
     sfxStop ( SOUND_PCM_CH2 );
     sfxStop ( SOUND_PCM_CH3 );
     sfxStop ( SOUND_PCM_CH4 );
+
+    psg_pause();
 }

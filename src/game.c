@@ -115,6 +115,7 @@ u8 game_play( void )
 		map_run( );
 		hudInitialize( );
         playMusic(MUSIC_GAME);
+        setRandomSeed(vtimer);
 
 	VDP_setEnable( TRUE );
 

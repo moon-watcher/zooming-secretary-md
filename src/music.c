@@ -21,7 +21,7 @@ void musicPlay ( Music *track )
 	}
 	else if ( track->id != current->id )
 	{
-		u8 playing = SND_isPlaying_XGM();
+		u8 playing = XGM_isPlaying();
 
 		musicStop();
 

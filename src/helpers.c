@@ -5,6 +5,10 @@
 #include "../inc/music.h"
 #include "../inc/sfx.h"
 #include "../inc/game.h"
+#include "../res/psg/sfx_steps.h"
+#include "../res/psg/step1.h"
+#include "../res/psg/step2.h"
+
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -40,10 +44,10 @@ static const Sfx sfx_list [ SFX_MAX ] =
     { SFX_PAUSE,        "Pause",        (u8*) sfx_pause,        sizeof(sfx_pause)        },
     { SFX_RING,         "Ring",         (u8*) sfx_ring,         sizeof(sfx_ring)         },
     { SFX_START,        "Start",        (u8*) sfx_start,        sizeof(sfx_start)        },
-    { SFX_STEP_1,       "Step 1",       (u8*) sfx_step_1,       sizeof(sfx_step_1)       },
-    { SFX_STEP_2,       "Step 2",       (u8*) sfx_step_2,       sizeof(sfx_step_2)       },
-    { SFX_STEP_3,       "Step 3",       (u8*) sfx_step_3,       sizeof(sfx_step_3)       },
-    { SFX_STEP_4,       "Step 4",       (u8*) sfx_step_4,       sizeof(sfx_step_4)       },
+    { SFX_STEP_1,       "Step 1",       (u8*) sfx_steps_data,   0,                       SFX_DRIVER_PSG, 0 },
+    { SFX_STEP_2,       "Step 2",       (u8*) sfx_steps_data,   0,                       SFX_DRIVER_PSG, 1 },
+    { SFX_STEP_3,       "Step 3",       (u8*) sfx_steps_data,   0,                       SFX_DRIVER_PSG, 2 },
+    { SFX_STEP_4,       "Step 4",       (u8*) sfx_steps_data,   0,                       SFX_DRIVER_PSG, 3 },
     { SFX_TELEPORT,     "Teleport",     (u8*) sfx_teleport,     sizeof(sfx_teleport)     },
     { SFX_TOPIC,        "Topic",        (u8*) sfx_topic,        sizeof(sfx_topic)        },
     { SFX_WISDOM,       "Wisdom",       (u8*) sfx_wisdom,       sizeof(sfx_wisdom)       },
@@ -103,6 +107,7 @@ void playMusic ( u8 track )
     musicPlay ( (Music*) &music_list [ track ] );
 }
 
+
 Music *getMusic ( u8 track )
 {
     return (Music*) &music_list [ track ];
@@ -112,14 +117,17 @@ Music *getMusic ( u8 track )
 
 void initSfx ( )
 {
-   u16 i = SFX_MAX;
+    u16 i = SFX_MAX;
 
-   while ( i-- )
-   {
-      Sfx *sfx = (Sfx*) &sfx_list [ i ];
+    while ( i-- )
+    {
+        Sfx *sfx = (Sfx*) &sfx_list [ i ];
 
-      SND_setPCM_XGM ( 64 + sfx->id, sfx->data, sfx->length );
-   }
+        if ( sfx->driver == SFX_DRIVER_XMG )
+        {
+            XGM_setPCM ( 64 + sfx->id, sfx->data, sfx->length );
+        }
+    }
 }
 
 
@@ -132,6 +140,7 @@ void playSfx( u8 sfx )
 
     sfxPlay ( (Sfx*) &sfx_list [ sfx ] );
 }
+
 
 Sfx *getSfx ( u8 sfx )
 {
@@ -146,20 +155,17 @@ u8 getHz ( )
     return IS_PALSYSTEM ? 50 : 60;
 }
 
-void waitHz ( u16 hzs )
+
+void waitHz ( u16 hz )
 {
-    while ( hzs-- )
+    while ( hz-- )
     {
         VDP_waitVSync();
     }
 }
 
+
 void waitSc ( u16 sc )
 {
-    sc *= getHz();
-
-    while ( sc-- )
-    {
-        VDP_waitVSync();
-    }
+    waitHz ( sc * getHz() );
 }

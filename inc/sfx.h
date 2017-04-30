@@ -2,6 +2,14 @@
 #define _SFX_H_
 
 
+enum
+{
+    SFX_DRIVER_XMG,
+    SFX_DRIVER_PSG,
+
+    SFX_DRIVER_MAX,
+};
+
 
 typedef struct
 {
@@ -9,6 +17,8 @@ typedef struct
 	u8  *title;
 	u8  *data;
 	u32  length;
+	u8   driver;
+	u8   track;
 }
 Sfx;
 

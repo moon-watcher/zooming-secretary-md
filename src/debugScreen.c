@@ -7,7 +7,9 @@
 #include "../inc/music.h"
 #include "../inc/sfx.h"
 #include "../inc/helpers.h"
+#include "../inc/psg.h"
 #include "../inc/dev.h"
+#include "../inc/tempo.h"
 
 /*
  * Jack Nolddor, [14.09.15 20:35]
@@ -39,6 +41,9 @@ static s16 scrollOffset = 0;
 
 static _voidCallback *updateScroll ( )
 {
+    psg_callback();
+    XGM_setMusicTempo ( getMusicTempo() );
+
     VDP_setHorizontalScroll(PLAN_B, scrollOffset>>1 );
     VDP_setVerticalScroll(PLAN_B, scrollOffset>>1 );
 
