@@ -6,8 +6,6 @@
 #include "../inc/sfx.h"
 #include "../inc/game.h"
 #include "../res/psg/sfx_steps.h"
-#include "../res/psg/step1.h"
-#include "../res/psg/step2.h"
 
 
 
