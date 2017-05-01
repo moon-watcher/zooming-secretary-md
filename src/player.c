@@ -48,7 +48,28 @@ static u16 sfxDirVertical;
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
-void playerSfxStep ( )
+
+static u16 playerGetAminationSpeed ()
+{
+    const u16 baseRefresh = 6;
+    const u16 baseSpeed   = 24;
+
+    u16 aux = playerCurrentSpeed ;
+
+    if ( !aux ) aux = 1;
+
+    u16 vel = baseRefresh * baseSpeed / aux;
+
+    if ( !vel ) vel = 1;
+
+    return vel;
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static void playerSfxStep ( )
 {
     if ( player_dir == DIR_LEFT  ||  player_dir == DIR_RIGHT )
     {
@@ -58,6 +79,19 @@ void playerSfxStep ( )
     if ( player_dir == DIR_UP    ||  player_dir == DIR_DOWN  )
     {
         playSfx ( ++sfxDirVertical % 2 ? SFX_STEP_3 : SFX_STEP_4 );
+    }
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static void updateNextFrame ( )
+{
+    if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
+    {
+        SPR_nextFrame( playerSprite );
+        playerSfxStep( );
     }
 }
 
@@ -194,28 +228,6 @@ static u8 isPlayerOnLadder( void )
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
-
-
-static u16 playerGetAminationSpeed ()
-{
-    const u16 baseRefresh = 6;
-    const u16 baseSpeed   = 24;
-
-    u16 aux = playerCurrentSpeed ;
-
-    if ( !aux ) aux = 1;
-
-    u16 vel = baseRefresh * baseSpeed / aux;
-
-    if ( !vel ) vel = 1;
-
-    return vel;
-}
-
-
-/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
-
-
 
 
 static void doPlayerMovement( u16 state )
@@ -363,11 +375,7 @@ static void doPlayerMovement( u16 state )
                 }
             }
 
-            if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
-            {
-                SPR_nextFrame( playerSprite );
-                playerSfxStep( );
-            }
+            updateNextFrame();
 
             player_move_cnt -= playerCurrentSpeed;
 
@@ -405,11 +413,7 @@ static void doPlayerMovement( u16 state )
             setSecretaryPriority( FALSE );
             checkForPlayerHorizontalWarp( );
 
-            if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
-            {
-                SPR_nextFrame( playerSprite );
-                playerSfxStep( );
-            }
+            updateNextFrame();
         }
 
         if ( player_dir == DIR_NONE )

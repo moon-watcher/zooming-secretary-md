@@ -222,6 +222,8 @@ void game_done( void )
 	u8 i = 255;
 	u16 j = 0;
 
+	JoyReaderReset();
+
 	while( !( PAD_1_PRESSED_ABC | PAD_1_PRESSED_START ) || wait < 50 )
 	{
 		VDP_waitVSync( );
@@ -255,11 +257,13 @@ void game_done( void )
 		if ( ++j >= 1280 )
 		{
 			j = 0;
+			musicResume();
 		}
 
 		if ( j == 1240 )
 		{
 		    playSfx(SFX_RING);
+		    musicPause();
 		}
 		if ( j == 1270 )
 		{
