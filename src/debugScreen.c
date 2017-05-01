@@ -4,12 +4,9 @@
 #include "../inc/game.h"
 #include "../inc/joyreader.h"
 #include "../inc/common.h"
-#include "../inc/music.h"
-#include "../inc/sfx.h"
 #include "../inc/helpers.h"
-#include "../inc/psg.h"
 #include "../inc/dev.h"
-#include "../inc/tempo.h"
+#include "../inc/vint.h"
 
 /*
  * Jack Nolddor, [14.09.15 20:35]
@@ -36,28 +33,9 @@ static const u8 *options[] =
 
 
 
-static s16 scrollOffset = 0;
-
-
-static _voidCallback *updateScroll ( )
-{
-    psg_callback();
-    XGM_setMusicTempo ( getMusicTempo() );
-
-    VDP_setHorizontalScroll(PLAN_B, scrollOffset>>1 );
-    VDP_setVerticalScroll(PLAN_B, scrollOffset>>1 );
-
-    scrollOffset++;
-
-	return 0;
-}
-
-
 static void cleanScreen( void )
 {
 	VDP_setEnable( FALSE ) ;
-
-	SYS_setVIntCallback ( NULL );
 
 	VDP_setHorizontalScroll(PLAN_B, 0 );
 	VDP_setVerticalScroll(PLAN_B, 0 );
@@ -112,8 +90,7 @@ static void initDebugScreen()
 
 	VDP_drawImageEx( PLAN_B, &debugScreenImg, IMG_ATTRIBUTES, 0, 0, TRUE, FALSE );
 
-	scrollOffset = 0;
-    SYS_setVIntCallback ( (_voidCallback*) updateScroll );
+	VIntSetUpdateScroll ( 1 );
 
 	VDP_setTextPalette(PAL0);
 	VDP_drawTextBG( PLAN_A, "DEBUG OPTIONS", 14, 2 );
@@ -227,6 +204,8 @@ void showDebugScreen( void )
 
 	cleanScreen( );
     musicStop();
+
+    VIntSetUpdateScroll ( 0 );
 
 	GOD_MODE_FLAG   = optionStatus[0];
 	LEVEL_MODE_FLAG = optionStatus[1];

@@ -1,8 +1,8 @@
 #include <genesis.h>
+
 #include "../res/rescomp.h"
 #include "../inc/spritedispatcher.h"
 #include "../inc/joyreader.h"
-
 #include "../inc/dev.h"
 #include "../inc/game.h"
 #include "../inc/hud.h"
@@ -15,22 +15,12 @@
 #include "../inc/creditsScreen.h"
 #include "../inc/playonretroScreen.h"
 #include "../inc/music.h"
-#include "../inc/sfx.h"
 #include "../inc/helpers.h"
 #include "../inc/tempo.h"
-#include "../inc/psg.h"
+#include "../inc/vint.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
-
-
-static _voidCallback *VIntCallback ( )
-{
-    psg_callback ( );
-	XGM_setMusicTempo ( getMusicTempo() );
-
-	return 0;
-}
 
 
 static void initDisplay ( )
@@ -57,14 +47,12 @@ static void initEnviroment( void )
 
 	VDP_loadFont( &zosFont, FALSE );
 
-	SYS_setInterruptMaskLevel( 4 );
-	SYS_setVIntCallback ( (_voidCallback*) VIntCallback );
+	VintInit();
 
-	DEV             = 1; // 0;
-
-	GOD_MODE_FLAG   = 1; // 0;
-    LEVEL_MODE_FLAG = 1; // 0;
-	EXIT_MODE_FLAG  = 1; // 0;
+	DEV             = 0; // 0;
+	GOD_MODE_FLAG   = 0; // 0;
+    LEVEL_MODE_FLAG = 0; // 0;
+	EXIT_MODE_FLAG  = 0; // 0;
 	MUSIC_MODE_FLAG = 0; // 1;
 	SFX_MODE_FLAG   = 1; // 1;
 }
