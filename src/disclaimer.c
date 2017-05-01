@@ -1,6 +1,9 @@
 #include <genesis.h>
+
 #include "../res/rescomp.h"
 #include "../inc/disclaimer.h"
+#include "../inc/dev.h"
+
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
@@ -234,6 +237,11 @@ static void drawDisclaimerGraphics( void )
 
 void showDisclaimer( void )
 {
+    if ( DEV )
+    {
+        return;
+    }
+
 	drawDisclaimerGraphics( );
 	doTextDisclaimerFadeIn( );
 	doDisclaimerBGFadeIn( );

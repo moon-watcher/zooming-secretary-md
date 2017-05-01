@@ -1,11 +1,18 @@
 #include <genesis.h>
 
 #include "../inc/creditsScreen.h"
+#include "../inc/dev.h"
 #include "../res/rescomp.h"
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
 static u16 colors[64];
 static u16 y;
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
 static void writeText ( u8 *str, u16 pal, u8 inc_y )
@@ -19,6 +26,9 @@ static void writeText ( u8 *str, u16 pal, u8 inc_y )
 
     y += inc_y;
 }
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
 static void preparePalettes ()
@@ -39,6 +49,9 @@ static void preparePalettes ()
 }
 
 
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
 static void writeTextCredits1 ()
 {
     writeText ( "ZOOMING SECRETARY", PAL1, 1 );
@@ -49,6 +62,9 @@ static void writeTextCredits1 ()
     writeText ( "PINWIZZ & SHIRU", PAL2, 1 );
     writeText ( "@ 2011", PAL2, 1 );
 }
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
 static void writeTextCredits2 ()
@@ -63,6 +79,9 @@ static void writeTextCredits2 ()
     writeText ( "TESTING", PAL1, 2 );
     writeText ( "ALFONSO MARTINEZ @_SRPRESLEY_", PAL2, 1 );
 }
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
 static u16 writeCredits ( u8 part, u8 y_pos )
@@ -86,8 +105,16 @@ static u16 writeCredits ( u8 part, u8 y_pos )
 }
 
 
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
 void showCredits ()
 {
+    if ( DEV )
+    {
+        return;
+    }
+
     VDP_clearPlan ( PLAN_A, 1 );
     VDP_clearPlan ( PLAN_B, 1 );
 
@@ -102,3 +129,4 @@ void showCredits ()
 }
 
 
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */

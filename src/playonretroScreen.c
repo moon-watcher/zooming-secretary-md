@@ -1,12 +1,20 @@
 #include <genesis.h>
 
 #include "../inc/playonretroScreen.h"
+#include "../inc/dev.h"
 #include "../res/rescomp.h"
 
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
 void showPlayonretro ( )
 {
+    if ( DEV )
+    {
+        return;
+    }
+
     SYS_disableInts();
 
     VDP_clearPlan(PLAN_A, 1);
@@ -24,3 +32,6 @@ void showPlayonretro ( )
     VDP_clearPlan(PLAN_A, 1);
     VDP_clearPlan(PLAN_B, 1);
 }
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */

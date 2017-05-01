@@ -96,10 +96,10 @@ WAV     sfx_miss               "sfx/miss.wav"                    XMG
 WAV     sfx_pause              "sfx/pause.wav"                   XMG
 WAV     sfx_ring               "sfx/ring.wav"                    XMG
 WAV     sfx_start              "sfx/start.wav"                   XMG
-WAV     sfx_step_1             "sfx/step1.wav"                   XMG
-WAV     sfx_step_2             "sfx/step2.wav"                   XMG
-WAV     sfx_step_3             "sfx/step3.wav"                   XMG
-WAV     sfx_step_4             "sfx/step4.wav"                   XMG
+#WAV     sfx_step_1             "sfx/step1.wav"                   XMG
+#WAV     sfx_step_2             "sfx/step2.wav"                   XMG
+#WAV     sfx_step_3             "sfx/step3.wav"                   XMG
+#WAV     sfx_step_4             "sfx/step4.wav"                   XMG
 WAV     sfx_teleport           "sfx/teleport.wav"                XMG
 WAV     sfx_topic              "sfx/topic.wav"                   XMG
 WAV     sfx_wisdom             "sfx/wisdom.wav"                  XMG

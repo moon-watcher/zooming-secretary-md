@@ -61,34 +61,20 @@ static void initEnviroment( void )
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-//#include "../res/psg/step1.h"
-//#include "../res/psg/step2.h"
-void psgtest()
-{
-//    psg_play( (u8*) step1_data, 0 ); waitSc(3);
-}
-
 int main( void )
 {
 	initEnviroment( );
-	psgtest();
 
-    if ( !DEV )
-    {
-        showDisclaimer ();
-        //showSega();
-    }
+    showDisclaimer ();
 
 	while( TRUE )    // main-loop
 	{
 	    initDisplay ( );
 	    initMusicTempo ();
 
-        if ( !DEV )
-        {
-            showPlayonretro ( );
-            showCredits ();
-        }
+        showPlayonretro ( );
+        showCredits ();
+
 
 		u8 isCheatCodeActivated;
 
