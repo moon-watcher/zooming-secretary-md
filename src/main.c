@@ -66,6 +66,7 @@ int main( void )
 	initEnviroment( );
 
     showDisclaimer ();
+    //showSega();
 
 	while( TRUE )    // main-loop
 	{
