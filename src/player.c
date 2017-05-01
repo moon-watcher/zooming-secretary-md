@@ -48,13 +48,14 @@ static u16 sfxDirVertical;
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
-void playerSfxStep ( u16 dir )
+void playerSfxStep ( )
 {
-    if ( dir == 1 )
+    if ( player_dir == DIR_LEFT  ||  player_dir == DIR_RIGHT )
     {
         playSfx( ++sfxDirHorizontal % 2 ? SFX_STEP_1 : SFX_STEP_2 );
     }
-    else
+
+    if ( player_dir == DIR_UP    ||  player_dir == DIR_DOWN  )
     {
         playSfx ( ++sfxDirVertical % 2 ? SFX_STEP_3 : SFX_STEP_4 );
     }
@@ -221,6 +222,7 @@ static void doPlayerMovement( u16 state )
 {
 	if ( IS_TALKING_ON_PHONE ) { delayBeforeHangUp--; }
 
+	u16 prev_player_dir = player_dir;
 
 
 	if ( isPlayerFalling( ) )
@@ -273,163 +275,170 @@ static void doPlayerMovement( u16 state )
 	}
 	else
 	{
-            playerFallingCounter = 0;
+        playerFallingCounter = 0;
 
-			s16 x = ( playerFixedPositionX >> FP_BITS );
-			s16 y = ( playerFixedPositionY >> FP_BITS );
+        s16 x = ( playerFixedPositionX >> FP_BITS );
+        s16 y = ( playerFixedPositionY >> FP_BITS );
 
-			//TODO: ARREGLAR FRAME DEBE DE SER DEPENDIENDO DE LA VELOCIDAD --> HECHO
+        //TODO: ARREGLAR FRAME DEBE DE SER DEPENDIENDO DE LA VELOCIDAD --> HECHO
 
-			if ( !player_move_cnt )
-			{
-
-				if ( state & BUTTON_UP )
-				{
-					if ( map_getTile( x + 14, y + 31 ) == TILE_LADDER || map_getTile( x + 9, y + 31 ) == TILE_LADDER )    //ladder doesn't finish
-					{
-						//Auto Align to Ladder
-						while( map_getTile( x + 8, y + 31 ) != TILE_LADDER )
-						{
-							x++;
-						}
-						while( map_getTile( x + 16, y + 31 ) != TILE_LADDER )
-						{
-							x--;
-						}
-
-						playerFixedPositionX = ( x << FP_BITS );
-						player_dir = DIR_UP;
-						player_move_cnt = ( 16 << FP_BITS );
-					}
-				}
-
-				else if ( state & BUTTON_DOWN )
-				{
-					if ( map_getTile( x + 14, y + 32 ) == TILE_LADDER || map_getTile( x + 9, y + 32 ) == TILE_LADDER )    //ladder doesn't finish
-					{
-						//Auto Align to Ladder
-						while( map_getTile( x + 8, y + 32 ) != TILE_LADDER )
-						{
-							x++;
-						}
-						while( map_getTile( x + 16, y + 32 ) != TILE_LADDER )
-						{
-							x--;
-						}
-
-						playerFixedPositionX = ( x << FP_BITS );
-						player_dir = DIR_DOWN;
-						player_move_cnt = ( 16 << FP_BITS );
-					}
-				}
-			}
-
-			if ( player_move_cnt )
-			{
-				if ( player_dir == DIR_UP )
-				{
-					setSecretaryPriority( FALSE ); // TRUE
-					playerFixedPositionY -= playerCurrentSpeed;
-
-					//Check for player wrap
-					if ( playerFixedPositionY <= ( 24 ) << FP_BITS )
-					{
-						playerFixedPositionY = ( 224 - 8 - 1 ) << FP_BITS;
-					}
-
-					//Is player floating?? -OVERFLOW-
-					else if ( map_getTile( x + 12, ( playerFixedPositionY >> FP_BITS ) + 32 ) != TILE_LADDER )
-					{
-						playerFixedPositionY = ( playerFixedPositionY + ( 7 << FP_BITS ) ) & ~( 7 << FP_BITS );    //Round to next multiple of 8
-						player_dir = DIR_LEFT;
-					}
-				}
-				else if ( player_dir == DIR_DOWN )
-				{
-					setSecretaryPriority( FALSE ); // TRUE
-					playerFixedPositionY += playerCurrentSpeed;
-
-					//Check for player wrap
-					if ( playerFixedPositionY > ( 224 - 8 - 1 ) << FP_BITS )
-					{
-						playerFixedPositionY = ( 24 + 1 ) << FP_BITS;
-					}
-					//Is player inside the floor?? -OVERFLOW-
-					else if ( map_getTile( x + 12, ( playerFixedPositionY >> FP_BITS ) + 32 ) == TILE_FLOOR )
-					{
-						playerFixedPositionY &= ~( 7 << FP_BITS );    //Round to lower multiple of 8
-						player_dir = DIR_RIGHT;
-					}
-				}
-
-                if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
+        if ( !player_move_cnt )
+        {
+            if ( state & BUTTON_UP )
+            {
+                if ( map_getTile( x + 14, y + 31 ) == TILE_LADDER || map_getTile( x + 9, y + 31 ) == TILE_LADDER )    //ladder doesn't finish
                 {
-                    SPR_nextFrame( playerSprite );
-                    playerSfxStep ( 0 );
+                    //Auto Align to Ladder
+                    while( map_getTile( x + 8, y + 31 ) != TILE_LADDER )
+                    {
+                        x++;
+                    }
+                    while( map_getTile( x + 16, y + 31 ) != TILE_LADDER )
+                    {
+                        x--;
+                    }
+
+                    playerFixedPositionX = ( x << FP_BITS );
+                    player_dir = DIR_UP;
+                    player_move_cnt = ( 16 << FP_BITS );
+                }
+            }
+
+            else if ( state & BUTTON_DOWN )
+            {
+                if ( map_getTile( x + 14, y + 32 ) == TILE_LADDER || map_getTile( x + 9, y + 32 ) == TILE_LADDER )    //ladder doesn't finish
+                {
+                    //Auto Align to Ladder
+                    while( map_getTile( x + 8, y + 32 ) != TILE_LADDER )
+                    {
+                        x++;
+                    }
+                    while( map_getTile( x + 16, y + 32 ) != TILE_LADDER )
+                    {
+                        x--;
+                    }
+
+                    playerFixedPositionX = ( x << FP_BITS );
+                    player_dir = DIR_DOWN;
+                    player_move_cnt = ( 16 << FP_BITS );
+                }
+            }
+        }
+
+        if ( player_move_cnt )
+        {
+            if ( player_dir == DIR_UP )
+            {
+                setSecretaryPriority( FALSE ); // TRUE
+                playerFixedPositionY -= playerCurrentSpeed;
+
+                //Check for player wrap
+                if ( playerFixedPositionY <= ( 24 ) << FP_BITS )
+                {
+                    playerFixedPositionY = ( 224 - 8 - 1 ) << FP_BITS;
                 }
 
-				player_move_cnt -= playerCurrentSpeed;
+                //Is player floating?? -OVERFLOW-
+                else if ( map_getTile( x + 12, ( playerFixedPositionY >> FP_BITS ) + 32 ) != TILE_LADDER )
+                {
+                    playerFixedPositionY = ( playerFixedPositionY + ( 7 << FP_BITS ) ) & ~( 7 << FP_BITS );    //Round to next multiple of 8
+                    player_dir = DIR_LEFT;
+                }
+            }
+            else if ( player_dir == DIR_DOWN )
+            {
+                setSecretaryPriority( FALSE ); // TRUE
+                playerFixedPositionY += playerCurrentSpeed;
 
-				if ( player_move_cnt < 0 )
-				{
-					player_move_cnt = 0;
+                //Check for player wrap
+                if ( playerFixedPositionY > ( 224 - 8 - 1 ) << FP_BITS )
+                {
+                    playerFixedPositionY = ( 24 + 1 ) << FP_BITS;
+                }
+                //Is player inside the floor?? -OVERFLOW-
+                else if ( map_getTile( x + 12, ( playerFixedPositionY >> FP_BITS ) + 32 ) == TILE_FLOOR )
+                {
+                    playerFixedPositionY &= ~( 7 << FP_BITS );    //Round to lower multiple of 8
+                    player_dir = DIR_RIGHT;
+                }
+            }
 
-					if ( !isPlayerOnLadder() )
-                    {
-                        if ( player_dir == DIR_UP   ) player_dir = DIR_LEFT;
-                        if ( player_dir == DIR_DOWN ) player_dir = DIR_RIGHT;
-                    }
-				}
-			}
+            if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
+            {
+                SPR_nextFrame( playerSprite );
+                playerSfxStep( );
+            }
 
-			if ( !isPlayerOnLadder( ) )
-			{
-				if ( state & BUTTON_RIGHT )
-				{
-					setSecretaryPriority( FALSE );
-					playerFixedPositionX += playerCurrentSpeed;
+            player_move_cnt -= playerCurrentSpeed;
 
-					checkForPlayerHorizontalWarp( );
+            if ( player_move_cnt < 0 )
+            {
+                player_move_cnt = 0;
 
-
-					if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
-					{
-						SPR_nextFrame( playerSprite );
-						playerSfxStep ( 1 );
-					}
-					player_dir = DIR_RIGHT;
-				}
-
-				else if ( state & BUTTON_LEFT )
-				{
-					setSecretaryPriority( FALSE );
-					playerFixedPositionX -= playerCurrentSpeed;
-
-					checkForPlayerHorizontalWarp( );
-
-					if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
-					{
-						SPR_nextFrame( playerSprite );
-						playerSfxStep ( 1 );
-					}
-					player_dir = DIR_LEFT;
-				}
-			}
-
-			setSecretaryHFlip( FALSE );
-			SPR_setAnim( playerSprite, player_dir + ( IS_TALKING_ON_PHONE ? 4 : 0 ) );
-		}
-
-		if ( DEV )
-        {
-            drawUInt ( player_dir,0,3,2 );
-            drawUInt ( playerCurrentSpeed,0,4,3 );
-            drawUInt ( playerGetAminationSpeed (),0,5,3 );
-            drawInt  ( playerFixedPositionX >> FP_BITS, 0, 6, 3 );
-            drawInt  ( playerFixedPositionY >> FP_BITS, 0, 7, 3 );
-            drawInt  ( playerFallingCounter, 0, 8, 3 );
-
+                if ( !isPlayerOnLadder() )
+                {
+                    if ( player_dir == DIR_UP   ) player_dir = DIR_LEFT;
+                    if ( player_dir == DIR_DOWN ) player_dir = DIR_RIGHT;
+                }
+            }
         }
+
+        if ( !isPlayerOnLadder( ) )
+        {
+            player_dir = DIR_NONE;
+
+            if ( state & BUTTON_RIGHT )
+            {
+                playerFixedPositionX += playerCurrentSpeed;
+                player_dir  = DIR_RIGHT;
+                player_flip = FALSE;
+            }
+
+            else if ( state & BUTTON_LEFT )
+            {
+                playerFixedPositionX -= playerCurrentSpeed;
+                player_dir  = DIR_LEFT;
+                player_flip = TRUE;
+            }
+
+
+            setSecretaryPriority( FALSE );
+            checkForPlayerHorizontalWarp( );
+
+            if ( !( ++player_frame_cnt % playerGetAminationSpeed() ) )
+            {
+                SPR_nextFrame( playerSprite );
+                playerSfxStep( );
+            }
+        }
+
+        if ( player_dir == DIR_NONE )
+        {
+            setSecretaryHFlip( player_flip );
+            SPR_setAnim( playerSprite, 8 );
+        }
+        else
+        {
+            setSecretaryHFlip( FALSE );
+            SPR_setAnim( playerSprite, player_dir + ( IS_TALKING_ON_PHONE ? 4 : 0 ) );
+        }
+
+        if ( prev_player_dir != player_dir )
+        {
+            playerSfxStep( );
+        }
+    }
+
+    if ( DEV )
+    {
+        drawUInt ( getFPS(),0,0,2 );
+        drawUInt ( player_dir,0,3,2 );
+        drawUInt ( playerCurrentSpeed,0,4,3 );
+        drawUInt ( playerGetAminationSpeed (),0,5,3 );
+        drawInt  ( playerFixedPositionX >> FP_BITS, 0, 6, 3 );
+        drawInt  ( playerFixedPositionY >> FP_BITS, 0, 7, 3 );
+        drawInt  ( playerFallingCounter, 0, 8, 3 );
+    }
 }
 
 void playerReset( void )
@@ -450,6 +459,7 @@ void player_init( s16 x, s16 y )
 	delayBeforeHangUp = 0;
 	player_move_cnt = 0;
 	player_dir = DIR_RIGHT;
+	player_flip = FALSE;
 	playerKnockedDuration = 0;
 	playerFallingCounter = 0;
 	player_knocked_ani = 0;

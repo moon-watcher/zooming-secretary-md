@@ -14,6 +14,7 @@
     u8       playerKnockedDuration;     // Used for knocked AI (DAY 6)
     u8       player_knocked_ani; // Used for knocked Animation (DAY 6)
     u8       player_dir;         // Player current direction
+    u8       player_flip;         // Player current orientation
     u16      playerWisdomDuration;      // Used for BONUS purposes
     u8       isPlayerCatched;
 
