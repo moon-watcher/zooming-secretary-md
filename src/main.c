@@ -49,7 +49,7 @@ static void initEnviroment( void )
 
 	VintInit();
 
-	DEV             = 0; // 0;
+	DEV             = 1; // 0;
 	GOD_MODE_FLAG   = 0; // 0;
     LEVEL_MODE_FLAG = 0; // 0;
 	EXIT_MODE_FLAG  = 0; // 0;
@@ -64,7 +64,7 @@ static void initEnviroment( void )
 int main( void )
 {
 	initEnviroment( );
-
+showDebugScreen( );
     showDisclaimer ();
     //showSega();
 
