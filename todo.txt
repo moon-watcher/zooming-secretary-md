@@ -65,6 +65,8 @@ DONE - En weeked pausar la música cuando suena el teléfono y resume cuando baje 
 DONE - SFX pendientes de colorcar: SFX_MISS, SFX_DROP --> preguntar a Jack
 DONE - Animación del player cuando supera un nivel
 ---------------------------------------------------------------------------------------------------------------
+- Blink al UNLOCKED
+- Menu.c a debug
 - Mejorar transciones al mostrar pantallas de title y debug
 - Reinyectar musica en partes clave
 - Todos los teléfonos deberían sonar sincronamente como en el original --> o bien que cada teléfono tenga un sonido diferente... 

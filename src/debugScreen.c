@@ -7,6 +7,7 @@
 #include "../inc/helpers.h"
 #include "../inc/dev.h"
 #include "../inc/vint.h"
+#include "../inc/menu.h"
 
 /*
  * Jack Nolddor, [14.09.15 20:35]
@@ -18,45 +19,6 @@ sfx On / Off
  */
 
 #define IMG_ATTRIBUTES ( TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ) )
-
-
-
-
-typedef struct _Option
-{
-    u8    x, x2, y;
-    u8   *string;
-    u8*  (*funct) (struct _Option *);
-    void (*exec) (struct _Option *);
-    s32   value;
-    s32   nbElements;
-}
-Option;
-
-
-
-
-static void drawOption ( Option *option, u8 selected )
-{
-    VDP_setTextPalette ( selected ? PAL1 : PAL0 );
-    VDP_drawTextBG( PLAN_A, option->string, option->x, option->y );
-}
-
-static void drawValue ( Option *option )
-{
-    VDP_clearTextAreaBG ( PLAN_A, option->x2, option->y, 20, 1 );
-    VDP_setTextPalette ( PAL0 );
-    VDP_drawTextBG( PLAN_A, option->funct(option), option->x2, option->y );
-}
-
-static void incValue ( Option *option, s16 inc )
-{
-    option->value += inc;
-
-    if ( option->value < 0 ) option->value = option->nbElements-1;
-    if ( option->value >= option->nbElements ) option->value = 0;
-}
-
 
 
 
@@ -138,53 +100,6 @@ static void initDebugScreen( Option *options )
 
 
 
-s8 currentOption = 0;
-
-void updateMenu ( Option *options )
-{
-	#define OPTION &options[currentOption]
-	do
-	{
-		VDP_waitVSync( );
-
-        //drawValue ( OPTION );
-
-		JoyReaderUpdate( );
-
-        if ( PAD_1_PRESSED_ABC   ) option->exec ( option );
-        if ( PAD_1_PRESSED_RIGHT ) incValue ( OPTION, +1 );
-        if ( PAD_1_PRESSED_LEFT  ) incValue ( OPTION, -1 );
-
-		if ( PAD_1_PRESSED_UP || PAD_1_PRESSED_DOWN )
-        {
-            drawOption ( OPTION, 0 );
-
-            currentOption += ( PAD_1_PRESSED_DOWN ? +1 : -1 );
-
-            if ( currentOption < 0 ) currentOption = 6;
-            if ( currentOption > 6 ) currentOption = 0;
-
-            drawOption ( OPTION, 1 );
-        }
-
-        drawValue ( OPTION );
-	}
-	while( !PAD_1_PRESSED_START );
-}
-
-void initMenu ( Option *options )
-{
-    currentOption = 0;
-    drawValue ( &options[0] );
-	drawValue ( &options[1] );
-	drawValue ( &options[2] );
-	drawValue ( &options[3] );
-	drawValue ( &options[4] );
-	drawValue ( &options[5] );
-	drawValue ( &options[6] );
-}
-
-
 
 
 void showDebugScreen( void )
@@ -208,8 +123,8 @@ void showDebugScreen( void )
     MUSIC_MODE_FLAG = 1; // enable flag to play it
     SFX_MODE_FLAG   = 1; // enable flag to play it
 
-	initMenu ( options );
-    updateMenu ( options );
+	MenuInit ( options );
+    MenuLoop ( options );
 
 
     VDP_setEnable( FALSE ) ;
