@@ -62,9 +62,9 @@ DONE - Cambiar el tempo de las música en PAUSE
 DONE - Transformar los pasos (STEP1,2,3,4) a psg con Psg2MOD2
 DONE - Animación de standing up
 DONE - En weeked pausar la música cuando suena el teléfono y resume cuando baje la cabeza ¿?
+DONE - SFX pendientes de colorcar: SFX_MISS, SFX_DROP --> preguntar a Jack
 ---------------------------------------------------------------------------------------------------------------
 - Reinyectar musica en partes clave
-- Todos los teléfonos deberían sonar sincronamente, como en el original --> o bien que cada teléfono tenga un sonido diferente... 
-- SFX pendientes de colorcar: SFX_MISS, SFX_DROP --> preguntar a Jack
+- Todos los teléfonos deberían sonar sincronamente como en el original --> o bien que cada teléfono tenga un sonido diferente... 
 - Quitar DEV
 - Vigilar rom_header
