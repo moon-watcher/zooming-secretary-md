@@ -30,8 +30,46 @@
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-	static u8 isGamePaused;
-	static u8 delayForPausedOrResumeAgain;
+static u8 isGamePaused;
+static u8 delayForPausedOrResumeAgain;
+
+static const struct
+{
+    u8 time;
+    u8 frame;
+}
+levelCompletedFrames [ 5 ] =
+{
+    {   0, 0 },
+    {  60, 1 },
+    {  80, 2 },
+    { 110, 1 },
+    { 130, 0 }
+};
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static void playerLevelCompletedAnimation ( u8 time, u8 isLevelCompleted )
+{
+    if ( !isLevelCompleted )
+    {
+        return;
+    }
+
+    u8 j;
+
+    for ( j=0; j<5; j++ )
+    {
+        if ( levelCompletedFrames[j].time == time )
+        {
+            SPR_setAnimAndFrame ( playerSprite, 9, levelCompletedFrames[j].frame );
+            SPR_update( );
+            break;
+        }
+    }
+}
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -191,9 +229,10 @@ u8 game_play( void )
 	u8 i;
 	for ( i = 0; i < 200; ++i )
 	{
-		VDP_waitVSync( );
-		messageUpdate( );
-		hudUpdate( );
+        VDP_waitVSync( );
+        messageUpdate( );
+        hudUpdate( );
+        playerLevelCompletedAnimation( i, isLevelCompleted );
 	}
 
     leaveProcess();
@@ -273,11 +312,7 @@ void game_done( void )
 
 	VDP_fadeOutAll(60,0);
 
-	for ( i = 0; i < 100; ++i )
-	{
-		VDP_waitVSync( );
-	}
-
+    waitHz(100);
 	musicStop();
 
 
