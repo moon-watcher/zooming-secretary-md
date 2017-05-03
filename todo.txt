@@ -78,6 +78,7 @@ DONE - Weekend, se ejecuta el fadeout y se queda colgado --> en real --> reset n
 DONE - Termina la fase, se ejecuta el fadeout y se queda colgado --> en real --> reset no funciona
 DONE - XYZ removed from splashScree and gameOverScreen
 DONE - Start added as button to splashScree and gameOverScreen
+DONE - En Pause, mostar el tempo "TEMPO:NN" al ser cambiado durante un medio segundo o así
 ---------------------------------------------------------------------------------------------------------------
 - Reinyectar musica en partes clave --> Música de Beyker
 - Todos los teléfonos deberían sonar sincronamente como en el original --> o bien que cada teléfono tenga un sonido diferente... 

@@ -31,6 +31,7 @@
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
+static s8 tempoTimeout;
 static u8 isGamePaused;
 static u8 delayForPausedOrResumeAgain;
 
@@ -92,29 +93,54 @@ static void checkForGamePauseOrResume( )
         delayForPausedOrResumeAgain = getHz() / 2;
         isGamePaused = !isGamePaused;
 
-        u16  xPos       = 0;
+        u16  yPos       = 0;
         void (*funct)() = musicResume;
         u8   tempo      = getDefaultMusicTempo();
 
         if ( isGamePaused )
         {
-            xPos  = VDP_getScreenHeight();
+            yPos  = VDP_getScreenHeight();
             funct = musicPause;
             tempo /= 3;
         }
 
         playSfx( SFX_PAUSE );
-        VDP_setVerticalScroll( PLAN_A, xPos );
+        VDP_setVerticalScroll( PLAN_A, yPos );
+        VDP_setVerticalScroll( PLAN_B, yPos );
         setMusicTempo ( tempo );
         //funct();
     }
 
-    if ( isGamePaused )
+    if ( isGamePaused && MUSIC_MODE_FLAG )
     {
-        u8 musicTempo = getMusicTempo();
+        u8 inc        = 0;
+        s8 musicTempo = getMusicTempo();
+        u8 tempo      = getDefaultMusicTempo();
 
-        if ( ( PAD_1_ACTIVE_UP   | PAD_1_ACTIVE_LEFT  | ( PAD_1_ACTIVE & BUTTON_A ) ) && ( musicTempo > 1                      ) ) --musicTempo;
-        if ( ( PAD_1_ACTIVE_DOWN | PAD_1_ACTIVE_RIGHT | ( PAD_1_ACTIVE & BUTTON_B ) ) && ( musicTempo < getDefaultMusicTempo() ) ) ++musicTempo;
+        if ( PAD_1_ACTIVE_UP   ) inc = -1;
+        if ( PAD_1_ACTIVE_DOWN ) inc = +1;
+
+        musicTempo += inc;
+
+        if ( musicTempo <     1 ) musicTempo = 1;
+        if ( musicTempo > tempo ) musicTempo = tempo;
+
+        if ( inc )
+        {
+            VDP_drawTextBG ( PLAN_A, "TEMPO   ", 16, 43 );
+            drawUInt ( musicTempo, 22, 43, 2 );
+            tempoTimeout = 20; // hz
+        }
+
+        if ( tempoTimeout )
+        {
+            --tempoTimeout;
+
+            if ( !tempoTimeout )
+            {
+                VDP_drawTextBG ( PLAN_A, "        ", 16, 43 );
+            }
+        }
 
         setMusicTempo ( musicTempo );
     }
