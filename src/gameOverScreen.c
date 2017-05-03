@@ -36,12 +36,13 @@ static void drawGameOverScreenGraphics( void )
 		VDP_clearPlan( PLAN_B, 1 );
 		VDP_drawImageEx( IMG_PAL, &gameOverScreenImg, IMG_ATTRIBUTES, 0, 0, 0, FALSE );
 
+        preparePal ( PAL0, gameOverScreenImg.palette->data );
+
 		color1 = gameOverScreenImg.palette->data[7];
 		color2 = gameOverScreenImg.palette->data[6];
 
         prepareColor ( 7, COLOR_BLACK );
 		prepareColor ( 6, COLOR_BLACK );
-        preparePal ( PAL0, gameOverScreenImg.palette->data );
 
 	displayOn(10);
 }
@@ -100,6 +101,8 @@ void showGameOverScreen( void )
 	playSfx(SFX_START);
 
     doTextBlinkingEffect( );
+
+    displayOff(10);
 }
 
 
