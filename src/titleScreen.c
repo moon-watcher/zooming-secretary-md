@@ -109,7 +109,14 @@ static void drawTitleScreenGraphics( void )
 		VDP_getPaletteColors(0,colores, 16);
 		VDP_setPalette(PAL1, colores);
 
+		u16 colors2[64] = { };
+		u16 colors3[64] = { };
+		VDP_getPaletteColors ( 0, colors2, 64 );
+		VDP_setPaletteColors ( 0, colors3, 64 );
+
 	VDP_setEnable( TRUE );
+
+	VDP_fadeAllTo ( colors2, 15, 0 );
 }
 
 
@@ -164,6 +171,8 @@ u8 showTitleScreen( void )
 	{
 		doPressStartFasterBlinking( );
 	}
+
+	VDP_fadeOutAll ( 15, 0 );
 
 	return isCheatCodeCompleted;
 }

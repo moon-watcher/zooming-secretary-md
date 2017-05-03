@@ -49,7 +49,7 @@ static void initEnviroment( void )
 
 	VintInit();
 
-	DEV             = 1; // 0;
+	DEV             = 0; // 0;
 	GOD_MODE_FLAG   = 0; // 0;
     LEVEL_MODE_FLAG = 0; // 0;
 	EXIT_MODE_FLAG  = 0; // 0;
