@@ -97,7 +97,7 @@ void showSega ( )
 
 			JoyReaderUpdate();
 
-			if ( PAD_1_PRESSED_BTN )
+			if ( PAD_1_PRESSED_ABC )
 			{
 			    VDP_fadeOutAll(10,0);
 				return ;

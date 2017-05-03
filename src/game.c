@@ -132,6 +132,8 @@ static void leaveProcess()
     SPR_update();
     SPRD_reset( );
 
+    VDP_waitVSync();
+
     musicStop();
 }
 
