@@ -46,7 +46,7 @@ extern const SpriteDefinition npcManboxSprDef;
 extern const SpriteDefinition npcDibrovSprDef;
 extern const SpriteDefinition secretarySprDef;
 extern const SpriteDefinition secretaryRestSprDef;
-extern const u8 music_game[32013];
+extern const u8 music_game[20499];
 extern const u8 music_dream[3945];
 extern const u8 music_clear[4792];
 extern const u8 music_nobonus[6085];

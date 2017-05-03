@@ -56,7 +56,7 @@ static void initEnviroment( void )
 	GOD_MODE_FLAG   = 0; // 0;
     LEVEL_MODE_FLAG = 0; // 0;
 	EXIT_MODE_FLAG  = 0; // 0;
-	MUSIC_MODE_FLAG = 0; // 1;
+	MUSIC_MODE_FLAG = 1; // 1;
 	SFX_MODE_FLAG   = 1; // 1;
 }
 
