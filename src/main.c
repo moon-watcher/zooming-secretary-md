@@ -64,7 +64,7 @@ static void initEnviroment( void )
 int main( void )
 {
 	initEnviroment( );
-//showDebugScreen( );
+
     showDisclaimer ();
     //showSega();
 

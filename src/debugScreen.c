@@ -21,52 +21,67 @@ sfx On / Off
 #define IMG_ATTRIBUTES ( TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ) )
 
 
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-static void incOnOff ( Option *option )
-{
-    incValue ( option, 1 );
-}
+static u8 str[40];
 
-static u8 *fOnOff ( Option *option )
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static u8 *funcOnOff ( Option *option )
 {
     return option->value ? "ON ": "OFF";
 }
 
-static u8 *fMusic ( Option *option )
-{
-    u8 str[40];
 
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static u8 *funcMusic ( Option *option )
+{
     strcpy ( str, getMusic ( option->value )->title );
     stoupper ( str );
 
     return str;
 }
 
-static u8 *fSfx ( Option *option )
-{
-    u8 str[40];
 
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static u8 *funcSfx ( Option *option )
+{
     strcpy ( str, getSfx ( option->value )->title );
     stoupper ( str );
 
     return str;
 }
 
-static void myPlayMusic ( Option *option )
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static void funcPlayMusic ( Option *option )
 {
     playMusic ( option->value );
 }
 
-static void myPlaySfx ( Option *option )
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static void funcPlaySfx ( Option *option )
 {
     playSfx ( option->value );
 }
 
 
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-static void initDebugScreen( Option *options )
+static void initDebugScreen ( )
 {
 	VDP_waitVSync( );
 
@@ -85,54 +100,51 @@ static void initDebugScreen( Option *options )
 	VDP_setPaletteColor ( 12, 0xfff );
 	VDP_setPaletteColor ( 13, 0x000 );
 
-	drawOption ( &options[0], 1 );
-	drawOption ( &options[1], 0 );
-	drawOption ( &options[2], 0 );
-	drawOption ( &options[3], 0 );
-	drawOption ( &options[4], 0 );
-	drawOption ( &options[5], 0 );
-	drawOption ( &options[6], 0 );
-
     VDP_setEnable( TRUE );
 }
 
 
-
-
-
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
 void showDebugScreen( void )
 {
+    initDebugScreen ( );
+
     Option options[] =
     {
-        { 8, 24,  6, "INVINCIBILITY",   fOnOff, incOnOff,    GOD_MODE_FLAG,   2 },
-        { 8, 24,  8, "LEVEL SELECTION", fOnOff, incOnOff,    LEVEL_MODE_FLAG, 2 },
-        { 8, 24, 10, "FAST EXIT",       fOnOff, incOnOff,    EXIT_MODE_FLAG,  2 },
-        { 8, 24, 12, "ACTIVATE MUSIC",  fOnOff, incOnOff,    MUSIC_MODE_FLAG, 2 },
-        { 8, 24, 14, "ACTIVATE SFX",    fOnOff, incOnOff,    SFX_MODE_FLAG,   2 },
-        { 8, 24, 16, "MUSIC",           fMusic, myPlayMusic, 0,               MUSIC_MAX },
-        { 8, 24, 18, "SFX",             fSfx,   myPlaySfx,   0,               SFX_MAX },
+        { "INVINCIBILITY",   funcOnOff, MenuOptionInc, GOD_MODE_FLAG,   2         },
+        { "LEVEL SELECTION", funcOnOff, MenuOptionInc, LEVEL_MODE_FLAG, 2         },
+        { "FAST EXIT",       funcOnOff, MenuOptionInc, EXIT_MODE_FLAG,  2         },
+        { "ACTIVATE MUSIC",  funcOnOff, MenuOptionInc, MUSIC_MODE_FLAG, 2         },
+        { "ACTIVATE SFX",    funcOnOff, MenuOptionInc, SFX_MODE_FLAG,   2         },
+        { "MUSIC",           funcMusic, funcPlayMusic, 0,               MUSIC_MAX },
+        { "SFX",             funcSfx,   funcPlaySfx,   0,               SFX_MAX   },
     };
 
+    MUSIC_MODE_FLAG = 1; // enable flag to play music
+    SFX_MODE_FLAG   = 1; // enable flag to play sfx
 
-    initDebugScreen( options );
+    Menu menu;
 
+    MenuInit ( &menu );
+    MenuSetPosition ( &menu, 7, 6, 24 );
+    MenuAddOption ( &menu, &options[0] );
+    MenuAddOption ( &menu, &options[1] );
+    MenuAddOption ( &menu, &options[2] );
+    MenuAddOption ( &menu, &options[3] );
+    MenuAddOption ( &menu, &options[4] );
+    MenuAddOption ( &menu, &options[5] );
+    MenuAddOption ( &menu, &options[6] );
+    MenuDraw ( &menu );
+    MenuLoop ( &menu );
 
+    VDP_fadeOutAll ( 15, 0 );
 
-    MUSIC_MODE_FLAG = 1; // enable flag to play it
-    SFX_MODE_FLAG   = 1; // enable flag to play it
-
-	MenuInit ( options );
-    MenuLoop ( options );
-
-
-    VDP_setEnable( FALSE ) ;
-
-	VDP_setHorizontalScroll(PLAN_B, 0 );
-	VDP_setVerticalScroll(PLAN_B, 0 );
-	VDP_setHorizontalScroll(PLAN_A, 0 );
-	VDP_setVerticalScroll(PLAN_A, 0 );
+	VDP_setHorizontalScroll ( PLAN_B, 0 );
+	VDP_setVerticalScroll   ( PLAN_B, 0 );
+	VDP_setHorizontalScroll ( PLAN_A, 0 );
+	VDP_setVerticalScroll   ( PLAN_A, 0 );
 
 	VDP_clearPlan( PLAN_A, 1 );
 
@@ -140,11 +152,11 @@ void showDebugScreen( void )
 
     VIntSetUpdateScroll ( 0 );
 
-	GOD_MODE_FLAG   = options[0].value;
-	LEVEL_MODE_FLAG = options[1].value;
-	EXIT_MODE_FLAG  = options[2].value;
-	MUSIC_MODE_FLAG = options[3].value;
-	SFX_MODE_FLAG   = options[4].value;
+	GOD_MODE_FLAG   = menu.options[0]->value;
+	LEVEL_MODE_FLAG = menu.options[1]->value;
+	EXIT_MODE_FLAG  = menu.options[2]->value;
+	MUSIC_MODE_FLAG = menu.options[3]->value;
+	SFX_MODE_FLAG   = menu.options[4]->value;
 
     if ( DEV )
     {
@@ -155,3 +167,6 @@ void showDebugScreen( void )
         drawInt ( SFX_MODE_FLAG,   0, 14, 1 );
     }
 }
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
