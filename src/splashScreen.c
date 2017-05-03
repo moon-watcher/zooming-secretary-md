@@ -7,6 +7,7 @@
 #include "../inc/common.h"
 #include "../inc/helpers.h"
 #include "../inc/dev.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -16,10 +17,6 @@
 #define COLOR_GREY ( 0x0666 )
 #define COLOR_BLUE ( 0x0EA0 )
 #define COLOR_NAVYBLUE ( 0x0E20 )
-
-#define SPLASH_PALETTE PAL0
-#define SPLASH_PAL PLAN_A
-#define SPLASH_ATTRIBUTES ( TILE_ATTR( SPLASH_PALETTE, FALSE, FALSE, FALSE ) )
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -37,13 +34,13 @@ const char *levelNames[ ] =
 
 static void prepareScreen( void )
 {
-	VDP_waitVSync( );
-
 	VDP_clearPlan( PLAN_B, 1 );
 	VDP_clearPlan( PLAN_A, 1 );
 
-	const u16 colors[ ] = { COLOR_WHITE, COLOR_GREY, COLOR_BLUE, COLOR_NAVYBLUE };
-	VDP_setPaletteColors(12, (u16 *) colors , 4);
+	prepareColor ( 12, COLOR_WHITE );
+	prepareColor ( 13, COLOR_GREY );
+	prepareColor ( 14, COLOR_BLUE );
+	prepareColor ( 15, COLOR_NAVYBLUE );
 }
 
 
@@ -52,7 +49,7 @@ static void prepareScreen( void )
 
 static void drawLevelName( void )
 {
-    VDP_setTextPalette(SPLASH_PALETTE);
+    VDP_setTextPalette(PAL0);
 	VDP_drawTextBG( PLAN_A, levelNames[ lvl ], 17, 12 );
 }
 
@@ -62,8 +59,12 @@ static void drawLevelName( void )
 
 void showSplashScreen( void )
 {
+	displayOff(0);
+
 	prepareScreen( );
 	drawLevelName( );
+
+	displayOn(10);
 
 	if ( LEVEL_MODE_FLAG )
 	{
@@ -101,6 +102,8 @@ void showSplashScreen( void )
     }
 
     musicStop();
+
+    displayOff(10);
 }
 
 
