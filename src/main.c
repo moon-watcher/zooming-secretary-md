@@ -18,6 +18,7 @@
 #include "../inc/helpers.h"
 #include "../inc/tempo.h"
 #include "../inc/vint.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -42,6 +43,7 @@ static void initEnviroment( void )
 	SPR_init( 80, 0, 0 );
 	SPRD_reset( );
 	initMusicTempo ();
+	displayInit();
 
 	JoyReaderInit( );
 

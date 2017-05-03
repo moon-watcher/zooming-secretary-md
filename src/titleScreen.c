@@ -7,6 +7,7 @@
 #include "../inc/helpers.h"
 #include "../inc/game.h"
 #include "../inc/dev.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -97,28 +98,20 @@ static void checkForCheatCodeCompleted( void )
 
 static void drawTitleScreenGraphics( void )
 {
-	VDP_setEnable( FALSE );
+    displayOff(0);
 
-		VDP_drawImageEx( PLAN_B, &titleScreenImg, IMG_ATTRIBUTES, 0, 0, TRUE, FALSE );
+    VDP_drawImageEx( PLAN_B, &titleScreenImg, IMG_ATTRIBUTES, 0, 0, FALSE, FALSE );
 
-        color1 = VDP_getPaletteColor(12);
-		color2 = VDP_getPaletteColor(13);
+    preparePal ( PAL0, titleScreenImg.palette->data );
+    color1 = titleScreenImg.palette->data[12];
+    color2 = titleScreenImg.palette->data[13];
 
-        VDP_setPaletteColor(  1, COLOR_BLACK );
-		VDP_setPaletteColor( 15, COLOR_BLACK );
+    prepareColor (  1, COLOR_BLACK );
+    prepareColor ( 15, COLOR_BLACK );
+    prepareColor ( 30, COLOR_SALMON );
+    prepareColor ( 31, COLOR_DARKSALMON );
 
-		u16 colores[16];
-		VDP_getPaletteColors(0,colores, 16);
-		VDP_setPalette(PAL1, colores);
-
-		u16 colors2[64] = { };
-		u16 colors3[64] = { };
-		VDP_getPaletteColors ( 0, colors2, 64 );
-		VDP_setPaletteColors ( 0, colors3, 64 );
-
-	VDP_setEnable( TRUE );
-
-	VDP_fadeAllTo ( colors2, 15, 0 );
+    displayOn(15);
 }
 
 
