@@ -139,24 +139,21 @@ void showDebugScreen( void )
     MenuDraw ( &menu );
     MenuLoop ( &menu );
 
-    VDP_fadeOutAll ( 15, 0 );
-
-	VDP_setHorizontalScroll ( PLAN_B, 0 );
-	VDP_setVerticalScroll   ( PLAN_B, 0 );
-	VDP_setHorizontalScroll ( PLAN_A, 0 );
-	VDP_setVerticalScroll   ( PLAN_A, 0 );
-
-	VDP_clearPlan( PLAN_A, 1 );
-
-    musicStop();
-
-    VIntSetUpdateScroll ( 0 );
-
-	GOD_MODE_FLAG   = menu.options[0]->value;
+    GOD_MODE_FLAG   = menu.options[0]->value;
 	LEVEL_MODE_FLAG = menu.options[1]->value;
 	EXIT_MODE_FLAG  = menu.options[2]->value;
 	MUSIC_MODE_FLAG = menu.options[3]->value;
 	SFX_MODE_FLAG   = menu.options[4]->value;
+
+    musicStop();
+    VDP_fadeOutAll ( 15, 0 );
+    VIntSetUpdateScroll ( 0 );
+    VDP_waitVSync();
+	VDP_setHorizontalScroll ( PLAN_B, 0 );
+	VDP_setVerticalScroll   ( PLAN_B, 0 );
+	VDP_setHorizontalScroll ( PLAN_A, 0 );
+	VDP_setVerticalScroll   ( PLAN_A, 0 );
+	VDP_clearPlan( PLAN_A, 1 );
 
     if ( DEV )
     {

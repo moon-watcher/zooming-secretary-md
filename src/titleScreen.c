@@ -15,6 +15,7 @@
 #define COLOR_WHITE ( 0x0EEE )
 #define COLOR_BLACK ( 0x0000 )
 #define COLOR_SALMON ( 0x068E )
+#define COLOR_DARKSALMON ( 0x0026 )
 #define TXT_ATTRIBUTES ( TILE_ATTR( PAL0, FALSE, FALSE, FALSE ) )
 #define IMG_ATTRIBUTES ( TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ) )
 
@@ -52,7 +53,8 @@ static void doCheatMessageBlinking( void )
 	{
 		VDP_waitVSync( );
 
-		VDP_setPaletteColor( 2, ( i & 4 ) ? COLOR_BLACK : COLOR_SALMON );
+        VDP_setPaletteColor( 30, ( i & 4 ) ? COLOR_BLACK : COLOR_SALMON );
+		VDP_setPaletteColor( 31, ( i & 4 ) ? COLOR_BLACK : COLOR_DARKSALMON );
 	}
 }
 
@@ -139,7 +141,7 @@ u8 showTitleScreen( void )
 		// 'Press Start' Blinking Effect...
 		VDP_setPaletteColor(  1, ( frame++ & 32 ) ? COLOR_BLACK : color2 );
 		VDP_setPaletteColor( 15, ( frame++ & 32 ) ? COLOR_BLACK : color1 );
-		VDP_setPaletteColor( 31, 0x026); // cheatcode shadow color
+		VDP_setPaletteColor( 31, COLOR_DARKSALMON ); // cheatcode shadow color
 
 		JoyReaderUpdate( );
 
