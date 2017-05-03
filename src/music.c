@@ -58,7 +58,7 @@ void musicPause ( )
 		XGM_pausePlay();
 	}
 
-	XGM_stopPlayPCM ( SOUND_PCM_CH1 );  // prevents long samples
+	//XGM_stopPlayPCM ( SOUND_PCM_CH1 );  // prevents long samples
 	//XGM_stopPlayPCM ( SOUND_PCM_CH2 );
 	//XGM_stopPlayPCM ( SOUND_PCM_CH3 );
 	//XGM_stopPlayPCM ( SOUND_PCM_CH4 );
