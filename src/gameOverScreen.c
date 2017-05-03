@@ -5,6 +5,7 @@
 #include "../inc/music.h"
 #include "../inc/helpers.h"
 #include "../inc/game.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -30,20 +31,19 @@ static u16 color2;
 
 static void drawGameOverScreenGraphics( void )
 {
-	VDP_waitVSync( );
-
-	VDP_setEnable( FALSE );
+	displayOff(0);
 
 		VDP_clearPlan( PLAN_B, 1 );
-		VDP_drawImageEx( IMG_PAL, &gameOverScreenImg, IMG_ATTRIBUTES, 0, 0, TRUE, FALSE );
+		VDP_drawImageEx( IMG_PAL, &gameOverScreenImg, IMG_ATTRIBUTES, 0, 0, 0, FALSE );
 
-		color1 = VDP_getPaletteColor(7);
-		color2 = VDP_getPaletteColor(6);
+		color1 = gameOverScreenImg.palette->data[7];
+		color2 = gameOverScreenImg.palette->data[6];
 
-        VDP_setPaletteColor( 7, COLOR_BLACK );
-		VDP_setPaletteColor( 6, COLOR_BLACK );
+        prepareColor ( 7, COLOR_BLACK );
+		prepareColor ( 6, COLOR_BLACK );
+        preparePal ( PAL0, gameOverScreenImg.palette->data );
 
-	VDP_setEnable( TRUE );
+	displayOn(10);
 }
 
 

@@ -3,12 +3,17 @@
 #include "../inc/common.h"
 #include "../inc/player.h"
 #include "../inc/game.h"
+#include "../inc/display.h"
+
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
 
 #define IS_GHOST_WAITING ( delayBeforeGhostMove != 0 )
 
+
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
 
 static Sprite *npcGhostSprite;
 static u8 delayBeforeGhostMove;
@@ -140,8 +145,7 @@ void npcGhostInitialize( s16 positionX, s16 positionY )
 	npcGhostFixedSpeedX = ( 1 << FP_BITS );
 	npcGhostFixedSpeedY = ( 1 << FP_BITS );
 
-	const u16 *npcPalette = npcGhostSprite->definition->palette->data;
-	VDP_setPalette( PAL3, npcPalette );
+	preparePal( PAL3, npcGhostSprite->definition->palette->data );
 }
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */

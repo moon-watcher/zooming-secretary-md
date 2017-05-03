@@ -14,6 +14,7 @@
 #include "../inc/game.h"
 #include "../inc/helpers.h"
 #include "../inc/dev.h"
+#include "../inc/display.h"
 
 
 static u8  playerSpeedBonus;         // Flag for speed bonus (coffee drinked)
@@ -473,7 +474,7 @@ void player_init( s16 x, s16 y )
     sfxDirHorizontal = 0;
     sfxDirVertical   = 0;
 
-	VDP_setPalette(PAL2, secretarySprDef.palette->data);
+	preparePal(PAL2, secretarySprDef.palette->data);
 }
 
 void player_step( u16 state )

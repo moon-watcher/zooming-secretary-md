@@ -4,6 +4,7 @@
 #include "../inc/player.h"
 #include "../inc/map.h"
 #include "../inc/helpers.h"
+#include "../inc/display.h"
 
 #include <Kdebug.h>
 
@@ -68,8 +69,7 @@ void npcDibrovInitialize( s16 positionX, s16 positionY )
     waitUntilAppearsAgain = 0;
     frameCounter = 0;
 
-    const u16 *npcPalette = npcDibrovSprite->definition->palette->data;
-    VDP_setPalette( PAL3, npcPalette );
+    preparePal( PAL3, npcDibrovSprite->definition->palette->data );
 }
 
 

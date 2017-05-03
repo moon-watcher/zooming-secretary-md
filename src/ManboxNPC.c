@@ -4,6 +4,7 @@
 #include "../inc/map.h"
 #include "../inc/SPRFactory.h"
 #include "../inc/helpers.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -149,8 +150,7 @@ void npcManboxInitialize( s16 positionX, s16 positionY )
 
 	waitUntilAppearsAgain = 0;
 
-	const u16 *npcPalette	=	npcManboxSprite->definition->palette->data;
-	VDP_setPalette(PAL3, npcPalette);
+	preparePal(PAL3, npcManboxSprite->definition->palette->data);
 }
 
 

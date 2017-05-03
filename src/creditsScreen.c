@@ -2,6 +2,7 @@
 
 #include "../inc/creditsScreen.h"
 #include "../inc/dev.h"
+#include "../inc/display.h"
 #include "../res/rescomp.h"
 
 
@@ -96,7 +97,7 @@ static u16 writeCredits ( u8 part, u8 y_pos )
 
     u16 ret = JOY_waitPressBtnTime(6000);
 
-    VDP_fadeOutAll ( 15, 0 );
+    displayOff ( 10 );
 
     VDP_clearPlan ( PLAN_A, 1 );
     VDP_clearPlan ( PLAN_B, 1 );

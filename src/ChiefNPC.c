@@ -3,6 +3,7 @@
 #include "../inc/player.h"
 #include "../inc/common.h"
 #include "../inc/helpers.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -70,8 +71,7 @@ void npcChiefInitialize( s16 positionX, s16 positionY )
 	this.npcChiefAICounter		= 64;
 	this.npcChiefFrameCounter	= 0;
 
-	const u16 *npcPalette		= this.npcChiefSprite->definition->palette->data;
-	VDP_setPalette(PAL3, npcPalette);
+	preparePal(PAL3, this.npcChiefSprite->definition->palette->data);
 }
 
 

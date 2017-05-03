@@ -111,7 +111,7 @@ static void drawTitleScreenGraphics( void )
     prepareColor ( 30, COLOR_SALMON );
     prepareColor ( 31, COLOR_DARKSALMON );
 
-    displayOn(15);
+    displayOn(10);
 }
 
 
@@ -167,7 +167,7 @@ u8 showTitleScreen( void )
 		doPressStartFasterBlinking( );
 	}
 
-	VDP_fadeOutAll ( 15, 0 );
+	displayOff ( 10 );
 
 	return isCheatCodeCompleted;
 }

@@ -19,6 +19,7 @@
 #include "../inc/phone.h" //TODO: usado por reset
 #include "../inc/CeilingFan.h"
 #include "../inc/tempo.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -125,7 +126,7 @@ static void checkForGamePauseOrResume( )
 
 static void leaveProcess()
 {
-    VDP_fadeOutAll( 30, 0 );
+    displayOff(10);
 
     SPR_reset( );
     SPR_update();
@@ -140,7 +141,7 @@ static void leaveProcess()
 
 u8 game_play( void )
 {
-	VDP_setEnable( FALSE );
+	displayOff(0);
 
 		coffeeDestroy( );
 		messageReset( );
@@ -155,7 +156,7 @@ u8 game_play( void )
         playMusic(MUSIC_GAME);
         setRandomSeed(vtimer);
 
-	VDP_setEnable( TRUE );
+	displayOn(10);
 
 
 	isGamePaused = FALSE;
@@ -243,15 +244,17 @@ u8 game_play( void )
 
 void game_done( void )
 {
+    displayOff(0);
 	//Sprite Init...
 	Sprite *spr = SPRD_getFirst( );
 	spr = SPR_addSprite ( (SpriteDefinition*) &secretaryRestSprDef, 160, 80, TILE_ATTR( PAL0, FALSE, FALSE, FALSE ) );
 
-	VDP_waitVSync( );
+    VDP_drawImageEx( PLAN_A, &officeWeekend, TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ), 0, 0, 0, FALSE );
+    preparePal( PAL0, officeWeekend.palette->data );
 
-	VDP_setEnable( FALSE );
-		VDP_drawImageEx( PLAN_A, &officeWeekend, TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ), 0, 0, TRUE, FALSE );
-	VDP_setEnable( TRUE );
+    SPR_update( );
+
+	displayOn(60);
 
 	playMusic(MUSIC_WELLDONE);
 
@@ -310,21 +313,15 @@ void game_done( void )
 		}
 	}
 
-	VDP_fadeOutAll(60,0);
+	displayOff(60);
 
     waitHz(100);
 	musicStop();
-
 
 	SPR_reset( );
 	SPR_update();
 	SPRD_reset( );
 
-//    VDP_setEnable ( FALSE );
-    SYS_disableInts();
     VDP_clearPlan ( PLAN_A, 1 );
     VDP_clearPlan ( PLAN_B, 1 );
-    SYS_enableInts();
-
-//	VDP_setEnable ( TRUE );
 }

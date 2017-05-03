@@ -4,6 +4,7 @@
 #include "../inc/player.h"
 #include "../inc/topic.h"
 #include "../inc/helpers.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -54,8 +55,7 @@ void npcChatterInitialize( s16 positionX, s16 positionY )
 	glassesDuration		= 0;
 	isSpeakingNPC		= FALSE;
 
-	const u16 *npcPalette	=	npcChatterSprite->definition->palette->data;
-	VDP_setPalette(PAL3, npcPalette);
+	preparePal(PAL3, npcChatterSprite->definition->palette->data);
 }
 
 

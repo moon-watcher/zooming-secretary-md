@@ -3,6 +3,7 @@
 #include "../inc/common.h"
 #include "../inc/player.h"
 #include "../inc/map.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -128,8 +129,7 @@ void npcBouncerInitialize( s16 positionX, s16 positionY )
 	npcBouncerAICounter = 0;
 	npcBouncerIsPushing = FALSE;
 
-	const u16 *npcPalette = npcBouncerSprite->definition->palette->data;
-	VDP_setPalette( PAL3, npcPalette );
+	preparePal( PAL3, npcBouncerSprite->definition->palette->data );
 }
 
 

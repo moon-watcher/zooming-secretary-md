@@ -2,6 +2,7 @@
 
 #include "../res/rescomp.h"
 #include "../inc/disclaimer.h"
+#include "../inc/display.h"
 #include "../inc/dev.h"
 
 
@@ -215,20 +216,22 @@ static void drawDisclaimerGraphics( void )
 {
 	u16 tileIndex;
 
-	VDP_waitVSync( );
-
-	VDP_setEnable( FALSE );
+	displayOff(0);
 
 		tileIndex = TILE_USERINDEX;
-		VDP_drawImageEx( PLAN_B, &disclaimerBGImage, IMG_ATTRIBUTES( PAL0 ), 0, 0, TRUE, FALSE );
+		VDP_drawImageEx( PLAN_B, &disclaimerBGImage, IMG_ATTRIBUTES( PAL0 ), 0, 0, 0, FALSE );
 
 		tileIndex += disclaimerBGImage.tileset->numTile;
-		VDP_drawImageEx( PLAN_A, &disclaimerLogoImage, IMG_ATTRIBUTES( PAL1 ), 9, 9, TRUE, FALSE );
+		VDP_drawImageEx( PLAN_A, &disclaimerLogoImage, IMG_ATTRIBUTES( PAL1 ), 9, 9, 0, FALSE );
 
 		tileIndex += disclaimerLogoImage.tileset->numTile;
-		VDP_drawImageEx( PLAN_B, &disclaimerLogoLedImage, IMG_ATTRIBUTES( PAL2 ), 26, 9, TRUE, FALSE );
+		VDP_drawImageEx( PLAN_B, &disclaimerLogoLedImage, IMG_ATTRIBUTES( PAL2 ), 26, 9, 0, FALSE );
 
-	VDP_setEnable( TRUE );
+	preparePal ( PAL0, disclaimerBGImage.palette->data );
+	preparePal ( PAL1, disclaimerLogoImage.palette->data );
+	preparePal ( PAL2, disclaimerLogoLedImage.palette->data );
+
+	displayOn(0);
 }
 
 

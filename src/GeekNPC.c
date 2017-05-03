@@ -3,6 +3,7 @@
 #include "../inc/common.h"
 #include "../inc/heart.h"
 #include "../inc/player.h"
+#include "../inc/display.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -80,8 +81,7 @@ void npcGeekInitialize( s16 positionX, s16 positionY )
 
 	npcGeekDirection = DIR_LEFT;
 
-	const u16 *npcPalette = npcGeekSprite->definition->palette->data;
-	VDP_setPalette( PAL3, npcPalette );
+	preparePal( PAL3, npcGeekSprite->definition->palette->data );
 }
 
 

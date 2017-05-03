@@ -8,6 +8,7 @@
 #include "../inc/dev.h"
 #include "../inc/vint.h"
 #include "../inc/menu.h"
+#include "../inc/display.h"
 
 /*
  * Jack Nolddor, [14.09.15 20:35]
@@ -30,7 +31,7 @@ static u8 str[40];
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-static u8 *funcOnOff ( Option *option )
+static u8 *funcGetOnOff ( Option *option )
 {
     return option->value ? "ON ": "OFF";
 }
@@ -39,7 +40,7 @@ static u8 *funcOnOff ( Option *option )
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-static u8 *funcMusic ( Option *option )
+static u8 *funcGetMusic ( Option *option )
 {
     strcpy ( str, getMusic ( option->value )->title );
     stoupper ( str );
@@ -51,7 +52,7 @@ static u8 *funcMusic ( Option *option )
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-static u8 *funcSfx ( Option *option )
+static u8 *funcGetSfx ( Option *option )
 {
     strcpy ( str, getSfx ( option->value )->title );
     stoupper ( str );
@@ -81,13 +82,11 @@ static void funcPlaySfx ( Option *option )
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-static void initDebugScreen ( )
+void showDebugScreen( void )
 {
-	VDP_waitVSync( );
+	displayOff(0);
 
-	VDP_setEnable( FALSE );
-
-	VDP_drawImageEx( PLAN_B, &debugScreenImg, IMG_ATTRIBUTES, 0, 0, TRUE, FALSE );
+	VDP_drawImageEx( PLAN_B, &debugScreenImg, IMG_ATTRIBUTES, 0, 0, 0, FALSE );
 
 	VIntSetUpdateScroll ( 1 );
 
@@ -95,35 +94,22 @@ static void initDebugScreen ( )
 	VDP_drawTextBG( PLAN_A, "DEBUG OPTIONS", 14, 2 );
 	VDP_drawTextBG( PLAN_A, "PRESS START TO EXIT", 11, 25 );
 
-	VDP_setPaletteColor ( 30, 0x0ff );
-	VDP_setPaletteColor ( 31, 0x000 );
-	VDP_setPaletteColor ( 12, 0xfff );
-	VDP_setPaletteColor ( 13, 0x000 );
-
-    VDP_setEnable( TRUE );
-}
-
-
-/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
-
-
-void showDebugScreen( void )
-{
-    initDebugScreen ( );
+	prepareColor ( 30, 0x0ff );
+	prepareColor ( 31, 0x000 );
+	prepareColor ( 12, 0xfff );
+	prepareColor ( 13, 0x000 );
+	preparePal ( PAL0, debugScreenImg.palette->data );
 
     Option options[] =
     {
-        { "INVINCIBILITY",   funcOnOff, MenuOptionInc, GOD_MODE_FLAG,   2         },
-        { "LEVEL SELECTION", funcOnOff, MenuOptionInc, LEVEL_MODE_FLAG, 2         },
-        { "FAST EXIT",       funcOnOff, MenuOptionInc, EXIT_MODE_FLAG,  2         },
-        { "ACTIVATE MUSIC",  funcOnOff, MenuOptionInc, MUSIC_MODE_FLAG, 2         },
-        { "ACTIVATE SFX",    funcOnOff, MenuOptionInc, SFX_MODE_FLAG,   2         },
-        { "MUSIC",           funcMusic, funcPlayMusic, 0,               MUSIC_MAX },
-        { "SFX",             funcSfx,   funcPlaySfx,   0,               SFX_MAX   },
+        { "INVINCIBILITY",   funcGetOnOff, MenuOptionInc, GOD_MODE_FLAG,   2         },
+        { "LEVEL SELECTION", funcGetOnOff, MenuOptionInc, LEVEL_MODE_FLAG, 2         },
+        { "FAST EXIT",       funcGetOnOff, MenuOptionInc, EXIT_MODE_FLAG,  2         },
+        { "ACTIVATE MUSIC",  funcGetOnOff, MenuOptionInc, MUSIC_MODE_FLAG, 2         },
+        { "ACTIVATE SFX",    funcGetOnOff, MenuOptionInc, SFX_MODE_FLAG,   2         },
+        { "MUSIC",           funcGetMusic, funcPlayMusic, 0,               MUSIC_MAX },
+        { "SFX",             funcGetSfx,   funcPlaySfx,   0,               SFX_MAX   },
     };
-
-    MUSIC_MODE_FLAG = 1; // enable flag to play music
-    SFX_MODE_FLAG   = 1; // enable flag to play sfx
 
     Menu menu;
 
@@ -137,6 +123,12 @@ void showDebugScreen( void )
     MenuAddOption ( &menu, &options[5] );
     MenuAddOption ( &menu, &options[6] );
     MenuDraw ( &menu );
+
+    MUSIC_MODE_FLAG = 1; // enable flag to play music
+    SFX_MODE_FLAG   = 1; // enable flag to play sfx
+
+	displayOn(10);
+
     MenuLoop ( &menu );
 
     GOD_MODE_FLAG   = menu.options[0]->value;
@@ -146,7 +138,7 @@ void showDebugScreen( void )
 	SFX_MODE_FLAG   = menu.options[4]->value;
 
     musicStop();
-    VDP_fadeOutAll ( 15, 0 );
+    displayOff ( 10 );
     VIntSetUpdateScroll ( 0 );
     VDP_waitVSync();
 	VDP_setHorizontalScroll ( PLAN_B, 0 );
