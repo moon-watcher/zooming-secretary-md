@@ -75,8 +75,10 @@ DONE - Game over "and hired again" se muestra desde el principio y no debería
 DONE - FadeIn fadeOut de splashScreen
 DONE - A veces se queda colgado despues de DAY:n --> quizá sea al cargar la pantalla -> en real -> reset no funciona
 DONE - Weekend, se ejecuta el fadeout y se queda colgado --> en real --> reset no funciona
+DONE - Termina la fase, se ejecuta el fadeout y se queda colgado --> en real --> reset no funciona
+DONE - XYZ removed from splashScree and gameOverScreen
+DONE - Start added as button to splashScree and gameOverScreen
 ---------------------------------------------------------------------------------------------------------------
-- Termina la fase, se ejecuta el fadeout y se queda colgado --> en real --> reset no funciona
 - Reinyectar musica en partes clave --> Música de Beyker
 - Todos los teléfonos deberían sonar sincronamente como en el original --> o bien que cada teléfono tenga un sonido diferente... 
 - Quitar DEV

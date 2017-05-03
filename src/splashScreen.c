@@ -88,7 +88,7 @@ void showSplashScreen( void )
                 drawLevelName( );
 			}
 
-		} while( !PAD_1_PRESSED_ABC );
+		} while( !(PAD_1_PRESSED_ABC | PAD_1_PRESSED_START) ) ;
 	}
 
 	if ( lvl < PLAYABLE_LEVELS )
