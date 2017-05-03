@@ -26,7 +26,7 @@
 
 static void initDisplay ( )
 {
-    VDP_waitVSync();
+    displayOff(0);
 
 	VDP_resetScreen();
 	VDP_setPlanSize ( 64, 64 );
@@ -35,6 +35,8 @@ static void initDisplay ( )
 
 static void initEnviroment( void )
 {
+	displayInit();
+
     initDisplay ( );
 
 	sfxInit ( );
@@ -43,7 +45,6 @@ static void initEnviroment( void )
 	SPR_init( 80, 0, 0 );
 	SPRD_reset( );
 	initMusicTempo ();
-	displayInit();
 
 	JoyReaderInit( );
 

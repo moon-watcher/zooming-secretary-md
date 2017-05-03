@@ -322,6 +322,8 @@ void game_done( void )
 	SPR_update();
 	SPRD_reset( );
 
+	VDP_waitVSync();
+
     VDP_clearPlan ( PLAN_A, 1 );
     VDP_clearPlan ( PLAN_B, 1 );
 }

@@ -73,8 +73,9 @@ DONE - Quitar el resto de VDP_setEnables --> para quitar artifacts --> hay 0!!! 
 DONE - No se escucha el primer teléfono de weekend
 DONE - Game over "and hired again" se muestra desde el principio y no debería
 DONE - FadeIn fadeOut de splashScreen
+DONE - A veces se queda colgado despues de DAY:n --> quizá sea al cargar la pantalla -> en real -> reset no funciona
+DONE - Weekend, se ejecuta el fadeout y se queda colgado --> en real --> reset no funciona
 ---------------------------------------------------------------------------------------------------------------
-- A veces se queda colgado despues de DAY:n
 - Reinyectar musica en partes clave --> Música de Beyker
 - Todos los teléfonos deberían sonar sincronamente como en el original --> o bien que cada teléfono tenga un sonido diferente... 
 - Quitar DEV

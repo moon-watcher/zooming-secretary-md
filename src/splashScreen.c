@@ -98,12 +98,13 @@ void showSplashScreen( void )
 
 	if ( !DEV )
     {
-        waitHz(50);
+        waitSc(1);
     }
 
     musicStop();
 
     displayOff(10);
+    VDP_waitVSync();
 }
 
 
