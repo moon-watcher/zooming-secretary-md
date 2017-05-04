@@ -34,6 +34,7 @@
 static s8 tempoTimeout;
 static u8 isGamePaused;
 static u8 delayForPausedOrResumeAgain;
+static u8 firstSpriteLink;
 
 static const struct
 {
@@ -99,9 +100,18 @@ static void checkForGamePauseOrResume( )
 
         if ( isGamePaused )
         {
+            firstSpriteLink = vdpSpriteCache[0].link;
+            vdpSpriteCache[0].link = 0;
+
             yPos  = VDP_getScreenHeight();
             funct = musicPause;
             tempo /= 3;
+        }
+        else
+        {
+            vdpSpriteCache[0].link = firstSpriteLink;
+            VDP_updateSprites(80,0);
+            VDP_waitVSync();
         }
 
         playSfx( SFX_PAUSE );
