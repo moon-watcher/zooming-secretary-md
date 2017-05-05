@@ -19,7 +19,7 @@ static const Music music_list [ MUSIC_MAX ] =
     { MUSIC_DREAM,    "Dream",       (u8*) NULL,    -1 }, // music_dream
     { MUSIC_CLEAR,    "Stage clear", (u8*) NULL,     0 }, // music_clear
     { MUSIC_NOBONUS,  "No bonus",    (u8*) NULL,   0 }, // music_nobonus
-    { MUSIC_LEVEL,    "Level",       (u8*) NULL,     0 }, // music_level
+    { MUSIC_LEVEL,    "Level",       (u8*) music_level,     0 }, //
     { MUSIC_GAMEOVER, "Game Over",   (u8*) NULL,  0 }, // music_gameover
     { MUSIC_WELLDONE, "Welldone",    (u8*) NULL, -1 }  // music_welldone
 };

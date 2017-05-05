@@ -98,7 +98,7 @@ void showSplashScreen( void )
 
 	if ( !DEV )
     {
-        waitSc(1);
+        waitSc(3);
     }
 
     musicStop();
