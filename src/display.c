@@ -9,13 +9,13 @@ static u16 _cache [ 64 ] = { [0 ... 63] = 0x0000 };
 
 static void _set_colors ( u16 *colors )
 {
-	VDP_waitVSync ( );
+//	VDP_waitVSync ( );
 
 	SYS_disableInts();
 	VDP_setPaletteColors ( 0, (u16*) colors, 64 );
 	SYS_enableInts();
 
-	VDP_waitVSync ( );
+//	VDP_waitVSync ( );
 }
 
 

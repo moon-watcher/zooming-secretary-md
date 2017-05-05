@@ -182,21 +182,28 @@ u8 game_play( void )
 {
 	displayOff(0);
 
-    coffeeDestroy( );
-    messageReset( );
-    heartsReset( );
-    npcReset( );
-    playerReset ( );
-    topic_reset( );
-    phoneReset( );
-    ceilingFansReset( );
-    map_run( );
-    hudInitialize( );
-    setRandomSeed(vtimer);
+    SYS_disableInts();
 
-    displayOn(10);
+    coffeeDestroy( );      debug(0);
+    messageReset( );       debug(1);
+    heartsReset( );        debug(2);
+    npcReset( );           debug(3);
+    playerReset ( );       debug(4);
+    topic_reset( );        debug(5);
+    phoneReset( );         debug(6);
+    ceilingFansReset( );   debug(7);
+    map_run( );            debug(8);
+    hudInitialize( );      debug(9);
+    setRandomSeed(vtimer); debug(10);
+
+    SYS_enableInts();
+
+//    displayOn(10);
+    displayOn(1);
 
     playMusic(MUSIC_GAME);
+
+return;
 
 	isGamePaused = FALSE;
 	delayForPausedOrResumeAgain = ( IS_PALSYSTEM ) ? 25 : 30;

@@ -3,5 +3,9 @@
 
     u8 DEV;
 
+
+    void debug ( u8 value );
+
+
 #endif // _DEV_H_
 

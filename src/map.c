@@ -56,30 +56,30 @@ void map_run( void )
     u16 tileindexC = tileindexB + officesPlanB[ lvl ]->tileset->numTile;
     VDP_drawImageEx( PLAN_A, &GamePause_APLAN, TILE_ATTR_FULL( PAL1, TRUE, FALSE, FALSE, tileindexC ), 0, VDP_getScreenHeight()>>TILE_BITS, FALSE, FALSE );
 
-    floor_left_cnt = 0;
+    floor_left_cnt  = 0;
     floor_right_cnt = 0;
 
 
     u8 x, y, type;
 
-    //
-    // Ñapa define las prioridades de los sprites :(
-    //
-    #define aaa \
-        for ( y = 0; y < 28; y++ ) \
-            for ( x = 0; x < 40; x++ ) \
-                switch ( type = tilemaps[ lvl ][ x + ( y * 40 ) ] ) {
-
-    aaa case NPC_GHOST:   npcInitialize ( 16, VDP_getScreenHeight(),      type ); break; } // higher sprite priority
-    aaa case TILE_PLAYER: player_init   ( x << TILE_BITS, y << TILE_BITS       ); break; } // .
-    aaa case NPC_CHIEF:   npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;   // .
-        case NPC_BOUNCER: npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;   // .
-        case NPC_CHATTER: npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;
-        case NPC_MANBOX:  npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;
-        case NPC_GEEK:    npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;
-        case NPC_DIBROV:  npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break; } // lower priority
-    //
-    //
+//    //
+//    // Ñapa define las prioridades de los sprites :(
+//    //
+//    #define aaa \
+//        for ( y = 0; y < 28; y++ ) \
+//            for ( x = 0; x < 40; x++ ) \
+//                switch ( type = tilemaps[ lvl ][ x + ( y * 40 ) ] ) {
+//
+//    aaa case NPC_GHOST:   npcInitialize ( 16, VDP_getScreenHeight(),      type ); break; } // higher sprite priority
+//    aaa case TILE_PLAYER: player_init   ( x << TILE_BITS, y << TILE_BITS       ); break; } // .
+//    aaa case NPC_CHIEF:   npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;   // .
+//        case NPC_BOUNCER: npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;   // .
+//        case NPC_CHATTER: npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;
+//        case NPC_MANBOX:  npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;
+//        case NPC_GEEK:    npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break;
+//        case NPC_DIBROV:  npcInitialize ( x << TILE_BITS, y << TILE_BITS, type ); break; } // lower priority
+//    //
+//    //
 
 
     for ( y = 0; y < 28; y++ )
@@ -99,16 +99,16 @@ void map_run( void )
             VDP_setTileMapXY( PLAN_A, TILE_ATTR_FULL( PAL1, prioA, FALSE, FALSE, tileindexA + posA ), x, y );
             VDP_setTileMapXY( PLAN_B, TILE_ATTR_FULL( PAL0, prioB, FALSE, FALSE, tileindexB + posB ), x, y );
 
-            switch ( type )
-            {
-                case TILE_COFFEE:      coffeeInitialize ( (x << TILE_BITS) -1, (y << TILE_BITS) -1 ); break;
-                case TILE_CEILING_FAN: ceilingFanAdd    ( x << TILE_BITS, (y << TILE_BITS)-1 ); break;
-                case TILE_TOPIC_1:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
-                case TILE_TOPIC_2:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
-                case TILE_TOPIC_3:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
-                case TILE_TOPIC_4:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
-                case TILE_PHONE:       phoneAdd         ( ( x << TILE_BITS ) - ( ( IS_LEVEL_BONUS ) ? 4 : 0), (y << TILE_BITS)+1 ); break;
-            }
+//            switch ( type )
+//            {
+//                case TILE_COFFEE:      coffeeInitialize ( (x << TILE_BITS) -1, (y << TILE_BITS) -1 ); break;
+//                case TILE_CEILING_FAN: ceilingFanAdd    ( x << TILE_BITS, (y << TILE_BITS)-1 ); break;
+//                case TILE_TOPIC_1:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
+//                case TILE_TOPIC_2:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
+//                case TILE_TOPIC_3:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
+//                case TILE_TOPIC_4:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
+//                case TILE_PHONE:       phoneAdd         ( ( x << TILE_BITS ) - ( ( IS_LEVEL_BONUS ) ? 4 : 0), (y << TILE_BITS)+1 ); break;
+//            }
 
             //Floors Y pos stuff
             if ( x == 0 && type == TILE_FLOOR )

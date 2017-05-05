@@ -68,61 +68,61 @@ int main( void )
 {
 	initEnviroment( );
 
-    showDisclaimer ();
-    //showSega();
-
+//    showDisclaimer ();
+//    //showSega();
+//
 	while( TRUE )    // main-loop
 	{
-	    initDisplay ( );
-	    initMusicTempo ();
-
-        showPublisher ( );
-        showCredits ();
-
-
-		u8 isCheatCodeActivated;
-
-		do
-		{
-			isCheatCodeActivated = showTitleScreen( );
-
-			if( isCheatCodeActivated )
-			{
-				showDebugScreen( );
-			}
-
-		} while( isCheatCodeActivated );
-
-
-		hudReset( );
-		while( lvl <= PLAYABLE_LEVELS )    // Incl. weekend
-		{
+//	    initDisplay ( );
+//	    initMusicTempo ();
+//
+//        showPublisher ( );
+//        showCredits ();
+//
+//
+//		u8 isCheatCodeActivated;
+//
+//		do
+//		{
+//			isCheatCodeActivated = showTitleScreen( );
+//
+//			if( isCheatCodeActivated )
+//			{
+//				showDebugScreen( );
+//			}
+//
+//		} while( isCheatCodeActivated );
+//
+//
+//		hudReset( );
+//		while( lvl <= PLAYABLE_LEVELS )    // Incl. weekend
+//		{
 			showSplashScreen( );
-
-			if ( lvl < PLAYABLE_LEVELS )
-			{
+//
+//			if ( lvl < PLAYABLE_LEVELS )
+//			{
 				u8 isLevelCompleted = game_play( );
-
-				if ( isLevelCompleted == 255 )
-                {
-                    break;
-                }
-
-				if ( isLevelCompleted || IS_LEVEL_BONUS )
-				{
-					lvl++;
-				}
-				else
-				{
-					showGameOverScreen( );
-				}
-			}
-			else    // Wow! Weekend
-			{
-				game_done( );
-                break;
-			}
-		}
+//
+//				if ( isLevelCompleted == 255 )
+//                {
+//                    break;
+//                }
+//
+//				if ( isLevelCompleted || IS_LEVEL_BONUS )
+//				{
+//					lvl++;
+//				}
+//				else
+//				{
+//					showGameOverScreen( );
+//				}
+//			}
+//			else    // Wow! Weekend
+//			{
+//				game_done( );
+//                break;
+//			}
+//		}
 	}
 
 	return NULL; /* Never Reached */
