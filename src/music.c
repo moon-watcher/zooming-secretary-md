@@ -3,10 +3,8 @@
 #include "../inc/music.h"
 
 
+
 static Music *current;
-static u8     paused;
-
-
 
 
 
@@ -14,7 +12,6 @@ void musicInit ( )
 {
     current->track = NULL;
     current = NULL;
-    paused = 0;
 }
 
 
@@ -51,8 +48,11 @@ void musicPlay ( Music *track )
 
 void musicStop ( )
 {
-	musicInit ( );
-	XGM_stopPlay();
+	if ( XGM_isPlaying() )
+	{
+        XGM_stopPlay();
+        musicInit ( );
+	}
 }
 
 
@@ -61,22 +61,15 @@ void musicPause ( )
 	if ( XGM_isPlaying() )
 	{
 		XGM_pausePlay();
-        paused = 1;
 	}
-
-	//XGM_stopPlayPCM ( SOUND_PCM_CH1 );  // prevents long samples
-	//XGM_stopPlayPCM ( SOUND_PCM_CH2 );
-	//XGM_stopPlayPCM ( SOUND_PCM_CH3 );
-	//XGM_stopPlayPCM ( SOUND_PCM_CH4 );
 }
 
 
 void musicResume ( )
 {
-	if ( paused && !XGM_isPlaying() )
+	if ( !XGM_isPlaying() )
 	{
 		XGM_resumePlay();
-		paused = 0;
 	}
 }
 

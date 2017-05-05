@@ -12,7 +12,7 @@ extern const Image disclaimerBGImage;
 extern const Image disclaimerLogoImage;
 extern const Image disclaimerLogoLedImage;
 extern const Image coffeMakerImage;
-extern const Image playonretroImage;
+extern const Image publisherImage;
 extern const Image OfficeDay01_BPLAN;
 extern const Image OfficeDay01_APLAN;
 extern const Image OfficeDay02_BPLAN;

@@ -13,7 +13,7 @@
 #include "../inc/debugScreen.h"
 #include "../inc/segaScreen.h"
 #include "../inc/creditsScreen.h"
-#include "../inc/playonretroScreen.h"
+#include "../inc/publisherScreen.h"
 #include "../inc/music.h"
 #include "../inc/helpers.h"
 #include "../inc/tempo.h"
@@ -53,9 +53,9 @@ static void initEnviroment( void )
 	VintInit();
 
 	DEV             = 0; // 0;
-	GOD_MODE_FLAG   = 0; // 0;
-    LEVEL_MODE_FLAG = 0; // 0;
-	EXIT_MODE_FLAG  = 0; // 0;
+	GOD_MODE_FLAG   = 1; // 0;
+    LEVEL_MODE_FLAG = 1; // 0;
+	EXIT_MODE_FLAG  = 1; // 0;
 	MUSIC_MODE_FLAG = 1; // 1;
 	SFX_MODE_FLAG   = 1; // 1;
 }
@@ -76,7 +76,7 @@ int main( void )
 	    initDisplay ( );
 	    initMusicTempo ();
 
-        showPlayonretro ( );
+        showPublisher ( );
         showCredits ();
 
 

@@ -208,6 +208,9 @@ u8 game_play( void )
 	{
 		VDP_waitVSync( );
 
+		if ( !XGM_isPlaying() ) VDP_drawText ( "NO FUNCIONA!", 0, 0 );
+
+
 		JoyReaderUpdate( );
 
         // force restart

@@ -24,7 +24,7 @@ IMAGE   disclaimerLogoLedImage "bg/disclaimerLogoLed.png"        0
 
 IMAGE   coffeMakerImage        "spr/CoffeeMaker_SpriteSheet.png" 0
 
-IMAGE   playonretroImage       "bg/playonretro.bmp"              0
+IMAGE   publisherImage         "bg/publisher.bmp"              0
 
 IMAGE   OfficeDay01_BPLAN      "bg/OfficeDay01_BPLAN.png"		 0
 IMAGE   OfficeDay01_APLAN      "bg/OfficeDay01_APLAN.png"		 0

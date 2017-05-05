@@ -8,7 +8,6 @@
 #include "../res/psg/sfx_steps.h"
 
 
-
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
@@ -21,7 +20,7 @@ static const Music music_list [ MUSIC_MAX ] =
     { MUSIC_NOBONUS,  "No bonus",    (u8*) NULL,   0 }, // music_nobonus
     { MUSIC_LEVEL,    "Level",       (u8*) music_level,     0 }, //
     { MUSIC_GAMEOVER, "Game Over",   (u8*) NULL,  0 }, // music_gameover
-    { MUSIC_WELLDONE, "Welldone",    (u8*) NULL, -1 }  // music_welldone
+    { MUSIC_WELLDONE, "Welldone",    (u8*) NULL, -1 }  //
 };
 
 
@@ -66,9 +65,7 @@ void drawInt ( u32 nb, u8 x, u8 y, u8 zeros )
     u8 str [ zeros+1 ];
     intToStr ( nb, str, zeros );
 
-    SYS_disableInts();
-    VDP_drawText ( str, x, y );
-    SYS_enableInts();
+    drawText ( str, x, y );
 }
 
 
@@ -77,9 +74,7 @@ void drawUInt ( u32 nb, u8 x, u8 y, u8 zeros )
     u8 str [ zeros+1 ];
     uintToStr ( nb, str, zeros );
 
-    SYS_disableInts();
-    VDP_drawText ( str, x, y );
-    SYS_enableInts();
+    drawText ( str, x, y );
 }
 
 

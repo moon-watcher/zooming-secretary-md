@@ -14,6 +14,8 @@ static void _set_colors ( u16 *colors )
 	SYS_disableInts();
 	VDP_setPaletteColors ( 0, (u16*) colors, 64 );
 	SYS_enableInts();
+
+	VDP_waitVSync ( );
 }
 
 
