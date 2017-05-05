@@ -81,8 +81,8 @@ DONE - Start added as button to splashScree and gameOverScreen
 DONE - En Pause, mostar el tempo "TEMPO:NN" al ser cambiado durante un medio segundo o así
 DONE - TEMPO NN, si hay algún sprite debajo se ve! OJO
 DONE - Bug en music.c pause/resume
+DONE - En día 5 y 7 la música se para ¿?   --------> FALLA CUANDO DEV = 0 ¿ESTAMOS TONTOS O QUE?   ¿¿¿¿¿¿¿¿¿AHORA SÓLO LA 5!!!!!!!!!
 ---------------------------------------------------------------------------------------------------------------
-- En día 5 y 7 la música se para ¿?   --------> FALLA CUANDO DEV = 0 ¿ESTAMOS TONTOS O QUE?   ¿¿¿¿¿¿¿¿¿AHORA SÓLO LA 5!!!!!!!!!
 - Reinyectar musica en partes clave --> Música de Beyker
 - Todos los teléfonos deberían sonar sincronamente como en el original --> o bien que cada teléfono tenga un sonido diferente... 
 - Quitar DEV

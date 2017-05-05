@@ -182,21 +182,21 @@ u8 game_play( void )
 {
 	displayOff(0);
 
-		coffeeDestroy( );
-		messageReset( );
-		heartsReset( );
-		npcReset( );
-		playerReset ( );
-		topic_reset( );
-		phoneReset( );
-		ceilingFansReset( );
-		map_run( );
-		hudInitialize( );
-        playMusic(MUSIC_GAME);
-        setRandomSeed(vtimer);
+    coffeeDestroy( );
+    messageReset( );
+    heartsReset( );
+    npcReset( );
+    playerReset ( );
+    topic_reset( );
+    phoneReset( );
+    ceilingFansReset( );
+    map_run( );
+    hudInitialize( );
+    setRandomSeed(vtimer);
 
-	displayOn(10);
+    displayOn(10);
 
+    playMusic(MUSIC_GAME);
 
 	isGamePaused = FALSE;
 	delayForPausedOrResumeAgain = ( IS_PALSYSTEM ) ? 25 : 30;
@@ -207,9 +207,6 @@ u8 game_play( void )
 	while( totalOfAnsweredCalls < call_max && totalOfMissedCalls < miss_max && !isPlayerCatched )
 	{
 		VDP_waitVSync( );
-
-		if ( !XGM_isPlaying() ) VDP_drawText ( "NO FUNCIONA!", 0, 0 );
-
 
 		JoyReaderUpdate( );
 

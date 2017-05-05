@@ -104,7 +104,6 @@ void showSplashScreen( void )
     musicStop();
 
     displayOff(10);
-    VDP_waitVSync();
 }
 
 
