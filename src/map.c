@@ -12,7 +12,7 @@
 #include "../inc/topic.h"     //TODO: PARA init
 #include "../inc/player.h"     //TODO: PARA init
 #include "../inc/phone.h"     //TODO: PARA init
-#include  "../inc/CeilingFan.h"
+#include "../inc/CeilingFan.h"
 #include "../inc/display.h"
 
 
@@ -56,7 +56,7 @@ void map_run( void )
     u16 tileindexC = tileindexB + officesPlanB[ lvl ]->tileset->numTile;
     VDP_drawImageEx( PLAN_A, &GamePause_APLAN, TILE_ATTR_FULL( PAL1, TRUE, FALSE, FALSE, tileindexC ), 0, VDP_getScreenHeight()>>TILE_BITS, FALSE, FALSE );
 
-    floor_left_cnt = 0;
+    floor_left_cnt  = 0;
     floor_right_cnt = 0;
 
 

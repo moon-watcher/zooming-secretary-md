@@ -182,6 +182,7 @@ u8 game_play( void )
 {
 	displayOff(0);
 
+    SPRD_reset( );
     coffeeDestroy( );
     messageReset( );
     heartsReset( );
@@ -285,7 +286,7 @@ void game_done( void )
 {
     displayOff(0);
 	//Sprite Init...
-	Sprite *spr = SPRD_getFirst( );
+	Sprite *spr = SPRD_new ( 0, 0 );
 	spr = SPR_addSprite ( (SpriteDefinition*) &secretaryRestSprDef, 160, 80, TILE_ATTR( PAL0, FALSE, FALSE, FALSE ) );
 
     VDP_drawImageEx( PLAN_A, &officeWeekend, TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ), 0, 0, 0, FALSE );

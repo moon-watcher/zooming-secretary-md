@@ -67,7 +67,6 @@ static void initEnviroment( void )
 int main( void )
 {
 	initEnviroment( );
-
     showDisclaimer ();
     //showSega();
 
@@ -78,7 +77,6 @@ int main( void )
 
         showPublisher ( );
         showCredits ();
-
 
 		u8 isCheatCodeActivated;
 
