@@ -10,6 +10,7 @@
 #include "../inc/spritedispatcher.h"
 
 
+
 static u8 _used [ MAX_VDP_SPRITE ] = { [0 ... MAX_VDP_SPRITE-1] = FALSE };
 static u8 _cnt = 0;
 
@@ -72,7 +73,8 @@ u8 SPRD_newIDX ( u8 idx, SPRDdir dir )
 
 Sprite* SPRD_new ( u8 pos, SPRDdir dir )
 {
-    return &sprlist[ SPRD_newIDX(pos, dir) ];
+    ++_cnt;
+    return &sprlist [ _cnt-1 ];
 }
 
 

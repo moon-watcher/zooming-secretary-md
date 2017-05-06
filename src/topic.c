@@ -47,7 +47,7 @@ static void activeTopicReset( )
 
 	currentActiveTopic.type 		= TOPIC_TYPE_NONE;
 	currentActiveTopic.flashCounter = 0;
-//	currentActiveTopic.sprite 		= SPRFactory.createTopicHidden( 32, 8 );
+	currentActiveTopic.sprite 		= SPRFactory.createTopicHidden( 32, 8 );
 }
 
 

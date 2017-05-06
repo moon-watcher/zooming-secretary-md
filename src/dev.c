@@ -11,7 +11,7 @@ void debug ( u8 value )
 {
     VDP_setPalette ( PAL0, palette_blue );
     drawUInt ( value, 0, value, 1 );
-    VDP_waitVSync();
+    //VDP_waitVSync();
 }
 
 

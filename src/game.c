@@ -182,31 +182,22 @@ u8 game_play( void )
 {
 	displayOff(0);
 
-    SYS_disableInts();
+    SPRD_reset( );
+    coffeeDestroy( );
+    messageReset( );
+    heartsReset( );
+    npcReset( );
+    playerReset ( );
+    topic_reset( );
+    phoneReset( );
+    ceilingFansReset( );
+    map_run( );
+    hudInitialize( );
+    setRandomSeed(vtimer);
 
-//    coffeeDestroy( );      debug(0);
-//    messageReset( );       debug(1);
-//    heartsReset( );        debug(2);
-//    npcReset( );           debug(3);
-//    playerReset ( );       debug(4);
-//    topic_reset( );        debug(5);
-//    phoneReset( );         debug(6);
-//    ceilingFansReset( );   debug(7);
-//    map_run( );            debug(8);
-//    hudInitialize( );      debug(9);
-//    setRandomSeed(vtimer); debug(10);
-
-    topic_reset( );        debug(5);
-    map_run( );            debug(8);
-
-    SYS_enableInts();
-
-//    displayOn(10);
-    displayOn(1);
+    displayOn(10);
 
     playMusic(MUSIC_GAME);
-
-return;
 
 	isGamePaused = FALSE;
 	delayForPausedOrResumeAgain = ( IS_PALSYSTEM ) ? 25 : 30;
@@ -295,7 +286,7 @@ void game_done( void )
 {
     displayOff(0);
 	//Sprite Init...
-	Sprite *spr = SPRD_getFirst( );
+	Sprite *spr = SPRD_new ( 0, 0 );
 	spr = SPR_addSprite ( (SpriteDefinition*) &secretaryRestSprDef, 160, 80, TILE_ATTR( PAL0, FALSE, FALSE, FALSE ) );
 
     VDP_drawImageEx( PLAN_A, &officeWeekend, TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ), 0, 0, 0, FALSE );
