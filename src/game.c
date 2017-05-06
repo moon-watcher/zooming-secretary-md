@@ -183,6 +183,7 @@ u8 game_play( void )
 	displayOff(0);
 
     SPRD_reset( );
+    SPR_reset( );
     coffeeDestroy( );
     messageReset( );
     heartsReset( );
