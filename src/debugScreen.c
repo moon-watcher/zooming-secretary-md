@@ -94,11 +94,11 @@ void showDebugScreen( void )
 	VDP_drawTextBG( PLAN_A, "DEBUG OPTIONS", 14, 2 );
 	VDP_drawTextBG( PLAN_A, "PRESS START TO EXIT", 11, 25 );
 
+	preparePal ( PAL0, debugScreenImg.palette->data );
 	prepareColor ( 30, 0x0ff );
 	prepareColor ( 31, 0x000 );
 	prepareColor ( 12, 0xfff );
 	prepareColor ( 13, 0x000 );
-	preparePal ( PAL0, debugScreenImg.palette->data );
 
     Option options[] =
     {
