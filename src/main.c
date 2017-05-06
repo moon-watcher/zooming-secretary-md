@@ -97,7 +97,7 @@ int main( void )
 //		hudReset( );
 //		while( lvl <= PLAYABLE_LEVELS )    // Incl. weekend
 //		{
-			showSplashScreen( );
+//			showSplashScreen( );
 //
 //			if ( lvl < PLAYABLE_LEVELS )
 //			{

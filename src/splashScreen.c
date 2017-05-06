@@ -64,8 +64,7 @@ void showSplashScreen( void )
 	prepareScreen( );
 	drawLevelName( );
 
-//	displayOn(10);
-	displayOn(1);
+	displayOn(10);
 
 	if ( LEVEL_MODE_FLAG )
 	{
@@ -99,14 +98,12 @@ void showSplashScreen( void )
 
 	if ( !DEV )
     {
-        //waitSc(3);
-        waitHz(1);
+        waitSc(3);
     }
 
     musicStop();
 
-    //displayOff(10);
-    displayOff(1);
+    displayOff(10);
 }
 
 

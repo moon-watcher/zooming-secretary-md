@@ -184,17 +184,20 @@ u8 game_play( void )
 
     SYS_disableInts();
 
-    coffeeDestroy( );      debug(0);
-    messageReset( );       debug(1);
-    heartsReset( );        debug(2);
-    npcReset( );           debug(3);
-    playerReset ( );       debug(4);
+//    coffeeDestroy( );      debug(0);
+//    messageReset( );       debug(1);
+//    heartsReset( );        debug(2);
+//    npcReset( );           debug(3);
+//    playerReset ( );       debug(4);
+//    topic_reset( );        debug(5);
+//    phoneReset( );         debug(6);
+//    ceilingFansReset( );   debug(7);
+//    map_run( );            debug(8);
+//    hudInitialize( );      debug(9);
+//    setRandomSeed(vtimer); debug(10);
+
     topic_reset( );        debug(5);
-    phoneReset( );         debug(6);
-    ceilingFansReset( );   debug(7);
     map_run( );            debug(8);
-    hudInitialize( );      debug(9);
-    setRandomSeed(vtimer); debug(10);
 
     SYS_enableInts();
 
