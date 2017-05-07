@@ -307,7 +307,7 @@ void game_done( void )
 
 	JoyReaderReset();
 
-	while( !( PAD_1_PRESSED_ABC | PAD_1_PRESSED_START ) || wait < 50 )
+	while( !( PAD_1_PRESSED_ABCS ) || wait < 50 )
 	{
 		VDP_waitVSync( );
 		JoyReaderUpdate();

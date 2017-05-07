@@ -5,6 +5,7 @@
 #include "../inc/display.h"
 #include "../inc/dev.h"
 #include "../inc/helpers.h"
+#include "../inc/joyreader.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -23,6 +24,8 @@
 
 #define DISCLAIMERLOGOLED_FADESTEPS 12
 #define DISCLAIMERLOGOLED_NUMCOLORS 6
+
+#define WAITBREAK(n)  if ( wait(n) ) break;
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -64,6 +67,7 @@ static const u16 disclaimerLogoFadeColors[ DISCLAIMERLOGO_FADESTEPS ][ DISCLAIME
 };
 
 u8 disclaimerLogoLedIndex;
+u16 exit;
 
 static const u16 disclaimerLogoLedFadeColors[ DISCLAIMERLOGOLED_FADESTEPS ][ DISCLAIMERLOGOLED_NUMCOLORS ] =
 {
@@ -80,6 +84,38 @@ static const u16 disclaimerLogoLedFadeColors[ DISCLAIMERLOGOLED_FADESTEPS ][ DIS
 		{ 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x00A0 },
 		{ 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 },
 };
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+static u16 wait ( u16 hz )
+{
+    u16 ret = 0;
+
+    if ( exit )
+    {
+        ret = 1;
+    }
+
+    while ( hz-- )
+    {
+        VDP_waitVSync();
+        JoyReaderUpdate();
+
+        if( PAD_1_PRESSED_ABCS )
+        {
+            exit = 1;
+            ret  = 1;
+
+            displayOff(10);
+
+            break;
+        }
+    }
+
+    return ret;
+}
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -108,7 +144,7 @@ static void doTextDisclaimerFadeIn( void )
 
 	for( i = 1; i < TEXTDISCLAIMER_FADESTEPS; i++ )
 	{
-		waitHz(6);
+		WAITBREAK(6);
 
 		VDP_setPaletteColors( 13, (u16 *) textDisclaimerFadeColors[ i ], TEXTDISCLAIMER_NUMCOLORS );
 	}
@@ -124,7 +160,7 @@ static void doDisclaimerBGFadeIn( void )
 
 	for( i = 1; i < DISCLAIMERBG_FADESTEPS; i++ )
 	{
-		waitHz(4);
+		WAITBREAK(4);
 
 		VDP_setPaletteColors( 1, (u16 *) disclaimerBGFadeColors[ i ], DISCLAIMERBG_NUMCOLORS );
 	}
@@ -140,7 +176,7 @@ static void doDisclaimerLogoFadeIn( void )
 
 	for( i = 1; i < DISCLAIMERLOGO_FADESTEPS; i++ )
 	{
-		waitHz(4);
+		WAITBREAK(4);
 
 		VDP_setPaletteColors( 17, (u16 *) disclaimerLogoFadeColors[ i ], DISCLAIMERLOGO_NUMCOLORS );
 		doDisclaimerLogoLedUpdate( );
@@ -157,7 +193,7 @@ static void doDisclaimerBGFadeOut( void )
 
 	for( i = (DISCLAIMERBG_FADESTEPS - 2); i >= 0; i-- )
 	{
-		waitHz(4);
+		WAITBREAK(4);
 
 		VDP_setPaletteColors( 1, (u16 *) disclaimerBGFadeColors[ ( u8 ) i ], DISCLAIMERBG_NUMCOLORS );
 		doDisclaimerLogoLedUpdate ( );
@@ -174,7 +210,7 @@ static void doTextDisclaimerFadeOut( void )
 
 	for( i = (TEXTDISCLAIMER_FADESTEPS - 2 ); i >= 0 ; i-- )
 	{
-		waitHz(4);
+		WAITBREAK(4);
 
 		VDP_setPaletteColors( 13, (u16 *) textDisclaimerFadeColors[ ( u8 ) i ], TEXTDISCLAIMER_NUMCOLORS );
 		doDisclaimerLogoLedUpdate ( );
@@ -191,7 +227,7 @@ static void doDisclaimerLogoFadeOut( void )
 
 	for( i = (DISCLAIMERLOGO_FADESTEPS -2) ; i >= 0 ; i-- )
 	{
-		waitHz(4);
+		WAITBREAK(4);
 
 		VDP_setPaletteColors( 17, (u16 *) disclaimerLogoFadeColors[ ( u8 ) i ], DISCLAIMERLOGO_NUMCOLORS );
 		doDisclaimerLogoLedUpdate( );
@@ -234,6 +270,8 @@ void showDisclaimer( void )
         return;
     }
 
+    exit = 0;
+
 	drawDisclaimerGraphics( );
 	doTextDisclaimerFadeIn( );
 	doDisclaimerBGFadeIn( );
@@ -245,7 +283,7 @@ void showDisclaimer( void )
 	u8 i=57;
 	while ( i-- )
 	{
-		waitHz(4);
+		WAITBREAK(4);
 
 		doDisclaimerLogoLedUpdate ( );
 	}

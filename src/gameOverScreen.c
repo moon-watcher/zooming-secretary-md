@@ -80,7 +80,7 @@ static void waitForShowMessage( void )
 
 		JoyReaderUpdate( );
 
-		if ( PAD_1_PRESSED_START | PAD_1_PRESSED_ABC )
+		if ( PAD_1_PRESSED_ABCS )
 		{
 			break;
 		}
