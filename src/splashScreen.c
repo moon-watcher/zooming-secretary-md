@@ -34,8 +34,7 @@ const char *levelNames[ ] =
 
 static void prepareScreen( void )
 {
-	VDP_clearPlan( PLAN_B, 1 );
-	VDP_clearPlan( PLAN_A, 1 );
+    resetScreen();
 
 	prepareColor ( 12, COLOR_WHITE );
 	prepareColor ( 13, COLOR_GREY );

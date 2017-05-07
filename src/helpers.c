@@ -160,3 +160,17 @@ void waitSc ( u16 sc )
 {
     waitHz ( sc * getHz() );
 }
+
+
+
+
+void resetScreen ( )
+{
+    VDP_clearPlan( PLAN_A, 1 );
+    VDP_clearPlan( PLAN_B, 1 );
+
+    VDP_setHorizontalScroll ( PLAN_B, 0 );
+	VDP_setVerticalScroll   ( PLAN_B, 0 );
+	VDP_setHorizontalScroll ( PLAN_A, 0 );
+	VDP_setVerticalScroll   ( PLAN_A, 0 );
+}

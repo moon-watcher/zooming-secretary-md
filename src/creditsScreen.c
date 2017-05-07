@@ -3,6 +3,7 @@
 #include "../inc/creditsScreen.h"
 #include "../inc/dev.h"
 #include "../inc/display.h"
+#include "../inc/helpers.h"
 #include "../res/rescomp.h"
 
 
@@ -99,8 +100,7 @@ static u16 writeCredits ( u8 part, u8 y_pos )
 
     displayOff ( 10 );
 
-    VDP_clearPlan ( PLAN_A, 1 );
-    VDP_clearPlan ( PLAN_B, 1 );
+    resetScreen();
 
     return ret;
 }
@@ -116,8 +116,7 @@ void showCredits ()
         return;
     }
 
-    VDP_clearPlan ( PLAN_A, 1 );
-    VDP_clearPlan ( PLAN_B, 1 );
+    resetScreen();
 
     preparePalettes();
 

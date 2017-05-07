@@ -4,6 +4,7 @@
 #include "../inc/disclaimer.h"
 #include "../inc/display.h"
 #include "../inc/dev.h"
+#include "../inc/helpers.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -79,18 +80,6 @@ static const u16 disclaimerLogoLedFadeColors[ DISCLAIMERLOGOLED_FADESTEPS ][ DIS
 		{ 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x00A0 },
 		{ 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 },
 };
-
-
-/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
-
-
-static void waitHz ( u16 hz )
-{
-    while ( hz-- )
-    {
-        VDP_waitVSync();
-    }
-}
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -266,5 +255,5 @@ void showDisclaimer( void )
 
 	doDisclaimerLogoFadeOut ( );
 
-	VDP_clearPlan( PLAN_A, 1 );
+	resetScreen();
 }

@@ -365,6 +365,5 @@ void game_done( void )
 
 	VDP_waitVSync();
 
-    VDP_clearPlan ( PLAN_A, 1 );
-    VDP_clearPlan ( PLAN_B, 1 );
+	resetScreen();
 }

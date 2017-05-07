@@ -21,5 +21,7 @@
     void   waitHz        ( u16 hz );
     void   waitSc        ( u16 sc );
 
+    void   resetScreen   ( );
+
 
 #endif // _HELPERS_H_

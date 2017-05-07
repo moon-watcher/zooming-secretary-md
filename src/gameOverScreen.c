@@ -1,4 +1,5 @@
 #include <genesis.h>
+
 #include "../res/rescomp.h"
 #include "../inc/joyreader.h"
 #include "../inc/common.h"
@@ -33,7 +34,7 @@ static void drawGameOverScreenGraphics( void )
 {
 	displayOff(0);
 
-		VDP_clearPlan( PLAN_B, 1 );
+        resetScreen();
 		VDP_drawImageEx( IMG_PAL, &gameOverScreenImg, IMG_ATTRIBUTES, 0, 0, 0, FALSE );
 
         preparePal ( PAL0, gameOverScreenImg.palette->data );

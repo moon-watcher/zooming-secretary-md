@@ -141,11 +141,7 @@ void showDebugScreen( void )
     displayOff ( 10 );
     VIntSetUpdateScroll ( 0 );
     VDP_waitVSync();
-	VDP_setHorizontalScroll ( PLAN_B, 0 );
-	VDP_setVerticalScroll   ( PLAN_B, 0 );
-	VDP_setHorizontalScroll ( PLAN_A, 0 );
-	VDP_setVerticalScroll   ( PLAN_A, 0 );
-	VDP_clearPlan( PLAN_A, 1 );
+	resetScreen();
 
     if ( DEV )
     {
