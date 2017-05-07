@@ -84,6 +84,7 @@ DONE - Bug en music.c pause/resume
 DONE - En día 5 y 7 la música se para ¿?   --------> FALLA CUANDO DEV = 0 ¿ESTAMOS TONTOS O QUE?   ¿¿¿¿¿¿¿¿¿AHORA SÓLO LA 5!!!!!!!!! --> era el spritedispacher
 DONE - En debug screen los numeros se ven mal
 DONE - Bug en displayOn/Off  --> rehacer
+DONE - Botón para cancelar disclaimer
 ---------------------------------------------------------------------------------------------------------------
 - Reinyectar musica en partes clave --> Música de Beyker
 - Todos los teléfonos deberían sonar sincronamente como en el original? --> o bien que cada teléfono tenga un sonido diferente?
