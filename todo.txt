@@ -85,6 +85,7 @@ DONE - En día 5 y 7 la música se para ¿?   --------> FALLA CUANDO DEV = 0 ¿ESTAM
 DONE - En debug screen los numeros se ven mal
 DONE - Bug en displayOn/Off  --> rehacer
 DONE - Botón para cancelar disclaimer
+DONE - Que player aparezca con la posicón de STANDING UP
 ---------------------------------------------------------------------------------------------------------------
 - Reinyectar musica en partes clave --> Música de Beyker
 - Todos los teléfonos deberían sonar sincronamente como en el original? --> o bien que cada teléfono tenga un sonido diferente?
