@@ -24,6 +24,7 @@ static Sprite *createSecretary( s16 positionX, s16 positionY )
 {
 	Sprite *playerSprite = SPRD_new ( 1, SPRD_UP );
 	playerSprite = SPR_addSprite( (SpriteDefinition*) &secretarySprDef, positionX, positionY, SECRETARY_ATTRIBUTES );
+	SPR_setAnim ( playerSprite, 8 );
 
 	return playerSprite;
 }

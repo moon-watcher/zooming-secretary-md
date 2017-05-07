@@ -449,6 +449,7 @@ static void doPlayerMovement( u16 state )
 void playerReset( void )
 {
 	playerSprite = NULL;
+    player_dir = DIR_NONE;
 }
 
 void player_init( s16 x, s16 y )
@@ -463,7 +464,7 @@ void player_init( s16 x, s16 y )
 	player_frame_cnt = 0;
 	delayBeforeHangUp = 0;
 	player_move_cnt = 0;
-	player_dir = DIR_RIGHT;
+	player_dir = DIR_NONE;
 	player_flip = FALSE;
 	playerKnockedDuration = 0;
 	playerFallingCounter = 0;

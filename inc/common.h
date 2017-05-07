@@ -22,9 +22,6 @@ typedef enum
 // Tile to Pixel
 #define TILE_BITS 3
 
-//Dev Notes: Sprite plane has a 128px offset, coordinate(x=0,y=0) is in fact (128,128)
-#define SPR_OFFSET  128
-
 
 
 enum
