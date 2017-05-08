@@ -2,6 +2,7 @@
 #include <genres.h>
 
 #include "../inc/game.h"
+#include "../inc/display.h"
 #include "../inc/joyreader.h"
 #include "../inc/dev.h"
 
@@ -99,11 +100,12 @@ void showSega ( )
 
 			if ( PAD_1_PRESSED_ABCS )
 			{
-			    VDP_fadeOutAll(10,0);
-				return ;
+			    break;
 			}
 		}
-	}
+    }
+
+    displayOff(10);
 }
 
 

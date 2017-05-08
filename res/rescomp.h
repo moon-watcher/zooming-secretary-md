@@ -50,7 +50,7 @@ extern const u8 music_game[20499];
 extern const u8 music_dream[3945];
 extern const u8 music_clear[9333];
 extern const u8 music_nobonus[6085];
-extern const u8 music_level[9188];
+extern const u8 music_level[9193];
 extern const u8 music_gameover[5375];
 extern const u8 music_welldone[32013];
 extern const u8 sfx_answer[8960];
