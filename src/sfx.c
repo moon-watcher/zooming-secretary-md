@@ -53,3 +53,9 @@ void sfxMute ( )
 
     psg_pause();
 }
+
+
+void sfxUseChannel ( u8 channel )
+{
+    chnInc = channel;
+}

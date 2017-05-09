@@ -23,10 +23,10 @@ typedef struct
 Sfx;
 
 
-void sfxInit ( );
-void sfxPlay ( Sfx *sfx );
-void sfxStop ( u8 channel );
-void sfxMute ( );
-
+void sfxInit       ( );
+void sfxPlay       ( Sfx *sfx );
+void sfxStop       ( u8 channel );
+void sfxMute       ( );
+void sfxUseChannel ( u8 channel );
 
 #endif // _SFX_H_

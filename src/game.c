@@ -20,6 +20,7 @@
 #include "../inc/CeilingFan.h"
 #include "../inc/tempo.h"
 #include "../inc/display.h"
+#include "../inc/dev.h"
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -35,6 +36,9 @@ static s8 tempoTimeout;
 static u8 isGamePaused;
 static u8 delayForPausedOrResumeAgain;
 static u8 firstSpriteLink;
+static u8 waveCounter;
+static u8 waveCurrentFrame;
+
 
 static const struct
 {
@@ -48,6 +52,29 @@ levelCompletedFrames [ 5 ] =
     {  80, 2 },
     { 110, 1 },
     { 125, 0 }
+};
+
+
+static const struct _wave
+{
+    u8 delay;
+    u8 colors[5];
+}
+waveFrames[10] =
+{
+    { 50, { 10,  3, 10,  3, 10 } }, // 0
+
+    { 30, {  8, 10,  3, 10,  2 } }, // 1
+    { 16, {  8,  9, 10,  3, 10 } }, // 2
+    {  9, {  8,  9,  8, 10,  2 } }, // 3
+    {  7, {  8,  9,  8,  9, 10 } }, // 4
+
+    { 15, {  8,  9,  8,  9,  8 } }, // 5
+
+    {  7, {  8,  9,  8,  9, 10 } }, // 6
+    {  9, {  8,  9,  8, 10,  2 } }, // 7
+    { 13, {  8,  9, 10,  3, 10 } }, // 8
+    { 20, {  8, 10,  3, 10,  2 } }, // 9
 };
 
 
@@ -155,6 +182,65 @@ static void checkForGamePauseOrResume( )
 
         setMusicTempo ( musicTempo );
     }
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+void doInitWaves()
+{
+    waveCounter = 0;
+    waveCurrentFrame = 0;
+
+    struct _wave *wave = (struct _wave *) &waveFrames [ 0 ];
+
+    prepareColor ( 11, officeWeekend.palette->data [ wave->colors[0] ] );
+    prepareColor ( 12, officeWeekend.palette->data [ wave->colors[1] ] );
+    prepareColor ( 13, officeWeekend.palette->data [ wave->colors[2] ] );
+    prepareColor ( 14, officeWeekend.palette->data [ wave->colors[3] ] );
+    prepareColor ( 15, officeWeekend.palette->data [ wave->colors[4] ] );
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+void doUpdateWaves()
+{
+    struct _wave *wave;
+
+    wave = (struct _wave *) &waveFrames [ waveCurrentFrame ];
+
+
+    if ( DEV )
+    {
+        drawUInt(waveCurrentFrame, 0,0,3);
+        drawUInt(waveCounter, 0,1,3);
+        drawUInt(wave->delay, 0,2,3);
+    }
+
+
+    if ( wave->delay == waveCounter )
+    {
+        ++waveCurrentFrame;
+        waveCurrentFrame %= 10;
+        waveCounter = 0;
+    }
+
+    if ( waveCounter == 0 )
+    {
+        wave = (struct _wave *) &waveFrames [ waveCurrentFrame ];
+
+        VDP_setPaletteColor ( 11, VDP_getPaletteColor ( wave->colors[0]) );
+        VDP_setPaletteColor ( 12, VDP_getPaletteColor ( wave->colors[1]) );
+        VDP_setPaletteColor ( 13, VDP_getPaletteColor ( wave->colors[2]) );
+        VDP_setPaletteColor ( 14, VDP_getPaletteColor ( wave->colors[3]) );
+        VDP_setPaletteColor ( 15, VDP_getPaletteColor ( wave->colors[4]) );
+    }
+
+
+    ++waveCounter;
 }
 
 
@@ -286,9 +372,11 @@ u8 game_play( void )
 void game_done( void )
 {
     displayOff(0);
+
 	//Sprite Init...
 	Sprite *spr = SPRD_new ( 0, 0 );
-	spr = SPR_addSprite ( (SpriteDefinition*) &secretaryRestSprDef, 160, 80, TILE_ATTR( PAL0, FALSE, FALSE, FALSE ) );
+	spr = SPR_addSprite ( (SpriteDefinition*) &secretaryRestSprDef, 160, 80, TILE_ATTR( PAL1, FALSE, FALSE, FALSE ) );
+	preparePal( PAL1, secretaryRestSprDef.palette->data );
 
     VDP_drawImageEx( PLAN_A, &officeWeekend, TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ), 0, 0, 0, FALSE );
     preparePal( PAL0, officeWeekend.palette->data );
@@ -296,6 +384,7 @@ void game_done( void )
     SPR_update( );
     VDP_waitVSync();
 
+    doInitWaves();
 	displayOn(60);
 
 	playMusic(MUSIC_WELLDONE);
@@ -311,7 +400,8 @@ void game_done( void )
 	while( !( PAD_1_PRESSED_ABCS ) || wait < 50 )
 	{
 		VDP_waitVSync( );
-		JoyReaderUpdate();
+        doUpdateWaves();
+        JoyReaderUpdate();
 
 		SPR_setFrame( spr, spr_frame );
 		SPR_update( );
@@ -348,6 +438,7 @@ void game_done( void )
 		{
 		    musicPause();
 		    waitHz(1);
+		    sfxUseChannel ( 1 );
             playSfx(SFX_RING);
 		}
 		if ( j == 1270 )
