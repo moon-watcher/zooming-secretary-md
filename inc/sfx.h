@@ -25,7 +25,7 @@ Sfx;
 
 void sfxInit ( );
 void sfxPlay ( Sfx *sfx );
-void sfxStop ( s8 channel );
+void sfxStop ( u8 channel );
 void sfxMute ( );
 
 

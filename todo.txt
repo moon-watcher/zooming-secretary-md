@@ -87,9 +87,11 @@ DONE - Bug en displayOn/Off  --> rehacer
 DONE - Botón para cancelar disclaimer
 DONE - Que player aparezca con la posicón de STANDING UP
 DONE - Bug en las músicas --> loop a patrón vacío
+DONE - Créditos en los títulos ? ---> NO
+DONE - Welldone el fadout hacer que el sprite ya esté ahí
+DONE - Welldone, no se escucha el teléfono a veces¿????
 ---------------------------------------------------------------------------------------------------------------
-- Créditos en los títulos ?
-- Que pantalla de título elegir? Jack-o decide
+- Que pantalla de título, elegir? Jack-o decide 
 - Reinyectar musica en partes clave --> Música de Beyker
 - Todos los teléfonos deberían sonar sincronamente como en el original? --> o bien que cada teléfono tenga un sonido diferente?
 - Quitar DEV

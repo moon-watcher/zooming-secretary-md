@@ -294,6 +294,7 @@ void game_done( void )
     preparePal( PAL0, officeWeekend.palette->data );
 
     SPR_update( );
+    VDP_waitVSync();
 
 	displayOn(60);
 
@@ -345,8 +346,9 @@ void game_done( void )
 
 		if ( j == 1240 )
 		{
-		    playSfx(SFX_RING);
 		    musicPause();
+		    waitHz(1);
+            playSfx(SFX_RING);
 		}
 		if ( j == 1270 )
 		{
@@ -354,16 +356,17 @@ void game_done( void )
 		}
 	}
 
-	displayOff(60);
-
-    waitHz(100);
+	sfxMute();
+	waitHz(2);
 	musicStop();
+	waitHz(2);
 
+	displayOff(10);
+
+	resetScreen();
 	SPR_reset( );
 	SPR_update();
 	SPRD_reset( );
 
-	VDP_waitVSync();
-
-	resetScreen();
+    waitSc(1);
 }

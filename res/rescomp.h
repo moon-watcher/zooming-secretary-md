@@ -52,7 +52,7 @@ extern const u8 music_clear[9333];
 extern const u8 music_nobonus[6085];
 extern const u8 music_level[9206];
 extern const u8 music_gameover[5376];
-extern const u8 music_welldone[32013];
+extern const u8 music_welldone[18063];
 extern const u8 sfx_answer[8960];
 extern const u8 sfx_bla1[4608];
 extern const u8 sfx_bla2[14080];

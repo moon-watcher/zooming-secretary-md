@@ -5,12 +5,12 @@
 
 
 
-static u8 _channel = 0;
+static u8 chnInc = 0;
 
 
 void sfxInit ( )
 {
-    _channel = 0;
+    chnInc = 0;
 }
 
 
@@ -23,19 +23,23 @@ void sfxPlay ( Sfx *sfx )
             break;
 
         case SFX_DRIVER_XMG:
-            sfxStop ( _channel );
-            XGM_startPlayPCM ( 64 + sfx->id, 1, _channel++ );
-            _channel %= 4;
+            sfxStop ( chnInc );
+            XGM_startPlayPCM ( 64 + sfx->id, 1, chnInc++ );
+            chnInc %= 4;
             break;
     }
 }
 
 
-void sfxStop ( s8 channel )
+void sfxStop ( u8 channel )
 {
-    if ( XGM_isPlayingPCM ( channel ) )
+    if ( channel < 4 )
     {
         XGM_stopPlayPCM ( channel );
+    }
+    else
+    {
+        psg_pause();
     }
 }
 
