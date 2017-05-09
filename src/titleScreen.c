@@ -14,6 +14,7 @@
 
 
 #define COLOR_WHITE ( 0x0EEE )
+#define COLOR_SHADOW ( 0x0666 )
 #define COLOR_BLACK ( 0x0000 )
 #define COLOR_SALMON ( 0x068E )
 #define COLOR_DARKSALMON ( 0x0026 )
@@ -33,9 +34,6 @@ static const u16 secretCode[ ] =
 
 static u8 secretCodeIndex;
 static u8 isCheatCodeCompleted;
-static u16 color1;
-static u16 color2;
-
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -72,8 +70,8 @@ static void doPressStartFasterBlinking( void )
 	{
 		VDP_waitVSync( );
 
-        VDP_setPaletteColor(  1, ( i & 4 ) ? COLOR_BLACK : color2 );
-		VDP_setPaletteColor( 15, ( i & 4 ) ? COLOR_BLACK : color1 );
+        VDP_setPaletteColor(  1, ( i & 4 ) ? COLOR_BLACK : COLOR_SHADOW );
+		VDP_setPaletteColor( 15, ( i & 4 ) ? COLOR_BLACK : COLOR_WHITE );
 	}
 }
 
@@ -103,8 +101,6 @@ static void drawTitleScreenGraphics( void )
     VDP_drawImageEx( PLAN_B, &titleScreenImg, IMG_ATTRIBUTES, 0, 0, FALSE, FALSE );
 
     preparePal ( PAL0, titleScreenImg.palette->data );
-    color1 = titleScreenImg.palette->data[12];
-    color2 = titleScreenImg.palette->data[13];
 
     prepareColor (  1, COLOR_BLACK );
     prepareColor ( 15, COLOR_BLACK );
@@ -132,8 +128,8 @@ u8 showTitleScreen( void )
 		VDP_waitVSync( );
 
 		// 'Press Start' Blinking Effect...
-		VDP_setPaletteColor(  1, ( frame++ & 32 ) ? COLOR_BLACK : color2 );
-		VDP_setPaletteColor( 15, ( frame++ & 32 ) ? COLOR_BLACK : color1 );
+		VDP_setPaletteColor(  1, ( frame++ & 32 ) ? COLOR_BLACK : COLOR_SHADOW );
+		VDP_setPaletteColor( 15, ( frame++ & 32 ) ? COLOR_BLACK : COLOR_WHITE );
 		VDP_setPaletteColor( 31, COLOR_DARKSALMON ); // cheatcode shadow color
 
 		JoyReaderUpdate( );
