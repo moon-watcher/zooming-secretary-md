@@ -15,9 +15,9 @@ static const Music music_list [ MUSIC_MAX ] =
 {
     { MUSIC_NULL,     "Silence",     (u8*) NULL,            0 },
     { MUSIC_GAME,     "Game",        (u8*) music_game,     -1 },
-    { MUSIC_DREAM,    "Dream",       (u8*) NULL,    -1 }, // music_dream
+    { MUSIC_DREAM,    "Dream",       (u8*) music_dream,    -1 }, //
     { MUSIC_CLEAR,    "Stage clear", (u8*) music_clear,     0 },
-    { MUSIC_NOBONUS,  "No bonus",    (u8*) NULL,   0 }, // music_nobonus
+    { MUSIC_NOBONUS,  "No bonus",    (u8*) music_nobonus,   0 }, //
     { MUSIC_LEVEL,    "Level",       (u8*) music_level,     0 }, //
     { MUSIC_GAMEOVER, "Game Over",   (u8*) music_gameover,  0 }, //
     { MUSIC_WELLDONE, "Welldone",    (u8*) music_welldone, -1 }  //

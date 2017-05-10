@@ -49,7 +49,7 @@ extern const SpriteDefinition secretaryRestSprDef;
 extern const u8 music_game[20499];
 extern const u8 music_dream[3945];
 extern const u8 music_clear[9333];
-extern const u8 music_nobonus[6085];
+extern const u8 music_nobonus[1604];
 extern const u8 music_level[9206];
 extern const u8 music_gameover[5376];
 extern const u8 music_welldone[18063];

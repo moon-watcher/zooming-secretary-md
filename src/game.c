@@ -284,7 +284,7 @@ u8 game_play( void )
 
     displayOn(10);
 
-    playMusic(MUSIC_GAME);
+    playMusic ( IS_LEVEL_BONUS ? MUSIC_DREAM : MUSIC_GAME );
 
 	isGamePaused = FALSE;
 	delayForPausedOrResumeAgain = ( IS_PALSYSTEM ) ? 25 : 30;
@@ -350,7 +350,14 @@ u8 game_play( void )
     }
     else
     {
-        playSfx ( SFX_LOSE );
+        if ( IS_LEVEL_BONUS )
+        {
+            playMusic ( MUSIC_NOBONUS );
+        }
+        else
+        {
+            playSfx ( SFX_LOSE );
+        }
     }
 
 	//TODO: 3*50 DEPENDE DEL BONUS
