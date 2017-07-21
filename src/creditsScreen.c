@@ -72,12 +72,16 @@ static void writeTextCredits1 ()
 static void writeTextCredits2 ()
 {
     writeText ( "CODE", PAL1, 2 );
-    writeText ( "JACK NOLDDOR @NOLDDOR", PAL2, 2 );
-    writeText ( "MUN @MOONWATCHERMD", PAL2, 4 );
+    writeText ( "JACK NOLDDOR @NOLDDOR", PAL2, 1 );
+    writeText ( "MUN @MOONWATCHERMD", PAL2, 3 );
+
     writeText ( "GRAPHICS", PAL1, 2);
-    writeText ( "DANIEL NEVADO @DANYSNOWYMAN", PAL2, 4 );
+    writeText ( "DANIEL NEVADO @DANYSNOWYMAN", PAL2, 1 );
+    writeText ( "FELIPE MONGE @VAKAPP", PAL2, 3 );
+
     writeText ( "MUSIC & SFX", PAL1, 2 );
-    writeText ( "BEYKER", PAL2, 4 );
+    writeText ( "BEYKER", PAL2, 3 );
+
     writeText ( "TESTING", PAL1, 2 );
     writeText ( "ALFONSO MARTINEZ @_SRPRESLEY_", PAL2, 1 );
 }
@@ -124,7 +128,7 @@ void showCredits ()
 
     if ( !exit )
     {
-        writeCredits ( 2, 3 );
+        writeCredits ( 2, 4 );
     }
 }
 

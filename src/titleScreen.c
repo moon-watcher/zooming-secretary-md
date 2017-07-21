@@ -98,9 +98,12 @@ static void drawTitleScreenGraphics( void )
 {
     displayOff(0);
 
-    VDP_drawImageEx( PLAN_B, &titleScreenImg, IMG_ATTRIBUTES, 0, 0, FALSE, FALSE );
+    const Image *images[] = { &titleScreenImg1, &titleScreenImg };
+    Image *image = (Image*) images[CLASSIC_MODE_FLAG];
 
-    preparePal ( PAL0, titleScreenImg.palette->data );
+    VDP_drawImageEx( PLAN_B, image, IMG_ATTRIBUTES, 0, 0, FALSE, FALSE );
+
+    preparePal ( PAL0, image->palette->data );
 
     prepareColor (  1, COLOR_BLACK );
     prepareColor ( 15, COLOR_BLACK );

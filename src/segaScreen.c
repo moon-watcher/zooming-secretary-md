@@ -12,6 +12,11 @@
 
 void showSega ( )
 {
+    if ( !CLASSIC_MODE_FLAG )
+    {
+        return;
+    }
+
     if ( DEV )
     {
         return;
@@ -81,6 +86,7 @@ void showSega ( )
 	VDP_fillTileMapRectInc ( PLAN_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, 16), 14, 12, logo_sega.width, logo_sega.height );
 	SYS_enableInts();
 
+	JoyReaderReset();
 
 	const u16 hz = 55; //getHz();
 
@@ -100,6 +106,7 @@ void showSega ( )
 
 			if ( PAD_1_PRESSED_ABCS )
 			{
+			    i = LINES;
 			    break;
 			}
 		}
