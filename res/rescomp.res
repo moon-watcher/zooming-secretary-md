@@ -15,6 +15,7 @@ PALETTE font2                  "pal/font2.png"                   0
 
 #IMAGES
 IMAGE   titleScreenImg         "bg/titleScreen.png"              0
+IMAGE   titleScreenImg1        "bg/titleScreen.1.png"            0
 IMAGE   gameOverScreenImg      "bg/gameOverScreen.png"           0
 IMAGE   debugScreenImg         "bg/debugScreen.png"              0
 
@@ -24,7 +25,7 @@ IMAGE   disclaimerLogoLedImage "bg/disclaimerLogoLed.png"        0
 
 IMAGE   coffeMakerImage        "spr/CoffeeMaker_SpriteSheet.png" 0
 
-IMAGE   publisherImage         "bg/publisher.bmp"              0
+IMAGE   publisherImage         "bg/publisher.bmp"                0
 
 IMAGE   OfficeDay01_BPLAN      "bg/OfficeDay01_BPLAN.png"		 0
 IMAGE   OfficeDay01_APLAN      "bg/OfficeDay01_APLAN.png"		 0
@@ -47,6 +48,12 @@ IMAGE   GamePause_APLAN        "bg/GamePause_APLAN.png"          0
 
 IMAGE   officeWeekend          "bg/office_weekend.png"           0
 
+IMAGE   firedFgImg             "bg/firedFg.png"                  0
+IMAGE   firedBgImg             "bg/firedBg.png"                  0
+IMAGE   hiredFgImg             "bg/hiredFg.png"                  0
+IMAGE   hiredBgImg             "bg/hiredBg.png"                  0
+IMAGE   weekendFgImg           "bg/weekendFg.png"                0
+IMAGE   weekendBgImg           "bg/weekendBg.png"                0
 
 
 #SPRITES

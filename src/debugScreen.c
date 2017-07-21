@@ -102,13 +102,14 @@ void showDebugScreen( void )
 
     Option options[] =
     {
-        { "INVINCIBILITY",   funcGetOnOff, MenuOptionInc, GOD_MODE_FLAG,   2         },
-        { "LEVEL SELECTION", funcGetOnOff, MenuOptionInc, LEVEL_MODE_FLAG, 2         },
-        { "FAST EXIT",       funcGetOnOff, MenuOptionInc, EXIT_MODE_FLAG,  2         },
-        { "ACTIVATE MUSIC",  funcGetOnOff, MenuOptionInc, MUSIC_MODE_FLAG, 2         },
-        { "ACTIVATE SFX",    funcGetOnOff, MenuOptionInc, SFX_MODE_FLAG,   2         },
-        { "MUSIC",           funcGetMusic, funcPlayMusic, 0,               MUSIC_MAX },
-        { "SFX",             funcGetSfx,   funcPlaySfx,   0,               SFX_MAX   },
+        { "INVINCIBILITY",   funcGetOnOff, MenuOptionInc, GOD_MODE_FLAG,     2         },
+        { "LEVEL SELECTION", funcGetOnOff, MenuOptionInc, LEVEL_MODE_FLAG,   2         },
+        { "FAST EXIT",       funcGetOnOff, MenuOptionInc, EXIT_MODE_FLAG,    2         },
+        { "CLASSIC MODE",    funcGetOnOff, MenuOptionInc, CLASSIC_MODE_FLAG, 2         },
+        { "ACTIVATE MUSIC",  funcGetOnOff, MenuOptionInc, MUSIC_MODE_FLAG,   2         },
+        { "ACTIVATE SFX",    funcGetOnOff, MenuOptionInc, SFX_MODE_FLAG,     2         },
+        { "MUSIC",           funcGetMusic, funcPlayMusic, 0,                 MUSIC_MAX },
+        { "SFX",             funcGetSfx,   funcPlaySfx,   0,                 SFX_MAX   },
     };
 
     Menu menu;
@@ -122,6 +123,7 @@ void showDebugScreen( void )
     MenuAddOption ( &menu, &options[4] );
     MenuAddOption ( &menu, &options[5] );
     MenuAddOption ( &menu, &options[6] );
+    MenuAddOption ( &menu, &options[7] );
     MenuDraw ( &menu );
 
     MUSIC_MODE_FLAG = 1; // enable flag to play music
@@ -131,11 +133,12 @@ void showDebugScreen( void )
 
     MenuLoop ( &menu );
 
-    GOD_MODE_FLAG   = menu.options[0]->value;
-	LEVEL_MODE_FLAG = menu.options[1]->value;
-	EXIT_MODE_FLAG  = menu.options[2]->value;
-	MUSIC_MODE_FLAG = menu.options[3]->value;
-	SFX_MODE_FLAG   = menu.options[4]->value;
+    GOD_MODE_FLAG     = menu.options[0]->value;
+	LEVEL_MODE_FLAG   = menu.options[1]->value;
+	EXIT_MODE_FLAG    = menu.options[2]->value;
+	CLASSIC_MODE_FLAG = menu.options[3]->value;
+	MUSIC_MODE_FLAG   = menu.options[4]->value;
+	SFX_MODE_FLAG     = menu.options[5]->value;
 
     musicStop();
     displayOff ( 10 );
@@ -145,11 +148,12 @@ void showDebugScreen( void )
 
     if ( DEV )
     {
-        drawInt ( GOD_MODE_FLAG,   0, 10, 1 );
-        drawInt ( LEVEL_MODE_FLAG, 0, 11, 1 );
-        drawInt ( EXIT_MODE_FLAG,  0, 12, 1 );
-        drawInt ( MUSIC_MODE_FLAG, 0, 13, 1 );
-        drawInt ( SFX_MODE_FLAG,   0, 14, 1 );
+        drawInt ( GOD_MODE_FLAG,     0, 10, 1 );
+        drawInt ( LEVEL_MODE_FLAG,   0, 11, 1 );
+        drawInt ( EXIT_MODE_FLAG,    0, 12, 1 );
+        drawInt ( CLASSIC_MODE_FLAG, 0, 13, 1 );
+        drawInt ( MUSIC_MODE_FLAG,   0, 14, 1 );
+        drawInt ( SFX_MODE_FLAG,     0, 15, 1 );
     }
 }
 

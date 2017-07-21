@@ -52,12 +52,13 @@ static void initEnviroment( void )
 
 	VintInit();
 
-	DEV             = 0; // 0;
-	GOD_MODE_FLAG   = 0; // 0;
-    LEVEL_MODE_FLAG = 0; // 0;
-	EXIT_MODE_FLAG  = 0; // 0;
-	MUSIC_MODE_FLAG = 1; // 1;
-	SFX_MODE_FLAG   = 1; // 1;
+    DEV               = 0; // 0;
+    GOD_MODE_FLAG     = 0; // 0;
+    LEVEL_MODE_FLAG   = 0; // 0;
+    EXIT_MODE_FLAG    = 0; // 0;
+    CLASSIC_MODE_FLAG = 0;
+    MUSIC_MODE_FLAG   = 1; // 1;
+    SFX_MODE_FLAG     = 1; // 1;
 }
 
 
@@ -69,7 +70,7 @@ int main( void )
 	initEnviroment( );
 
     showDisclaimer ();
-    //showSega();
+    showSega();
 
 	while( TRUE )    // main-loop
 	{
@@ -94,6 +95,7 @@ int main( void )
 
 
 		hudReset( );
+
 		while( lvl <= PLAYABLE_LEVELS )    // Incl. weekend
 		{
 			showSplashScreen( );
