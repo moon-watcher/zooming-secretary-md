@@ -75,6 +75,9 @@ SPRITE  npcDibrovSprDef        "spr/DibrovNPC_SpriteSheet.png"   3 4 0
 SPRITE  secretarySprDef        "spr/Secretary_SpriteSheet.png"   3 4 0
 SPRITE  secretaryRestSprDef    "spr/sprsheet_secretaryRest.bmp"  3 3 0
 
+SPRITE  firedSprDef            "spr/firedSpr.png"		        11 4 0
+SPRITE  hiredSprDef            "spr/hiredSpr.png"		        11 4 0
+
 
 
 #MUSIC

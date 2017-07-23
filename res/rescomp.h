@@ -53,6 +53,8 @@ extern const SpriteDefinition npcManboxSprDef;
 extern const SpriteDefinition npcDibrovSprDef;
 extern const SpriteDefinition secretarySprDef;
 extern const SpriteDefinition secretaryRestSprDef;
+extern const SpriteDefinition firedSprDef;
+extern const SpriteDefinition hiredSprDef;
 extern const u8 music_game[20499];
 extern const u8 music_dream[13162];
 extern const u8 music_clear[9333];
