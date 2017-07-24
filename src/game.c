@@ -18,6 +18,7 @@
 #include "../inc/map.h" //TODO: usado por reset
 #include "../inc/phone.h" //TODO: usado por reset
 #include "../inc/CeilingFan.h"
+#include "../inc/Spider.h"
 #include "../inc/tempo.h"
 #include "../inc/display.h"
 #include "../inc/dev.h"
@@ -237,6 +238,7 @@ u8 game_play( void )
 			npcUpdate( );
 			heartsUpdate( );
 			ceilingFanUpdate( );
+			spiderUpdate ( );
 
             if ( EXIT_MODE_FLAG && PAD_1_PRESSED_ABC )
             {

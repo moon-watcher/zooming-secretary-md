@@ -7,6 +7,7 @@
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
+#define SPIDER_ATTRIBUTES       ( TILE_ATTR( PAL0, FALSE, FALSE, FALSE ) )
 #define FAN_ATTRIBUTES          ( TILE_ATTR( PAL0, FALSE, FALSE, FALSE ) )
 #define TOPIC_ATTRIBUTES 		( TILE_ATTR( PAL1, FALSE, FALSE, FALSE ) )
 #define COFFEE_ATTRIBUTES		( TILE_ATTR( PAL1, FALSE, FALSE, FALSE ) )
@@ -213,6 +214,18 @@ static Sprite *createCeilingFan( s16 positionX, s16 positionY )
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
+static Sprite *createSpider ( s16 positionX, s16 positionY )
+{
+    Sprite *spiderSprite = SPRD_new ( 11, SPRD_UP );
+    spiderSprite = SPR_addSprite( (SpriteDefinition*) &spiderSprDef, positionX, positionY, SPIDER_ATTRIBUTES);
+
+    return spiderSprite;
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
 static void setHFlip( Sprite *sprite, u8 isHFlip )
 {
 	if ( isHFlip )
@@ -247,6 +260,7 @@ const sprFactoryStruct SPRFactory =
 	.createManboxNPC	=	&createManboxNPC,
 	.createDibrovNPC    =   &createDibrovNPC,
 	.createCeilingFan   =   &createCeilingFan,
+	.createSpider       =   &createSpider,
 	.setHFlip			=	&setHFlip
 };
 

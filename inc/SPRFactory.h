@@ -21,6 +21,7 @@
 		Sprite *    (*createManboxNPC)      ( s16, s16 );
 		Sprite *    (*createDibrovNPC)      ( s16, s16 );
 		Sprite *    (*createCeilingFan)     ( s16, s16 );
+		Sprite *    (*createSpider)         ( s16, s16 );
 		void		(*setHFlip)				( Sprite*, u8 );
 
 	} sprFactoryStruct;

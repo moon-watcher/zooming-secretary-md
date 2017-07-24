@@ -16,6 +16,7 @@
     #define TILE_TOPIC_3        9   // BOOKS
     #define TILE_TOPIC_4        10  // SPACE
     #define TILE_CEILING_FAN    18
+    #define TILE_SPIDER         19
 
     u8 floor_left_cnt;              // Counter of current left floors
     u8 floor_right_cnt;             // Counter of current right floors
