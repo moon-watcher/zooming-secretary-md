@@ -63,3 +63,4 @@ Temporary Items
 .apdisk
 *.bin
 out/rom.bin
+*.bin

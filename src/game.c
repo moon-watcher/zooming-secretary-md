@@ -131,8 +131,8 @@ static void checkForGamePauseOrResume( )
         s8 musicTempo = getMusicTempo();
         u8 tempo      = getDefaultMusicTempo();
 
-        if ( PAD_1_ACTIVE_UP   ) inc = -1;
-        if ( PAD_1_ACTIVE_DOWN ) inc = +1;
+        if ( PAD_1_ACTIVE_UP   ) inc = +1;
+        if ( PAD_1_ACTIVE_DOWN ) inc = -1;
 
         musicTempo += inc;
 
