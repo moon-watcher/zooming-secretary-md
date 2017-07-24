@@ -13,6 +13,7 @@
 #include "../inc/player.h"     //TODO: PARA init
 #include "../inc/phone.h"     //TODO: PARA init
 #include "../inc/CeilingFan.h"
+#include "../inc/Spider.h"
 #include "../inc/display.h"
 
 
@@ -103,6 +104,7 @@ void map_run( void )
             {
                 case TILE_COFFEE:      coffeeInitialize ( (x << TILE_BITS) -1, (y << TILE_BITS) -1 ); break;
                 case TILE_CEILING_FAN: ceilingFanAdd    ( x << TILE_BITS, (y << TILE_BITS)-1 ); break;
+                case TILE_SPIDER:      spiderAdd        ( x << TILE_BITS, (y << TILE_BITS)-1 ); break;
                 case TILE_TOPIC_1:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
                 case TILE_TOPIC_2:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
                 case TILE_TOPIC_3:     topic_init       ( x << TILE_BITS, y << TILE_BITS, type - TILE_TOPIC_1 ); break;
