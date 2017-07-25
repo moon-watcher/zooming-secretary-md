@@ -35,9 +35,14 @@ static u8 npcBouncerIsPushing;
 
 static void updateBouncerNPCGraphics( void )
 {
-	const u8 shouldBeHFlipped	= ( npcBouncerDirection == DIR_RIGHT );
-	const u8 animationNumber	= ( npcBouncerIsPushing ) ? ANIMATION_PUSH : ANIMATION_WALK;
-	const u8 frameNumber		= ( npcBouncerPositionX >> 2 ) & 3;
+	const u8 shouldBeHFlipped = ( npcBouncerDirection == DIR_RIGHT );
+	const u8 animationNumber  = ( npcBouncerIsPushing ) ? ANIMATION_PUSH : ANIMATION_WALK;
+	u8 frameNumber            = ( npcBouncerPositionX >> 2 ) & 3;
+
+	if ( npcBouncerDirection == DIR_LEFT )
+    {
+        frameNumber = ABS ( frameNumber - 3 );
+    }
 
 	SPR_setAnimAndFrame( npcBouncerSprite, animationNumber, frameNumber );
 	SPRFactory.setHFlip( npcBouncerSprite, shouldBeHFlipped );
