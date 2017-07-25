@@ -196,6 +196,7 @@ u8 game_play( void )
     topic_reset( );
     phoneReset( );
     ceilingFansReset( );
+    spiderReset();
     map_run( );
     hudInitialize( );
     setRandomSeed(vtimer);

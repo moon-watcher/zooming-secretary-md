@@ -5,10 +5,13 @@
 #include "../inc/Spider.h"
 
 
+#define UPDATE_FREQUENCY 27
+
+
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
-static Sprite* sprSpider;
+static Sprite* sprSpider = NULL;
 
 
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
@@ -25,12 +28,21 @@ void spiderAdd( s16 basePositionX, s16 basePositionY )
 
 void spiderUpdate( void )
 {
-    if ( vtimer % 27 )
+    if ( !sprSpider || vtimer % UPDATE_FREQUENCY )
     {
         return;
     }
 
     SPR_nextFrame( sprSpider );
+}
+
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+
+void spiderReset ()
+{
+    sprSpider = NULL;
 }
 
 

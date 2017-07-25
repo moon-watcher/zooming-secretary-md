@@ -4,6 +4,7 @@
 
     void spiderAdd   ( s16 basePositionX, s16 basePositionY );
     void spiderUpdate( void );
+    void spiderReset ();
 
 
 #endif // _SPIDER_H_
