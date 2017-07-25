@@ -1,3 +1,4 @@
+out/
 out/res/
 out/src/
 out/rom.out
@@ -61,6 +62,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-*.bin
-out/rom.bin
-*.bin
