@@ -201,6 +201,9 @@ u8 game_play( void )
     hudInitialize( );
     setRandomSeed(vtimer);
 
+    SPR_update();
+    VDP_waitVSync();
+
     displayOn(10);
 
     playMusic ( IS_LEVEL_BONUS ? MUSIC_DREAM : MUSIC_GAME );
