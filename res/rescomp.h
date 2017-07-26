@@ -53,6 +53,7 @@ extern const SpriteDefinition npcManboxSprDef;
 extern const SpriteDefinition npcDibrovSprDef;
 extern const SpriteDefinition secretarySprDef;
 extern const SpriteDefinition secretaryRestSprDef;
+extern const SpriteDefinition sprsheetRest1Def;
 extern const SpriteDefinition firedSprDef;
 extern const SpriteDefinition hiredSprDef;
 extern const SpriteDefinition spiderSprDef;

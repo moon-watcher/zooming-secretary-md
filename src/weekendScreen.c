@@ -14,6 +14,12 @@
 /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 
+#define TIME1 getHz() * 21 // 21 secs
+#define TIME2 TIME1 + 10
+#define TIME3 TIME2 + getHz()
+#define TIME4 TIME3 + getHz()
+
+
 static u8 waveCounter;
 static u8 waveCurrentFrame;
 
@@ -121,6 +127,41 @@ static void doUpdateNormalMode ( )
     {
         wait++;
     }
+
+    if ( j == TIME1 )
+    {
+        SPR_setVisibility(spr, VISIBLE);
+        SPR_setAnim ( spr, 0 );
+        SPR_update( );
+
+        musicPause();
+        waitHz(1);
+        sfxUseChannel ( 1 );
+        playSfx(SFX_RING);
+    }
+
+    if ( j == TIME2 )
+    {
+        SPR_setAnim ( spr, 1 );
+        SPR_update( );
+        waitHz(1);
+    }
+
+    if ( j == TIME3 )
+    {
+        musicResume();
+    }
+
+    if ( j == TIME4 )
+    {
+        SPR_setVisibility(spr, HIDDEN);
+        SPR_update( );
+        waitHz(1);
+
+        j = 0;
+    }
+
+    ++j;
 }
 
 
@@ -208,8 +249,24 @@ static void prepareSprite()
 {
 	//Sprite Init...
 	spr = SPRD_new ( 0, 0 );
-	spr = SPR_addSprite ( (SpriteDefinition*) &secretaryRestSprDef, 160, 80, TILE_ATTR( PAL1, FALSE, FALSE, FALSE ) );
-	preparePal( PAL1, secretaryRestSprDef.palette->data );
+
+	s16 x = 8*21;
+	s16 y = 8*4;
+	SpriteDefinition *sd = (SpriteDefinition*) &sprsheetRest1Def;
+	SpriteVisibility visible = HIDDEN;
+
+	if ( CLASSIC_MODE_FLAG )
+    {
+        x = 160;
+        y = 80;
+        sd = (SpriteDefinition *) &secretaryRestSprDef;
+        visible = VISIBLE;
+    }
+
+	spr = SPR_addSprite ( (SpriteDefinition*) sd, x, y, TILE_ATTR( PAL1, 1, FALSE, FALSE ) );
+    SPR_setVisibility ( spr, visible );
+	preparePal( PAL1, sd->palette->data );
+
     SPR_update( );
     VDP_waitVSync();
 }
