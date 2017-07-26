@@ -102,6 +102,7 @@ static void checkCollisionWithPlayer( void )
 			{
 				if ( playerPositionX + 16 >= npcBouncerPositionX )
 				{
+				    npcBouncerIsPushing = ( npcBouncerDirection == DIR_LEFT );
 					playerFixedPositionX = ( npcBouncerPositionX - 16 ) << FP_BITS;
 				}
 			}
@@ -109,6 +110,7 @@ static void checkCollisionWithPlayer( void )
 			{
 				if ( playerPositionX <= npcBouncerPositionX + 16 )
 				{
+				    npcBouncerIsPushing = ( npcBouncerDirection == DIR_RIGHT );
 					playerFixedPositionX = ( npcBouncerPositionX + 16 ) << FP_BITS;
 				}
 			}
