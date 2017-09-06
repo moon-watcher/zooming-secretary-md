@@ -101,11 +101,13 @@ static void doUpdateWaves()
     {
         wave = (struct _wave *) &waveFrames [ waveCurrentFrame ];
 
+        SYS_disableInts();
         VDP_setPaletteColor ( 11, VDP_getPaletteColor ( wave->colors[0]) );
         VDP_setPaletteColor ( 12, VDP_getPaletteColor ( wave->colors[1]) );
         VDP_setPaletteColor ( 13, VDP_getPaletteColor ( wave->colors[2]) );
         VDP_setPaletteColor ( 14, VDP_getPaletteColor ( wave->colors[3]) );
         VDP_setPaletteColor ( 15, VDP_getPaletteColor ( wave->colors[4]) );
+        SYS_enableInts();
     }
 
 

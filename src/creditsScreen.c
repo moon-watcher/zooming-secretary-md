@@ -38,6 +38,7 @@ static void writeText ( u8 *str, u16 pal, u8 inc_y )
 static void preparePalettes ()
 {
     VDP_waitVSync();
+    SYS_disableInts();
     VDP_setPaletteColors ( 0, NULL, 64 );
 
     VDP_setPalette ( PAL0, NULL );
@@ -50,6 +51,7 @@ static void preparePalettes ()
     VDP_setPaletteColor ( 45, VDP_getPaletteColor(47) );
 
     VDP_getPaletteColors(0,colors, 64);
+    SYS_enableInts();
 }
 
 
@@ -100,7 +102,9 @@ static u16 writeCredits ( u8 part, u8 y_pos )
     if ( part == 2 ) writeTextCredits2();
 
     VDP_waitVSync();
+    SYS_disableInts();
     VDP_setPaletteColors ( 0,colors, 64 );
+    SYS_enableInts();
 
     u16 ret = JOY_waitPressBtnTime(6000);
 

@@ -48,7 +48,6 @@ static coffeeStruct this;
 
 static void drawCoffeeMakerFrame( u8 frameNumber )
 {
-
     // These positions are measured in tiles
     s16 screenPositionX = ( this.coffeeSprite->x - 128 - 8 ) >> 3;
     s16 screenPositionY = ( this.coffeeSprite->y - 128 - 24) >> 3;
@@ -56,8 +55,9 @@ static void drawCoffeeMakerFrame( u8 frameNumber )
     s16 mapPositionX = FRAME_COFFEEMAKER_WITH * frameNumber;
     s16 mapPositionY = 0;
 
+    SYS_disableInts();
     VDP_setMapEx( COFFEEMAKER_PLAN, coffeMakerImage.map, COFFEEMAKER_ATTRIBUTES, screenPositionX,  screenPositionY, mapPositionX, mapPositionY, FRAME_COFFEEMAKER_WITH, FRAME_COFFEEMAKER_HEIGHT);
-
+	SYS_enableInts();
 }
 
 

@@ -85,8 +85,11 @@ static void doTextBlinkingEffect( void )
 	for ( frame = 0; frame < 150; frame++ )
 	{
 		VDP_waitVSync( );
+
+		SYS_disableInts();
 		VDP_setPaletteColor( 7, ( frame & 8 ) ? COLOR_BLACK : color1 );
 		VDP_setPaletteColor( 6, ( frame & 8 ) ? COLOR_BLACK : color2 );
+		SYS_enableInts();
 	}
 }
 

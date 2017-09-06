@@ -141,7 +141,9 @@ static void checkForGamePauseOrResume( )
 
         if ( inc )
         {
+            SYS_disableInts();
             VDP_drawTextBG ( PLAN_A, "TEMPO   ", 16, 43 );
+            SYS_enableInts();
             drawUInt ( musicTempo, 22, 43, 2 );
             tempoTimeout = 20; // hz
             waitHz(3);

@@ -123,8 +123,9 @@ static u16 wait ( u16 hz )
 
 static void doDisclaimerLogoLedUpdate ( void )
 {
-
+	SYS_disableInts();
 	VDP_setPaletteColors( 33, (u16 *) disclaimerLogoLedFadeColors[ disclaimerLogoLedIndex ], DISCLAIMERLOGOLED_NUMCOLORS );
+	SYS_enableInts();
 
 	disclaimerLogoLedIndex++;
 
@@ -146,7 +147,9 @@ static void doTextDisclaimerFadeIn( void )
 	{
 		WAITBREAK(6);
 
+		SYS_disableInts();
 		VDP_setPaletteColors( 13, (u16 *) textDisclaimerFadeColors[ i ], TEXTDISCLAIMER_NUMCOLORS );
+		SYS_enableInts();
 	}
 }
 
@@ -162,7 +165,9 @@ static void doDisclaimerBGFadeIn( void )
 	{
 		WAITBREAK(4);
 
+		SYS_disableInts();
 		VDP_setPaletteColors( 1, (u16 *) disclaimerBGFadeColors[ i ], DISCLAIMERBG_NUMCOLORS );
+		SYS_enableInts();
 	}
 }
 
@@ -178,7 +183,9 @@ static void doDisclaimerLogoFadeIn( void )
 	{
 		WAITBREAK(4);
 
+		SYS_disableInts();
 		VDP_setPaletteColors( 17, (u16 *) disclaimerLogoFadeColors[ i ], DISCLAIMERLOGO_NUMCOLORS );
+		SYS_enableInts();
 		doDisclaimerLogoLedUpdate( );
 	}
 }
@@ -195,7 +202,9 @@ static void doDisclaimerBGFadeOut( void )
 	{
 		WAITBREAK(4);
 
+		SYS_disableInts();
 		VDP_setPaletteColors( 1, (u16 *) disclaimerBGFadeColors[ ( u8 ) i ], DISCLAIMERBG_NUMCOLORS );
+		SYS_enableInts();
 		doDisclaimerLogoLedUpdate ( );
 	}
 }
@@ -212,7 +221,9 @@ static void doTextDisclaimerFadeOut( void )
 	{
 		WAITBREAK(4);
 
+		SYS_disableInts();
 		VDP_setPaletteColors( 13, (u16 *) textDisclaimerFadeColors[ ( u8 ) i ], TEXTDISCLAIMER_NUMCOLORS );
+		SYS_enableInts();
 		doDisclaimerLogoLedUpdate ( );
 	}
 }
@@ -229,7 +240,9 @@ static void doDisclaimerLogoFadeOut( void )
 	{
 		WAITBREAK(4);
 
+		SYS_disableInts();
 		VDP_setPaletteColors( 17, (u16 *) disclaimerLogoFadeColors[ ( u8 ) i ], DISCLAIMERLOGO_NUMCOLORS );
+		SYS_enableInts();
 		doDisclaimerLogoLedUpdate( );
 	}
 }

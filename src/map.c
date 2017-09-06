@@ -99,8 +99,10 @@ void map_run( void )
 
             const u8 type	= tilemaps[ lvl ][ idx ];
 
+            SYS_disableInts();
             VDP_setTileMapXY( PLAN_A, TILE_ATTR_FULL( PAL1, prioA, FALSE, FALSE, tileindexA + posA ), x, y );
             VDP_setTileMapXY( PLAN_B, TILE_ATTR_FULL( PAL0, prioB, FALSE, FALSE, tileindexB + posB ), x, y );
+            SYS_enableInts();
 
             switch ( type )
             {

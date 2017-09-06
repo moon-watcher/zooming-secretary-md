@@ -218,7 +218,9 @@ static void hideNextCharacter ( void )
 	const u8 positionX 	= 5 + nextCharacterToHide;
 	const u8 positionY 	= 3;
 
+	SYS_disableInts();
 	VDP_setTileMapXY( MESSAGE_PLAN, MESSAGE_ATTRIBUTES( tileIndex ), positionX, positionY);
+	SYS_enableInts();
 
 	nextCharacterToHide++;
 

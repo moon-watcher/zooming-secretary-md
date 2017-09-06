@@ -54,8 +54,10 @@ static void doCheatMessageBlinking( void )
 	{
 		VDP_waitVSync( );
 
+		SYS_disableInts();
         VDP_setPaletteColor( 30, ( i & 4 ) ? COLOR_BLACK : COLOR_SALMON );
 		VDP_setPaletteColor( 31, ( i & 4 ) ? COLOR_BLACK : COLOR_DARKSALMON );
+		SYS_enableInts();
 	}
 }
 
@@ -72,8 +74,10 @@ static void doPressStartFasterBlinking( void )
 	{
 		VDP_waitVSync( );
 
+		SYS_disableInts();
         VDP_setPaletteColor(  1, ( i & 4 ) ? COLOR_BLACK : COLOR_SHADOW );
 		VDP_setPaletteColor( 15, ( i & 4 ) ? COLOR_BLACK : COLOR_WHITE );
+		SYS_enableInts();
 	}
 }
 
@@ -135,9 +139,11 @@ u8 showTitleScreen( void )
 		VDP_waitVSync( );
 
 		// 'Press Start' Blinking Effect...
+		SYS_disableInts();
 		VDP_setPaletteColor(  1, ( frame++ & 32 ) ? COLOR_BLACK : COLOR_SHADOW );
 		VDP_setPaletteColor( 15, ( frame++ & 32 ) ? COLOR_BLACK : COLOR_WHITE );
 		VDP_setPaletteColor( 31, COLOR_DARKSALMON ); // cheatcode shadow color
+		SYS_enableInts();
 
 		JoyReaderUpdate( );
 
