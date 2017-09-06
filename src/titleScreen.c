@@ -41,9 +41,11 @@ static u8 isCheatCodeCompleted;
 
 static void doCheatMessageBlinking( void )
 {
+	SYS_disableInts();
     VDP_setTextPalette(PAL1);
 
 	VDP_drawTextBG( PLAN_B, "UNLOCKED", 16, 26 );
+	SYS_enableInts();
 
 	playSfx(SFX_START);
 
@@ -101,7 +103,9 @@ static void drawTitleScreenGraphics( void )
     const Image *images[] = { &titleScreenImg1, &titleScreenImg };
     Image *image = (Image*) images[CLASSIC_MODE_FLAG];
 
+	SYS_disableInts();
     VDP_drawImageEx( PLAN_B, image, IMG_ATTRIBUTES, 0, 0, FALSE, FALSE );
+    SYS_enableInts();
 
     preparePal ( PAL0, image->palette->data );
 
@@ -141,9 +145,11 @@ u8 showTitleScreen( void )
 		{
 			if ( PAD_1_PRESSED == secretCode[ secretCodeIndex ] )
 			{
+			    SYS_disableInts();
 			    VDP_setTextPalette(PAL1);
 
 				VDP_drawTextBG( PLAN_B, "`", 16 + secretCodeIndex, 26 );
+				SYS_enableInts();
 
 				secretCodeIndex++;
 				checkForCheatCodeCompleted( );

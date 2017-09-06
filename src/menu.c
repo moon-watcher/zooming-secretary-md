@@ -78,8 +78,10 @@ void MenuDrawOption ( Menu *menu, u8 index )
 {
     Option *o = menu->options [ index ];
 
+    SYS_disableInts();
     VDP_setTextPalette ( menu->currentOption == index ? PAL1 : PAL0 );
     VDP_drawTextBG( PLAN_A, o->string, o->x, o->y  );
+    SYS_enableInts();
 }
 
 
@@ -87,9 +89,11 @@ void MenuDrawValue ( Menu *menu, u8 index )
 {
     Option *o = menu->options [ index ];
 
+    SYS_disableInts();
     VDP_clearTextAreaBG ( PLAN_A, o->x2, o->y, 20, 1 );
     VDP_setTextPalette ( PAL0 );
     VDP_drawTextBG ( PLAN_A, o->fDirection(o), o->x2, o->y );
+    SYS_enableInts();
 }
 
 

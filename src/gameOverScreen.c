@@ -37,7 +37,9 @@ static void drawGameOverScreenGraphics( void )
 	displayOff(0);
 
         resetScreen();
+        SYS_disableInts();
 		VDP_drawImageEx( IMG_PAL, &gameOverScreenImg, IMG_ATTRIBUTES, 0, 0, 0, FALSE );
+		SYS_enableInts();
 
         preparePal ( PAL0, gameOverScreenImg.palette->data );
 
@@ -49,9 +51,11 @@ static void drawGameOverScreenGraphics( void )
 
         if ( !CLASSIC_MODE_FLAG )
         {
+            SYS_disableInts();
             VDP_drawImageEx( IMG_PAL, &gameOverScreenImg, IMG_ATTRIBUTES, 0, 8, 0, 0 );
             VDP_drawImageEx( PLAN_B, &firedBgImg, TILE_ATTR_FULL( PAL1, 0, 0, 0, 100 ), 8, 2, 0, 0 );
             VDP_drawImageEx( PLAN_A, &firedFgImg, TILE_ATTR_FULL( PAL2, 1, 0, 0, 500 ),12, 2, 0, 0 );
+            SYS_enableInts();
 
             preparePal ( PAL1, firedBgImg.palette->data );
             preparePal ( PAL2, firedFgImg.palette->data );

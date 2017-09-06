@@ -153,7 +153,9 @@ static void checkForGamePauseOrResume( )
 
             if ( !tempoTimeout )
             {
+                SYS_disableInts();
                 VDP_drawTextBG ( PLAN_A, "        ", 16, 43 );
+                SYS_enableInts();
             }
         }
 

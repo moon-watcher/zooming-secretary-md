@@ -52,8 +52,10 @@ void hudInitialize( void )
     char buffer[41];
     strbuilder( buffer, "[  ]%s  CALLS:%02d/%02d  MISS:%d/%d", levelNames[ lvl ], totalOfAnsweredCalls, call_max, totalOfMissedCalls, miss_max );
 
+    SYS_disableInts();
     VDP_setTextPalette(HUD_PALETTE);
     VDP_drawTextBG( HUD_PLAN, buffer, 3, 1 );
+    SYS_enableInts();
 }
 
 
@@ -73,7 +75,9 @@ void hudUpdate( void )
 		strbuilder( buffer, " " );
 	}
 
+	SYS_disableInts();
 	VDP_drawTextBG( HUD_PLAN, buffer, 34, 1 );
+	SYS_enableInts();
 
     if( totalOfAnsweredCalls < call_max || (frame & 16) )
     {
@@ -84,7 +88,9 @@ void hudUpdate( void )
     	strbuilder( buffer, "  " );
     }
 
+    SYS_disableInts();
     VDP_drawTextBG( HUD_PLAN, buffer, 22, 1 );
+    SYS_enableInts();
 
 
 

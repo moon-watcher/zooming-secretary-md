@@ -24,7 +24,9 @@ static void writeText ( u8 *str, u16 pal, u8 inc_y )
     u8 len = strlen(str);
     u8 x = 20 - len/2;
 
+    SYS_disableInts();
     VDP_drawText(str, x, y );
+    SYS_enableInts();
 
     y += inc_y;
 }

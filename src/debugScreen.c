@@ -90,9 +90,11 @@ void showDebugScreen( void )
 
 	VIntSetUpdateScroll ( 1 );
 
+    SYS_disableInts();
 	VDP_setTextPalette(PAL0);
 	VDP_drawTextBG( PLAN_A, "DEBUG OPTIONS", 14, 2 );
 	VDP_drawTextBG( PLAN_A, "PRESS START TO EXIT", 11, 25 );
+	SYS_enableInts();
 
 	preparePal ( PAL0, debugScreenImg.palette->data );
 	prepareColor ( 30, 0x0ff );

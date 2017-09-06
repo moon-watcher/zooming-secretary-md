@@ -55,7 +55,9 @@ void map_run( void )
     VDP_loadTileSet( officesPlanB[ lvl ]->tileset, tileindexB, FALSE );
 
     u16 tileindexC = tileindexB + officesPlanB[ lvl ]->tileset->numTile;
+    SYS_disableInts();
     VDP_drawImageEx( PLAN_A, &GamePause_APLAN, TILE_ATTR_FULL( PAL1, TRUE, FALSE, FALSE, tileindexC ), 0, VDP_getScreenHeight()>>TILE_BITS, FALSE, FALSE );
+    SYS_enableInts();
 
     floor_left_cnt  = 0;
     floor_right_cnt = 0;

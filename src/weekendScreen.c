@@ -227,13 +227,19 @@ static void doUpdateClassicMode ( )
 
 static void drawScreen()
 {
+    SYS_disableInts();
     VDP_drawImageEx( PLAN_A, &officeWeekend, TILE_ATTR_FULL( PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX ), 0, 0, 0, FALSE );
+    SYS_enableInts();
+
     preparePal( PAL0, officeWeekend.palette->data );
 
     if ( !CLASSIC_MODE_FLAG)
     {
+        SYS_disableInts();
         VDP_drawImageEx( PLAN_B, &weekendBgImg, TILE_ATTR_FULL( PAL2, 1, FALSE, FALSE, 100 ),  7, 2, 0, FALSE );
         VDP_drawImageEx( PLAN_A, &weekendFgImg, TILE_ATTR_FULL( PAL3, 1, FALSE, FALSE, 500 ), 19, 3, 0, FALSE );
+        SYS_enableInts();
+
         preparePal( PAL2, weekendBgImg.palette->data );
         preparePal( PAL3, weekendFgImg.palette->data );
     }

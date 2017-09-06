@@ -48,8 +48,10 @@ static void prepareScreen( void )
 
 static void drawLevelName( void )
 {
+    SYS_disableInts();
     VDP_setTextPalette(PAL0);
 	VDP_drawTextBG( PLAN_A, levelNames[ lvl ], 17, 12 );
+	SYS_enableInts();
 }
 
 

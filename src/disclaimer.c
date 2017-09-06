@@ -243,6 +243,7 @@ static void drawDisclaimerGraphics( void )
 
 	displayOff(0);
 
+		SYS_disableInts();
 		tileIndex = TILE_USERINDEX;
 		VDP_drawImageEx( PLAN_B, &disclaimerBGImage, IMG_ATTRIBUTES( PAL0 ), 0, 0, 0, FALSE );
 
@@ -251,6 +252,7 @@ static void drawDisclaimerGraphics( void )
 
 		tileIndex += disclaimerLogoImage.tileset->numTile;
 		VDP_drawImageEx( PLAN_B, &disclaimerLogoLedImage, IMG_ATTRIBUTES( PAL2 ), 26, 9, 0, FALSE );
+		SYS_enableInts();
 
 	preparePal ( PAL0, disclaimerBGImage.palette->data );
 	preparePal ( PAL1, disclaimerLogoImage.palette->data );
