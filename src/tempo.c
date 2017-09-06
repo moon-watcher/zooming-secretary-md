@@ -21,6 +21,7 @@ void initMusicTempo ()
 void setMusicTempo ( u8 tempo )
 {
     musicTempo = tempo;
+    XGM_setMusicTempo ( musicTempo );
 }
 
 

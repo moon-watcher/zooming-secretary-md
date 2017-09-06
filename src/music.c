@@ -1,6 +1,7 @@
 #include <genesis.h>
 
 #include "../inc/music.h"
+#include "../inc/tempo.h"
 
 
 
@@ -37,6 +38,7 @@ void musicPlay ( Music *track )
 			//#endif // SGDKv122a
 		}
 
+		setMusicTempo ( getMusicTempo() );
 		XGM_startPlay ( track->track );
 		XGM_setForceDelayDMA ( 1 );
 		XGM_setLoopNumber ( track->loop );

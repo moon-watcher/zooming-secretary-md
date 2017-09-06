@@ -31,7 +31,7 @@ void VintInit ()
 _voidCallback *VIntCallback ( )
 {
     psg_callback ( );
-	XGM_setMusicTempo ( getMusicTempo() );
+	//XGM_setMusicTempo ( getMusicTempo() );
 
 	if ( updateScroll )
     {
