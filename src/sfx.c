@@ -23,6 +23,7 @@ void sfxPlay ( Sfx *sfx )
             break;
 
         case SFX_DRIVER_XMG:
+            if ( chnInc == 0 ) chnInc = 1;
             sfxStop ( chnInc );
             XGM_startPlayPCM ( 64 + sfx->id, 1, chnInc++ );
             chnInc %= 4;
