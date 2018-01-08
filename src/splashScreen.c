@@ -67,7 +67,7 @@ void showSplashScreen( void )
 
 	displayOn(10);
 
-	if ( LEVEL_MODE_FLAG )
+	if ( LEVEL_MODE_FLAG && !DEMO_MODE_FLAG )
 	{
 		JoyReaderReset( );
 

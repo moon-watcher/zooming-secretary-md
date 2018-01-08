@@ -149,7 +149,7 @@ u8 showTitleScreen( void )
 
 		if ( PAD_1_PRESSED )
 		{
-			if ( PAD_1_PRESSED == secretCode[ secretCodeIndex ] )
+			if ( !DEMO_MODE_FLAG && PAD_1_PRESSED == secretCode[ secretCodeIndex ] )
 			{
 			    SYS_disableInts();
 			    VDP_setTextPalette(PAL1);
