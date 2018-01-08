@@ -9,6 +9,7 @@
     u8 CLASSIC_MODE_FLAG;
     u8 MUSIC_MODE_FLAG;
 	u8 SFX_MODE_FLAG;
+	u8 DEMO_MODE_FLAG;
 
 
     // Public Functions

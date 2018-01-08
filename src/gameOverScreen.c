@@ -49,7 +49,11 @@ static void drawGameOverScreenGraphics( void )
         prepareColor ( 7, COLOR_BLACK );
 		prepareColor ( 6, COLOR_BLACK );
 
-        if ( !CLASSIC_MODE_FLAG )
+        if ( CLASSIC_MODE_FLAG || DEMO_MODE_FLAG )
+        {
+            // don't show it
+        }
+        else
         {
             SYS_disableInts();
             VDP_drawImageEx( IMG_PAL, &gameOverScreenImg, IMG_ATTRIBUTES, 0, 8, 0, 0 );
@@ -122,7 +126,7 @@ static void waitForShowMessage( void )
 
 static void hiredAgain()
 {
-    if ( CLASSIC_MODE_FLAG )
+    if ( CLASSIC_MODE_FLAG || DEMO_MODE_FLAG )
     {
         return;
     }

@@ -59,6 +59,7 @@ static void initEnviroment( void )
     CLASSIC_MODE_FLAG = 0;
     MUSIC_MODE_FLAG   = 1; // 1;
     SFX_MODE_FLAG     = 1; // 1;
+    DEMO_MODE_FLAG    = 0; // 0;
 }
 
 
@@ -112,6 +113,12 @@ int main( void )
 				if ( isLevelCompleted || IS_LEVEL_BONUS )
 				{
 					lvl++;
+
+					if ( DEMO_MODE_FLAG  && lvl == 2 )
+                    {
+                        showTFPDemo();
+                        break;
+                    }
 				}
 				else
 				{
